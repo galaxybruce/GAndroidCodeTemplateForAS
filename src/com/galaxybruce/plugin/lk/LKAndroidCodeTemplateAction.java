@@ -4,6 +4,7 @@ import com.galaxybruce.util.FileUtil;
 import com.intellij.openapi.actionSystem.*;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.Messages;
+import com.intellij.psi.PsiElement;
 import com.intellij.ui.JBColor;
 import org.jetbrains.annotations.NotNull;
 
@@ -37,7 +38,12 @@ public class LKAndroidCodeTemplateAction extends AnAction {
     @Override
     public void actionPerformed(@NotNull AnActionEvent event) {
         project = event.getData(PlatformDataKeys.PROJECT);
-        psiPath = event.getData(PlatformDataKeys.PSI_ELEMENT).toString();
+        PsiElement psiElement = event.getData(PlatformDataKeys.PSI_ELEMENT);
+        if (psiElement == null) {
+            Messages.showMessageDialog(project, "Please switch Project View Mode! ", "Generate Failed！", null);
+            return;
+        }
+        psiPath = psiElement.toString();
         psiPath = psiPath.substring(psiPath.indexOf(":") + 1);
         initView();
     }
