@@ -42,7 +42,7 @@ public class FileUtil {
             if (!folder.exists()) {
                 folder.mkdirs();
             }
-            File file = new File(filepath + "/" + filename);
+            File file = new File(filepath + File.separator + filename);
             if (!file.exists()) {
                 file.createNewFile();
             }
@@ -83,12 +83,14 @@ public class FileUtil {
     }
 
     public static String pathToPackage(String filePath) {
-        int javaIndex = filePath.indexOf("java/");
-        String packageStr = filePath.substring(javaIndex + "java/".length());
+        final String javaDir = "java" + File.separator;
+        int javaIndex = filePath.indexOf(javaDir);
+        String packageStr = filePath.substring(javaIndex + javaDir.length());
         if(packageStr.endsWith(File.separator)) {
             packageStr = packageStr.substring(0, packageStr.length() - 1);
         }
-        packageStr = packageStr.replaceAll(File.separator, ".");
+
+        packageStr = packageStr.replaceAll("(\\\\|/)", ".");
         return packageStr;
     }
 

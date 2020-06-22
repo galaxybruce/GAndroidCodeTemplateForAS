@@ -283,8 +283,9 @@ public class LKAndroidCodeTemplateAction extends AnAction {
      */
     private void generateLayoutFile(String srcFile, String psiPath) {
         String currentDirPath = psiPath;
-        int javaIndex = currentDirPath.indexOf("java/");
-        currentDirPath = currentDirPath.substring(0, javaIndex) + "res/layout";
+        final String javaDir = "java" + File.separator;
+        int javaIndex = currentDirPath.indexOf(javaDir);
+        currentDirPath = currentDirPath.substring(0, javaIndex) + "res" + File.separator + "layout";
         String fileName = layoutFileName + ".xml";
         String content = FileUtil.readFile(this.getClass(), srcFile);
         FileUtil.writeToFile(content, currentDirPath, fileName);
