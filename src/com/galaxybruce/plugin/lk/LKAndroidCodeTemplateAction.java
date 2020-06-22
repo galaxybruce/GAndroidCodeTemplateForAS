@@ -1,7 +1,9 @@
 package com.galaxybruce.plugin.lk;
 
 import com.galaxybruce.util.FileUtil;
-import com.intellij.openapi.actionSystem.*;
+import com.intellij.openapi.actionSystem.AnAction;
+import com.intellij.openapi.actionSystem.AnActionEvent;
+import com.intellij.openapi.actionSystem.PlatformDataKeys;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.Messages;
 import com.intellij.psi.PsiElement;
@@ -14,7 +16,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.io.*;
+import java.io.File;
 
 public class LKAndroidCodeTemplateAction extends AnAction {
 
@@ -32,8 +34,9 @@ public class LKAndroidCodeTemplateAction extends AnAction {
 
     private JCheckBox layoutBox;
 
-
+    private String javaParentPath;
     private String layoutFileName;
+    private String modulePackage;
 
     @Override
     public void actionPerformed(@NotNull AnActionEvent event) {
@@ -45,6 +48,19 @@ public class LKAndroidCodeTemplateAction extends AnAction {
         }
         psiPath = psiElement.toString();
         psiPath = psiPath.substring(psiPath.indexOf(":") + 1);
+
+        // 判断点击的目录是否在包含java目录
+        final String javaDir = "java" + File.separator;
+        int javaIndex = psiPath.indexOf(javaDir);
+        if(javaIndex < 0) {
+            Messages.showMessageDialog(project, "Please click correct dir! ", "Generate Failed！", null);
+            return;
+        } else {
+            javaParentPath = psiPath.substring(0, javaIndex);
+        }
+
+        modulePackage = FileUtil.readPackageName(javaParentPath);
+
         initView();
     }
 
@@ -136,7 +152,7 @@ public class LKAndroidCodeTemplateAction extends AnAction {
         container.add(menu);
 
         // 显示窗口
-        jFrame.setSize(550, 300);
+        jFrame.setSize(800, 400);
         jFrame.setLocationRelativeTo(null);
         jFrame.setVisible(true);
     }
@@ -288,10 +304,7 @@ public class LKAndroidCodeTemplateAction extends AnAction {
      * @param psiPath
      */
     private void generateLayoutFile(String srcFile, String psiPath) {
-        String currentDirPath = psiPath;
-        final String javaDir = "java" + File.separator;
-        int javaIndex = currentDirPath.indexOf(javaDir);
-        currentDirPath = currentDirPath.substring(0, javaIndex) + "res" + File.separator + "layout";
+        String currentDirPath = javaParentPath + "res" + File.separator + "layout";
         String fileName = layoutFileName + ".xml";
         String content = FileUtil.readFile(this.getClass(), srcFile);
         FileUtil.writeToFile(content, currentDirPath, fileName);
@@ -313,6 +326,12 @@ public class LKAndroidCodeTemplateAction extends AnAction {
         content = FileUtil.makePackageString(currentDirPath) + content;
         content = content.replaceAll("\\$name\\$", nameTextField.getText());
         content = content.replaceAll("\\$package\\$", FileUtil.pathToPackage(psiPath));
+
+        if(modulePackage != null && !"".equals(modulePackage)) {
+            content = content.replaceAll("\\$importR\\$", "import " + modulePackage + ".R;");
+        } else {
+            content = content.replaceAll("\\$importR\\$", "");
+        }
 
         // 布局文件名称需要驼峰转下划线
         if (layoutBox.isSelected()) {

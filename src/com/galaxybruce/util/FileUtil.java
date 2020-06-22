@@ -1,5 +1,13 @@
 package com.galaxybruce.util;
 
+import com.intellij.openapi.project.Project;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -92,6 +100,27 @@ public class FileUtil {
 
         packageStr = packageStr.replace(File.separator, ".");
         return packageStr;
+    }
+
+    public static String readPackageName(String javaParentPath) {
+        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+        try {
+            DocumentBuilder db = dbf.newDocumentBuilder();
+            Document doc = db.parse(javaParentPath + "AndroidManifest.xml");
+
+            NodeList dogList = doc.getElementsByTagName("manifest");
+            for (int i = 0; i < dogList.getLength(); i++) {
+                Node dog = dogList.item(i);
+                Element elem = (Element) dog;
+                String str = elem.getAttribute("package");
+                if(str != null && !"".equals(str)) {
+                    return str;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 
 }

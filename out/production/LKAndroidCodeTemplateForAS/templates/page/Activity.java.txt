@@ -11,6 +11,7 @@ import com.kidswant.component.view.titlebar.TitleBarLayout;
 
 import org.jetbrains.annotations.Nullable;
 
+$importR$
 import $package$.mvp.$name$Contract;
 import $package$.mvp.$name$Presenter;
 
@@ -44,8 +45,8 @@ public class $name$Activity extends BSBaseActivity<$name$Contract.View, $name$Pr
         super.initView(view);
 
         // init titleBar
-        titleBar = findViewById(com.linkkids.component.live.R.id.title_bar);
-        BBSStatusBarUtil.setTranslucentForWindow(this, titleBar, com.linkkids.component.live.R.drawable.titlebar_gradient_bg, true);
+        titleBar = findViewById(com.linkkids.component.R.id.title_bar);
+        BBSStatusBarUtil.setTranslucentForWindow(this, titleBar, com.linkkids.component.R.drawable.titlebar_gradient_bg, true);
         TitleUtils.setDefaultTitleByNoBackgroud(titleBar, this, "xxx", null, true);
 
         // todo init view
