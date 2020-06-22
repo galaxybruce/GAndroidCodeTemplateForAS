@@ -90,7 +90,7 @@ public class FileUtil {
             packageStr = packageStr.substring(0, packageStr.length() - 1);
         }
 
-        packageStr = packageStr.replaceAll("(\\\\|/)", ".");
+        packageStr = packageStr.replace(File.separator, ".");
         return packageStr;
     }
 
