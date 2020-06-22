@@ -1,0 +1,17 @@
+
+import com.kidswant.common.base.BSBaseView;
+
+public interface $name$Contract {
+
+    interface Presenter {
+
+        // sample method, please delete it
+        void performRequest(String activityId);
+    }
+
+    interface View extends BSBaseView {
+
+        // sample method, please delete it
+        void handleRequestResult();
+    }
+}
