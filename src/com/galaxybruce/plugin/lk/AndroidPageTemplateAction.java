@@ -1,11 +1,9 @@
 package com.galaxybruce.plugin.lk;
 
 import com.galaxybruce.util.FileUtil;
-import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.PlatformDataKeys;
 import com.intellij.openapi.diagnostic.Logger;
-import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.Messages;
 import com.intellij.psi.PsiElement;
 import com.intellij.ui.JBColor;
@@ -15,32 +13,20 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.io.File;
 
-public class LKAndroidCodeTemplateAction extends AnAction {
+/**
+ * 页面模板
+ */
+public class AndroidPageTemplateAction extends AndroidUiTemplateAction {
 
-    private static final Logger LOG = Logger.getInstance("LKAndroidCodeTemplateAction");
+    private static final Logger LOG = Logger.getInstance("AndroidPageTemplateAction");
 
 
     static String MVP_DIR = "mvp";
     static String ACTIVITY_DIR = "activity";
     static String FRAGMENT_DIR = "fragment";
 
-
-    private Project project;
-    private String psiPath;
-
-    private JDialog jFrame;
-    private JTextField nameTextField;
-    private ButtonGroup templateGroup;
-
-    private JCheckBox layoutBox;
-
-    private String javaParentPath;
-    private String layoutFileName;
-    private String modulePackage;
 
     @Override
     public void actionPerformed(@NotNull AnActionEvent event) {
@@ -137,7 +123,7 @@ public class LKAndroidCodeTemplateAction extends AnAction {
         JPanel nameField = new JPanel();
         nameField.setLayout(new FlowLayout());
         nameField.setBorder(BorderFactory.createTitledBorder("Naming"));
-        JLabel nameLabel = new JLabel("Module Name：");
+        JLabel nameLabel = new JLabel("Module Name Prefix：");
         nameTextField = new JTextField(30);
         nameTextField.addKeyListener(keyListener);
         nameField.add(nameLabel);
@@ -166,40 +152,6 @@ public class LKAndroidCodeTemplateAction extends AnAction {
         jFrame.setVisible(true);
     }
 
-    private KeyListener keyListener = new KeyListener() {
-        @Override
-        public void keyTyped(KeyEvent e) {
-
-        }
-
-        @Override
-        public void keyPressed(KeyEvent e) {
-            if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                save();
-            }
-            if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-                dispose();
-            }
-        }
-
-        @Override
-        public void keyReleased(KeyEvent e) {
-
-        }
-    };
-
-
-    private ActionListener actionListener = new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            if (e.getActionCommand().equals("Cancel")) {
-                dispose();
-            } else {
-                save();
-            }
-        }
-    };
-
     private ActionListener radioActionListener = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -217,21 +169,8 @@ public class LKAndroidCodeTemplateAction extends AnAction {
         }
     };
 
-    private void dispose() {
-        jFrame.dispose();
-    }
-    private void save() {
-        if (nameTextField.getText() == null || "".equals(nameTextField.getText().trim())) {
-            Messages.showInfoMessage(project, "Please enter the module name", "Info");
-            return;
-        }
-        dispose();
-        clickCreateFile();
-        project.getProjectFile().refresh(false, true);
-        Messages.showInfoMessage(project, "Enjoy Coding~", "Success!");
-    }
-
-    private void clickCreateFile() {
+    @Override
+    protected void clickCreateFile() {
         layoutFileName = makeLayoutFileName();
 
         switch (templateGroup.getSelection().getActionCommand()) {
@@ -293,60 +232,6 @@ public class LKAndroidCodeTemplateAction extends AnAction {
         if (layoutBox.isSelected()) {
             generateLayoutFile("page/RefreshLayout.xml.txt", psiPath);
         }
-    }
-
-    private void generateFile(String srcFile, String psiPath, String featureDir, String fileName) {
-        String currentDirPath = psiPath;
-        if(featureDir != null) {
-            currentDirPath = currentDirPath  + File.separator + featureDir;
-        }
-
-        fileName = nameTextField.getText().trim() + fileName;
-        String content = FileUtil.readFile(this.getClass(), srcFile);
-        content = dealFile(psiPath, currentDirPath, content, fileName);
-        FileUtil.writeToFile(content, currentDirPath, fileName);
-    }
-
-    /**
-     * 生成布局文件
-     * @param srcFile
-     * @param psiPath
-     */
-    private void generateLayoutFile(String srcFile, String psiPath) {
-        String currentDirPath = javaParentPath + "res" + File.separator + "layout";
-        String fileName = layoutFileName + ".xml";
-        String content = FileUtil.readFile(this.getClass(), srcFile);
-        FileUtil.writeToFile(content, currentDirPath, fileName);
-    }
-
-    /**
-     * 生成布局文件名称，不带.xml后缀，并且是经过驼峰转下划线处理
-     * @return
-     */
-    private String makeLayoutFileName() {
-        if (layoutBox.isSelected()) {
-            String fileName = nameTextField.getText().trim() + "Layout";
-            return FileUtil.camelToUnderline(fileName);
-        }
-        return "";
-    }
-
-    private String dealFile(String psiPath, String currentDirPath, String content, String fileName) {
-        content = FileUtil.makePackageString(currentDirPath) + content;
-        content = content.replaceAll("\\$name\\$", nameTextField.getText());
-        content = content.replaceAll("\\$package\\$", FileUtil.pathToPackage(psiPath));
-
-        if(modulePackage != null && !"".equals(modulePackage)) {
-            content = content.replaceAll("\\$importR\\$", "import " + modulePackage + ".R;");
-        } else {
-            content = content.replaceAll("\\$importR\\$", "");
-        }
-
-        // 布局文件名称需要驼峰转下划线
-        if (layoutBox.isSelected()) {
-            content = content.replaceAll("\\$layoutName\\$", layoutFileName);
-        }
-        return content;
     }
 
 }

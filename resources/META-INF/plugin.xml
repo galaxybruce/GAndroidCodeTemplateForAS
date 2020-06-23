@@ -33,13 +33,31 @@
 
   <actions>
     <!-- Add your actions here -->
-    <action id="LKAndroidCodeTemplate.ID"
-            class="com.galaxybruce.plugin.lk.LKAndroidCodeTemplateAction"
-            text="LKAndroidCodeTemplate"
-            icon="/image/lk_icon.png"
-            description="a plugin to generate android template code">
+    <group id="LKAndroidCodeTemplate.ID"
+      text="LKAndroidCodeTemplate"
+      icon="/image/lk_icon.png"
+      popup="true"
+      description="a plugin to generate android template code">
+
       <add-to-group group-id="NewGroup" anchor="after" relative-to-action="NewDir"/>
-    </action>
+
+      <action id="LKAndroidPageTemplate.ID"
+            class="com.galaxybruce.plugin.lk.AndroidPageTemplateAction"
+            text="Page Template"
+            icon="/image/lk_icon.png"
+            description="a plugin to generate android page template code">
+      </action>
+
+      <action id="LKAndroidDialogTemplate.ID"
+              class="com.galaxybruce.plugin.lk.AndroidDialogTemplateAction"
+              text="Dialog Template"
+              icon="/image/lk_icon.png"
+              description="a plugin to generate android dialog template code">
+      </action>
+
+
+    </group>
+
   </actions>
 
 </idea-plugin>
