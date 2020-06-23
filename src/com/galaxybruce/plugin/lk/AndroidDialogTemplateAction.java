@@ -158,10 +158,8 @@ public class AndroidDialogTemplateAction extends AndroidUiTemplateAction {
     }
 
     private void generateBottomDialog() {
-        Messages.showMessageDialog(project, "敬请期待! ", "Generate Hint！", null);
-
-//        generateCommonFiles();
-//        generateFile("page/BottomDialog.java.txt", psiPath, DIALOG_DIR, "Dialog.java");
+        generateCommonFiles();
+        generateFile("page/BottomDialog.java.txt", psiPath, DIALOG_DIR, "Dialog.java");
     }
 
     private void generateCenterDialog() {
@@ -173,7 +171,7 @@ public class AndroidDialogTemplateAction extends AndroidUiTemplateAction {
 
     private void generateCommonFiles() {
         if (layoutBox.isSelected()) {
-            generateLayoutFile("page/RefreshLayout.xml.txt", psiPath);
+            generateLayoutFile("page/DialogLayout.xml.txt", psiPath);
         }
     }
 

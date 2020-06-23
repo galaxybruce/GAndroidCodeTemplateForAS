@@ -1,0 +1,83 @@
+package com.kidswant.mine.activity;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
+
+import com.kidswant.common.dialog.BaseBottomSheetDialog;
+$importR$
+
+/**
+ * @date
+ * @author
+ * @description (亲，我是做什么的)
+ *
+ * 使用方式：
+ * new $name$Dialog.Builder()
+ *      .title("哈哈哈")
+ *      .build().show(getSupportFragmentManager(), null);
+ *
+ * <p>
+ * modification history:
+ */
+public class $name$Dialog extends BaseBottomSheetDialog {
+
+    public interface I$name$Callback {
+        void on$name$Callback();
+    }
+
+    // 属性字段定义
+    I$name$Callback m$name$Callback;
+    String mTitle;
+
+    TextView textView;
+
+    public static final class Builder {
+        private I$name$Callback m$name$Callback;
+        private String mTitle;
+
+
+        public Builder() {
+        }
+
+        public Builder testCallback(I$name$Callback val) {
+            m$name$Callback = val;
+            return this;
+        }
+
+        public Builder title(String val) {
+            mTitle = val;
+            return this;
+        }
+
+        public $name$Dialog build() {
+            $name$Dialog dialog = new $name$Dialog();
+            dialog.m$name$Callback = m$name$Callback;
+            dialog.mTitle = mTitle;
+            return dialog;
+        }
+
+    }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.$layoutName$;
+    }
+
+    @Override
+    public void initData(Bundle savedInstanceState) {
+
+    }
+
+    @Override
+    public void initView(View view) {
+        textView = view.findViewById(R.id.tv_test);
+    }
+
+    @Override
+    public void bindData(Bundle savedInstanceState) {
+        textView.setText(mTitle);
+    }
+
+
+}
