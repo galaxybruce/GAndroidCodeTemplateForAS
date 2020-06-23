@@ -4,6 +4,7 @@ import com.galaxybruce.util.FileUtil;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.PlatformDataKeys;
+import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.Messages;
 import com.intellij.psi.PsiElement;
@@ -19,6 +20,9 @@ import java.awt.event.KeyListener;
 import java.io.File;
 
 public class LKAndroidCodeTemplateAction extends AnAction {
+
+    private static final Logger LOG = Logger.getInstance("LKAndroidCodeTemplateAction");
+
 
     static String MVP_DIR = "mvp";
     static String ACTIVITY_DIR = "activity";
@@ -40,6 +44,8 @@ public class LKAndroidCodeTemplateAction extends AnAction {
 
     @Override
     public void actionPerformed(@NotNull AnActionEvent event) {
+        LOG.info("android page template code creates start... ");
+
         project = event.getData(PlatformDataKeys.PROJECT);
         PsiElement psiElement = event.getData(PlatformDataKeys.PSI_ELEMENT);
         if (psiElement == null) {
@@ -48,12 +54,13 @@ public class LKAndroidCodeTemplateAction extends AnAction {
         }
         psiPath = psiElement.toString();
         psiPath = psiPath.substring(psiPath.indexOf(":") + 1);
+        LOG.info("target path is: " + psiPath);
 
         // 判断点击的目录是否在包含java目录
         final String javaDir = "java" + File.separator;
         int javaIndex = psiPath.indexOf(javaDir);
         if(javaIndex < 0) {
-            Messages.showMessageDialog(project, "Please click correct dir! ", "Generate Failed！", null);
+            Messages.showMessageDialog(project, "Please select a subdirectory in the Java directory! ", "Generate Failed！", null);
             return;
         } else {
             javaParentPath = psiPath.substring(0, javaIndex);
@@ -62,6 +69,8 @@ public class LKAndroidCodeTemplateAction extends AnAction {
         modulePackage = FileUtil.readPackageName(javaParentPath);
 
         initView();
+
+        LOG.info("android page template code creates end... ");
     }
 
     private void initView() {
