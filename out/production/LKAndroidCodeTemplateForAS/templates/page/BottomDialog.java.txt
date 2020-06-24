@@ -1,4 +1,3 @@
-package com.kidswant.mine.activity;
 
 import android.os.Bundle;
 import android.view.View;
@@ -26,37 +25,29 @@ public class $name$Dialog extends BaseBottomSheetDialog {
         void on$name$Callback();
     }
 
-    // 属性字段定义
-    I$name$Callback m$name$Callback;
+    // todo sample code, please delete it 属性字段定义
+    I$name$Callback mCallback;
     String mTitle;
 
     TextView textView;
 
     public static final class Builder {
-        private I$name$Callback m$name$Callback;
-        private String mTitle;
-
+        Bundle bundle;
 
         public Builder() {
-        }
-
-        public Builder testCallback(I$name$Callback val) {
-            m$name$Callback = val;
-            return this;
+            bundle = new Bundle();
         }
 
         public Builder title(String val) {
-            mTitle = val;
+            bundle.putString("title", val);
             return this;
         }
 
         public $name$Dialog build() {
             $name$Dialog dialog = new $name$Dialog();
-            dialog.m$name$Callback = m$name$Callback;
-            dialog.mTitle = mTitle;
+            dialog.setArguments(bundle);
             return dialog;
         }
-
     }
 
     @Override
@@ -66,18 +57,25 @@ public class $name$Dialog extends BaseBottomSheetDialog {
 
     @Override
     public void initData(Bundle savedInstanceState) {
-
+        Bundle arguments = getArguments();
+        if(arguments != null) {
+            // todo sample code, please delete it
+            mTitle = arguments.getString("title");
+            mCallback = getDialogListener(this, I$name$Callback.class);
+        }
     }
 
     @Override
     public void initView(View view) {
+        // todo sample code, please delete it
         textView = view.findViewById(R.id.tv_test);
     }
 
     @Override
     public void bindData(Bundle savedInstanceState) {
+        // todo sample code, please delete it
         textView.setText(mTitle);
+        mCallback.on$name$Callback();
     }
-
 
 }
