@@ -3,8 +3,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import com.kidswant.common.dialog.BaseBottomSheetDialog;
+import com.kidswant.common.dialog.BaseCenterDialogFragment;
 $importR$
+
+import org.jetbrains.annotations.Nullable;
 
 /**
  * @date
@@ -19,7 +21,7 @@ $importR$
  * <p>
  * modification history:
  */
-public class $name$Dialog extends BaseBottomSheetDialog {
+public class $name$Dialog extends BaseCenterDialogFragment {
 
     public interface I$name$Callback {
         void on$name$Callback();
@@ -51,19 +53,17 @@ public class $name$Dialog extends BaseBottomSheetDialog {
     }
 
     @Override
-    public int getLayoutId() {
+    public int bindLayoutId() {
         return R.layout.$layoutName$;
     }
 
     @Override
-    public void initData(Bundle savedInstanceState) {
+    public void initData(@Nullable Bundle bundle, Bundle savedInstanceState) {
         Bundle arguments = getArguments();
         if(arguments != null) {
-           // 获取listener
-           mCallback = getDialogListener(this, I$name$Callback.class);
-
             // todo sample code, please delete it
             mTitle = arguments.getString("title");
+            mCallback = getDialogListener(this, I$name$Callback.class);
         }
     }
 
@@ -79,5 +79,6 @@ public class $name$Dialog extends BaseBottomSheetDialog {
         textView.setText(mTitle);
         mCallback.on$name$Callback();
     }
+
 
 }

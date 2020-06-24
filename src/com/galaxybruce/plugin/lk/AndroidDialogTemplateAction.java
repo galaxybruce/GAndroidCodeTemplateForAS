@@ -159,20 +159,22 @@ public class AndroidDialogTemplateAction extends AndroidUiTemplateAction {
 
     private void generateBottomDialog() {
         generateCommonFiles();
+        if (layoutBox.isSelected()) {
+            generateLayoutFile("page/BottomDialogLayout.xml.txt", psiPath);
+        }
         generateFile("page/BottomDialog.java.txt", psiPath, DIALOG_DIR, "Dialog.java");
     }
 
     private void generateCenterDialog() {
-        Messages.showMessageDialog(project, "敬请期待! ", "Generate Hint！", null);
-
-//        generateCommonFiles();
-//        generateFile("page/CenterDialog.java.txt", psiPath, DIALOG_DIR, "Dialog.java");
+        generateCommonFiles();
+        if (layoutBox.isSelected()) {
+            generateLayoutFile("page/CenterDialogLayout.xml.txt", psiPath);
+        }
+        generateFile("page/CenterDialog.java.txt", psiPath, DIALOG_DIR, "Dialog.java");
     }
 
     private void generateCommonFiles() {
-        if (layoutBox.isSelected()) {
-            generateLayoutFile("page/DialogLayout.xml.txt", psiPath);
-        }
+
     }
 
 
