@@ -32,7 +32,7 @@
   </extensions>
 
   <actions>
-    <!-- Add your actions here -->
+    <!-- generate android code file action group -->
     <group id="LKAndroidCodeTemplate.ID"
       text="LKAndroidCodeTemplate"
       icon="/image/lk_icon.png"
@@ -54,9 +54,17 @@
               icon="/image/lk_icon.png"
               description="a plugin to generate android dialog template code">
       </action>
-
-
     </group>
+
+    <!-- generate android code snippet action group -->
+    <action id="LKAndroidCodeSnippetTemplate.ID"
+            class="com.galaxybruce.plugin.lk.snippet.AndroidCodeSnippetAction"
+            text="LKAndroidCodeSnippet"
+            icon="/image/lk_icon.png"
+            description="a plugin to generate android code snippet">
+
+      <add-to-group group-id="GenerateGroup" anchor="last" />
+    </action>
 
   </actions>
 

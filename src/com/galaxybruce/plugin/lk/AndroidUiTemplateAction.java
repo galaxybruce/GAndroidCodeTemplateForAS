@@ -15,6 +15,9 @@ import java.io.File;
 
 /**
  * dialog模板
+ *
+ * 参考文章：
+ * [Intellij IDEA 插件开发秘籍](https://www.cnblogs.com/kancy/p/10654569.html)
  */
 public abstract class AndroidUiTemplateAction extends AnAction {
 
