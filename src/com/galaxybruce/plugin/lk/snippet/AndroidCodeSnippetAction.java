@@ -53,7 +53,7 @@ public class AndroidCodeSnippetAction extends AnAction {
         Container container = jFrame.getContentPane();
         container.setLayout(new BoxLayout(container, BoxLayout.PAGE_AXIS));
 
-        // 添加一个Panel，用于提供可用的模板类型，如Activity，Fragment
+        // 添加一个Panel，用于提供可用的模板类型
         JPanel template = new JPanel();
         template.setLayout(new GridLayout(1, 2));
         template.setBorder(BorderFactory.createTitledBorder("Select Template"));

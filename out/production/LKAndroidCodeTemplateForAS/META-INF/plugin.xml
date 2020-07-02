@@ -5,7 +5,7 @@
   <vendor email="brucezhanggood@gmail.com" url="https://github.com/galaxybruce">Galaxybruce</vendor>
 
   <description><![CDATA[
-      Template Code Generator for Android<br>
+      <h1>Template Code Generator for Android</h1><br>
       How to use:<br>
       Select the package folder, right click -> New -> LKAndroidCodeTemplate
       <em></em>
@@ -32,39 +32,51 @@
   </extensions>
 
   <actions>
-    <!-- generate android code file action group -->
-    <group id="LKAndroidCodeTemplate.ID"
-      text="LKAndroidCodeTemplate"
-      icon="/image/lk_icon.png"
-      popup="true"
-      description="a plugin to generate android template code">
-
+    <group>
       <add-to-group group-id="NewGroup" anchor="after" relative-to-action="NewDir"/>
 
-      <action id="LKAndroidPageTemplate.ID"
-            class="com.galaxybruce.plugin.lk.AndroidPageTemplateAction"
-            text="Page Template"
-            icon="/image/lk_icon.png"
-            description="a plugin to generate android page template code">
-      </action>
+      <separator/>
+      <!-- generate android code file action group -->
+      <group id="LKAndroidCodePlugin.FileTemplate.ID"
+        text="LKAndroidCodeTemplate"
+        icon="/image/lk_icon.png"
+        popup="true"
+        class="com.galaxybruce.plugin.groups.GenerateAndroidCodeGroup"
+        description="a plugin to generate android template code">
 
-      <action id="LKAndroidDialogTemplate.ID"
-              class="com.galaxybruce.plugin.lk.AndroidDialogTemplateAction"
-              text="Dialog Template"
+        <action id="LKAndroidCodePlugin.PageFileTemplate.ID"
+              class="com.galaxybruce.plugin.lk.AndroidPageTemplateAction"
+              text="Page Template"
               icon="/image/lk_icon.png"
-              description="a plugin to generate android dialog template code">
-      </action>
+              description="a plugin to generate android page template code">
+        </action>
+
+        <action id="LKAndroidCodePlugin.DialogFileTemplate.ID"
+                class="com.galaxybruce.plugin.lk.AndroidDialogTemplateAction"
+                text="Dialog Template"
+                icon="/image/lk_icon.png"
+                description="a plugin to generate android dialog template code">
+        </action>
+      </group>
+      <separator/>
     </group>
 
-    <!-- generate android code snippet action group -->
-    <action id="LKAndroidCodeSnippetTemplate.ID"
-            class="com.galaxybruce.plugin.lk.snippet.AndroidCodeSnippetAction"
-            text="LKAndroidCodeSnippet"
-            icon="/image/lk_icon.png"
-            description="a plugin to generate android code snippet">
 
+    <group>
       <add-to-group group-id="GenerateGroup" anchor="last" />
-    </action>
+
+      <separator/>
+      <!-- generate android code snippet action group -->
+      <action id="LKAndroidCodePlugin.SnippetTemplate.ID"
+              class="com.galaxybruce.plugin.lk.snippet.AndroidCodeSnippetAction"
+              text="LKAndroidCodeSnippet"
+              icon="/image/lk_icon.png"
+              description="a plugin to generate android code snippet">
+      </action>
+
+      <separator/>
+    </group>
+
 
   </actions>
 
