@@ -1,7 +1,7 @@
 <idea-plugin>
-  <id>com.galaxybruce.plugin.lkanroidcodetemplate.id</id>
+  <id>com.galaxybruce.android.codegenerator.plugin.lkanroidcodetemplate.id</id>
   <name>LKAndroidCodeTemplateForAS</name>
-  <version>1.0.0</version>
+  <version>1.0.</version>
   <vendor email="brucezhanggood@gmail.com" url="https://github.com/galaxybruce">Galaxybruce</vendor>
 
   <description><![CDATA[
@@ -13,7 +13,13 @@
 
   <change-notes><![CDATA[
       Changes: <br>
-      1. basic feature release <br>
+
+      <b>Version 1.0</b>
+        <ul>
+            <li>generating android MVP file</li>
+            <li>generating android Dialog file</li>
+        </ul>
+
       <em></em>
     ]]>
   </change-notes>
@@ -28,7 +34,8 @@
   -->
 
   <extensions defaultExtensionNs="com.intellij">
-    <!-- Add your extensions here -->
+    <projectService serviceInterface="com.galaxybruce.android.codegenerator.plugin.persistence.Settings"
+                    serviceImplementation="com.galaxybruce.android.codegenerator.plugin.persistence.Settings"/>
   </extensions>
 
   <actions>
@@ -41,21 +48,18 @@
         text="LKAndroidCodeTemplate"
         icon="/image/lk_icon.png"
         popup="true"
-        class="com.galaxybruce.plugin.groups.GenerateAndroidCodeGroup"
-        description="a plugin to generate android template code">
+        class="com.galaxybruce.android.codegenerator.plugin.groups.GenerateAndroidCodeGroup" >
 
         <action id="LKAndroidCodePlugin.PageFileTemplate.ID"
-              class="com.galaxybruce.plugin.lk.AndroidPageTemplateAction"
+              class="com.galaxybruce.android.codegenerator.plugin.actions.AndroidPageTemplateAction"
               text="Page Template"
-              icon="/image/lk_icon.png"
-              description="a plugin to generate android page template code">
+              icon="/image/lk_icon.png" >
         </action>
 
         <action id="LKAndroidCodePlugin.DialogFileTemplate.ID"
-                class="com.galaxybruce.plugin.lk.AndroidDialogTemplateAction"
+                class="com.galaxybruce.android.codegenerator.plugin.actions.AndroidDialogTemplateAction"
                 text="Dialog Template"
-                icon="/image/lk_icon.png"
-                description="a plugin to generate android dialog template code">
+                icon="/image/lk_icon.png" >
         </action>
       </group>
       <separator/>
@@ -68,10 +72,9 @@
       <separator/>
       <!-- generate android code snippet action group -->
       <action id="LKAndroidCodePlugin.SnippetTemplate.ID"
-              class="com.galaxybruce.plugin.lk.snippet.AndroidCodeSnippetAction"
+              class="com.galaxybruce.android.codegenerator.plugin.actions.snippet.AndroidCodeSnippetAction"
               text="LKAndroidCodeSnippet"
-              icon="/image/lk_icon.png"
-              description="a plugin to generate android code snippet">
+              icon="/image/lk_icon.png" >
       </action>
 
       <separator/>

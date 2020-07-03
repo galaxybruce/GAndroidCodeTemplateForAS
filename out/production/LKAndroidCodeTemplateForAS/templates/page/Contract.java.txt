@@ -1,7 +1,7 @@
 
 import com.kidswant.common.base.BSBaseView;
 
-public interface $name$Contract {
+public interface ${name}Contract {
 
     interface Presenter {
 

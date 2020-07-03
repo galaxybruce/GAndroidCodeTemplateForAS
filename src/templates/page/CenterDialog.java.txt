@@ -4,7 +4,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.kidswant.common.dialog.BaseCenterDialogFragment;
-$importR$
+${importR}
 
 import org.jetbrains.annotations.Nullable;
 
@@ -14,21 +14,21 @@ import org.jetbrains.annotations.Nullable;
  * @description (亲，我是做什么的)
  *
  * 使用方式：
- * new $name$Dialog.Builder()
+ * new ${name}Dialog.Builder()
  *      .title("哈哈哈")
  *      .build().show(getSupportFragmentManager(), null);
  *
  * <p>
  * modification history:
  */
-public class $name$Dialog extends BaseCenterDialogFragment {
+public class ${name}Dialog extends BaseCenterDialogFragment {
 
-    public interface I$name$Callback {
-        void on$name$Callback();
+    public interface I${name}Callback {
+        void on${name}Callback();
     }
 
     // todo sample code, please delete it 属性字段定义
-    I$name$Callback mCallback;
+    I${name}Callback mCallback;
     String mTitle;
 
     TextView textView;
@@ -45,8 +45,8 @@ public class $name$Dialog extends BaseCenterDialogFragment {
             return this;
         }
 
-        public $name$Dialog build() {
-            $name$Dialog dialog = new $name$Dialog();
+        public ${name}Dialog build() {
+            ${name}Dialog dialog = new ${name}Dialog();
             dialog.setArguments(bundle);
             return dialog;
         }
@@ -54,7 +54,7 @@ public class $name$Dialog extends BaseCenterDialogFragment {
 
     @Override
     public int bindLayoutId() {
-        return R.layout.$layoutName$;
+        return R.layout.${layoutName};
     }
 
     @Override
@@ -63,7 +63,7 @@ public class $name$Dialog extends BaseCenterDialogFragment {
         if(arguments != null) {
             // todo sample code, please delete it
             mTitle = arguments.getString("title");
-            mCallback = getDialogListener(this, I$name$Callback.class);
+            mCallback = getDialogListener(this, I${name}Callback.class);
         }
     }
 
@@ -77,7 +77,7 @@ public class $name$Dialog extends BaseCenterDialogFragment {
     public void bindData(Bundle savedInstanceState) {
         // todo sample code, please delete it
         textView.setText(mTitle);
-        mCallback.on$name$Callback();
+        mCallback.on${name}Callback();
     }
 
 

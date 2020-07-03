@@ -8,11 +8,11 @@ import com.kidswant.annotation.router.Route;
 import com.kidswant.basic.base.mvp.ExBasePresenter;
 import com.kidswant.common.base.BSBaseActivity;
 
-import $package$.fragment.$name$Fragment;
+import ${package}.fragment.${name}Fragment;
 
 
 @Route(path = "xxx")
-public class $name$FragmentActivity extends BSBaseActivity {
+public class ${name}FragmentActivity extends BSBaseActivity {
 
     @Override
     public int getLayoutId() {
@@ -37,7 +37,7 @@ public class $name$FragmentActivity extends BSBaseActivity {
         if(bundle == null) {
             bundle = new Bundle();
         }
-        Fragment fragment = $name$Fragment.newInstance(bundle);
+        Fragment fragment = ${name}Fragment.newInstance(bundle);
         getSupportFragmentManager().beginTransaction()
                 .replace(com.linkkids.component.R.id.fl_container, fragment)
                 .commitAllowingStateLoss();

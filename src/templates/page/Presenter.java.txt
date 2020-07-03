@@ -5,9 +5,9 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
-public class $name$Presenter extends BSBasePresenterImpl<$name$Contract.View> implements $name$Contract.Presenter {
+public class ${name}Presenter extends BSBasePresenterImpl<${name}Contract.View> implements ${name}Contract.Presenter {
 
-    public $name$Presenter() {
+    public ${name}Presenter() {
         // todo init net api
 //        mLiveApi = KRetrofitFactory.createService(LiveApi.class);
     }

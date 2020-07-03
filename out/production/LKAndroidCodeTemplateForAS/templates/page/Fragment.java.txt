@@ -11,19 +11,19 @@ import com.kidswant.component.view.titlebar.TitleBarLayout;
 
 import org.jetbrains.annotations.Nullable;
 
-$importR$
-import $package$.mvp.$name$Contract;
-import $package$.mvp.$name$Presenter;
+${importR}
+import ${package}.mvp.${name}Contract;
+import ${package}.mvp.${name}Presenter;
 
 @Route(path = "xxx")
-public class $name$Fragment extends BSBaseFragment<$name$Contract.View, $name$Presenter>
-        implements $name$Contract.View {
+public class ${name}Fragment extends BSBaseFragment<${name}Contract.View, ${name}Presenter>
+        implements ${name}Contract.View {
 
-    public static $name$Fragment newInstance(Bundle args) {
+    public static ${name}Fragment newInstance(Bundle args) {
         if(args == null) {
             args = new Bundle();
         }
-        $name$Fragment fragment = new $name$Fragment();
+        ${name}Fragment fragment = new ${name}Fragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -31,13 +31,13 @@ public class $name$Fragment extends BSBaseFragment<$name$Contract.View, $name$Pr
     private TitleBarLayout titleBar;
 
     @Override
-    protected $name$Presenter createPresenter() {
-        return new $name$Presenter();
+    protected ${name}Presenter createPresenter() {
+        return new ${name}Presenter();
     }
 
     @Override
     public int getLayoutId() {
-        return R.layout.$layoutName$;
+        return R.layout.${layoutName};
     }
 
     @Override

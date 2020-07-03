@@ -19,26 +19,26 @@ import com.linkkids.component.ui.view.bbsview.BBSRecyclerView2;
 
 import org.jetbrains.annotations.Nullable;
 
-$importR$
-import $package$.mvp.$name$Contract;
-import $package$.mvp.$name$Presenter;
+${importR}
+import ${package}.mvp.${name}Contract;
+import ${package}.mvp.${name}Presenter;
 
 @Route(path = "xxx")
-public class $name$Activity extends BSBaseActivity<$name$Contract.View, $name$Presenter>
-        implements $name$Contract.View {
+public class ${name}Activity extends BSBaseActivity<${name}Contract.View, ${name}Presenter>
+        implements ${name}Contract.View {
 
     private TitleBarLayout titleBar;
     private BBSRecyclerView2<Object> mBBSRecyclerView;
     private InnerAdapter mInnerAdapter;
 
     @Override
-    protected $name$Presenter createPresenter() {
-        return new $name$Presenter();
+    protected ${name}Presenter createPresenter() {
+        return new ${name}Presenter();
     }
 
     @Override
     public int getLayoutId() {
-        return R.layout.$layoutName$;
+        return R.layout.${layoutName};
     }
 
     @Override
