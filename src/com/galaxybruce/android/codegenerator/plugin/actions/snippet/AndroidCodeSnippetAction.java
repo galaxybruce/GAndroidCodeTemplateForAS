@@ -8,6 +8,7 @@ import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.ui.JBColor;
 import com.intellij.ui.components.JBScrollPane;
 import com.intellij.ui.components.panels.HorizontalBox;
+import com.intellij.ui.components.panels.VerticalBox;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
@@ -79,7 +80,10 @@ public class AndroidCodeSnippetAction extends AnAction {
     }
 
     private void createMenuPanel(Container container) {
+        VerticalBox verticalBox = new VerticalBox();
+        verticalBox.add(Box.createVerticalGlue());
 
+        JPanel panel = new JPanel();
         HorizontalBox horizontalBox = new HorizontalBox();
         horizontalBox.add( Box.createHorizontalGlue() );
         JButton cancel = new JButton("Cancel");
@@ -92,9 +96,14 @@ public class AndroidCodeSnippetAction extends AnAction {
         horizontalBox.add( Box.createHorizontalStrut(30) );
         horizontalBox.add(ok);
         horizontalBox.add( Box.createHorizontalStrut(30) );
-        horizontalBox.setPreferredSize(new Dimension(FRAME_WIDTH, 100));
+        horizontalBox.setPreferredSize(new Dimension(FRAME_WIDTH, 40));
+        // 必须用panel嵌套一下，horizontalBox直接嵌套在verticalBox中无效
+        panel.add(horizontalBox);
 
-        container.add(horizontalBox, BorderLayout.SOUTH);
+
+        verticalBox.add(panel);
+        verticalBox.setPreferredSize(new Dimension(FRAME_WIDTH, 100));
+        container.add(verticalBox, BorderLayout.SOUTH);
     }
 
     private JPanel createMainPanel(Container container) {
