@@ -77,7 +77,9 @@ public class ${name}Dialog extends BaseCenterDialogFragment {
     public void bindData(Bundle savedInstanceState) {
         // todo sample code, please delete it
         textView.setText(mTitle);
-        mCallback.on${name}Callback();
+        if(mCallback != null) {
+            mCallback.on${name}Callback();
+        }
     }
 
 
