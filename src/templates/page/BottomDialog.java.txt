@@ -21,12 +21,12 @@ ${importR}
  */
 public class ${name}Dialog extends BaseBottomSheetDialog {
 
-    public interface I${name}Callback {
-        void on${name}Callback();
+    public interface I${name}DialogCallback {
+        void on${name}DialogCallback();
     }
 
     // todo sample code, please delete it 属性字段定义
-    I${name}Callback mCallback;
+    I${name}DialogCallback mCallback;
     String mTitle;
 
     TextView textView;
@@ -60,7 +60,7 @@ public class ${name}Dialog extends BaseBottomSheetDialog {
         Bundle arguments = getArguments();
         if(arguments != null) {
            // 获取listener
-           mCallback = getDialogListener(this, I${name}Callback.class);
+           mCallback = getDialogListener(this, I${name}DialogCallback.class);
 
             // todo sample code, please delete it
             mTitle = arguments.getString("title");
@@ -78,7 +78,7 @@ public class ${name}Dialog extends BaseBottomSheetDialog {
         // todo sample code, please delete it
         textView.setText(mTitle);
         if(mCallback != null) {
-            mCallback.on${name}Callback();
+            mCallback.on${name}DialogCallback();
         }
     }
 

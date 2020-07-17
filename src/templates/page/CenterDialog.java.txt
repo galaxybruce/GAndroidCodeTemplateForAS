@@ -23,12 +23,12 @@ import org.jetbrains.annotations.Nullable;
  */
 public class ${name}Dialog extends BaseCenterDialogFragment {
 
-    public interface I${name}Callback {
-        void on${name}Callback();
+    public interface I${name}DialogCallback {
+        void on${name}DialogCallback();
     }
 
     // todo sample code, please delete it 属性字段定义
-    I${name}Callback mCallback;
+    I${name}DialogCallback mCallback;
     String mTitle;
 
     TextView textView;
@@ -63,7 +63,7 @@ public class ${name}Dialog extends BaseCenterDialogFragment {
         if(arguments != null) {
             // todo sample code, please delete it
             mTitle = arguments.getString("title");
-            mCallback = getDialogListener(this, I${name}Callback.class);
+            mCallback = getDialogListener(this, I${name}DialogCallback.class);
         }
     }
 
@@ -78,7 +78,7 @@ public class ${name}Dialog extends BaseCenterDialogFragment {
         // todo sample code, please delete it
         textView.setText(mTitle);
         if(mCallback != null) {
-            mCallback.on${name}Callback();
+            mCallback.on${name}DialogCallback();
         }
     }
 

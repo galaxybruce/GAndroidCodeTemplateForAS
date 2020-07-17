@@ -157,6 +157,15 @@ public class AndroidDialogTemplateAction extends AndroidUiTemplateAction {
         }
     }
 
+    @Override
+    protected String makeLayoutFileName() {
+        if (layoutBox.isSelected()) {
+            String fileName = nameTextField.getText().trim() + "Dialog";
+            return FileUtils.camelToUnderline(fileName);
+        }
+        return "";
+    }
+
     private void generateBottomDialog() {
         generateCommonFiles();
         if (layoutBox.isSelected()) {
