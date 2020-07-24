@@ -78,11 +78,17 @@ public class AndroidDialogTemplateAction extends AndroidUiTemplateAction {
         centerDialog.setActionCommand("Center-Dialog");
         centerDialog.addActionListener(radioActionListener);
 
+        JRadioButton centerCustomConfirmDialog = new JRadioButton("Center CustomConfirm Dialog");
+        centerCustomConfirmDialog.setActionCommand("Center-CustomConfirm-Dialog");
+        centerCustomConfirmDialog.addActionListener(radioActionListener);
+
         template.add(bottomDialog);
         template.add(centerDialog);
+        template.add(centerCustomConfirmDialog);
         templateGroup = new ButtonGroup();
         templateGroup.add(bottomDialog);
         templateGroup.add(centerDialog);
+        templateGroup.add(centerCustomConfirmDialog);
         container.add(template);
 
 
@@ -154,6 +160,9 @@ public class AndroidDialogTemplateAction extends AndroidUiTemplateAction {
             case "Center-Dialog":
                 generateCenterDialog();
                 break;
+            case "Center-CustomConfirm-Dialog":
+                generateCenterCustomConfirmDialog();
+                break;
         }
     }
 
@@ -180,6 +189,14 @@ public class AndroidDialogTemplateAction extends AndroidUiTemplateAction {
             generateLayoutFile("page/CenterDialogLayout.xml.txt", psiPath);
         }
         generateFile("page/CenterDialog.java.txt", psiPath, DIALOG_DIR, "Dialog.java");
+    }
+
+    private void generateCenterCustomConfirmDialog() {
+        generateCommonFiles();
+        if (layoutBox.isSelected()) {
+            generateLayoutFile("page/CenterCustomConfirmDialogLayout.xml.txt", psiPath);
+        }
+        generateFile("page/CenterCustomConfirmDialog.java.txt", psiPath, DIALOG_DIR, "Dialog.java");
     }
 
     private void generateCommonFiles() {

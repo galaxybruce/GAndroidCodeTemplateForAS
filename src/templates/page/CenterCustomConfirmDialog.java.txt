@@ -1,0 +1,94 @@
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
+
+import com.kidswant.common.dialog.BaseCustomConfirmDialog;
+${importR}
+
+import org.jetbrains.annotations.Nullable;
+
+/**
+ * @date
+ * @author
+ * @description (亲，我是做什么的)
+ *
+ * 使用方式：
+ * new ${name}Dialog.Builder()
+ *      .title("哈哈哈")
+ *      .build().show(getSupportFragmentManager(), null);
+ *
+ * <p>
+ * modification history:
+ */
+public class ${name}Dialog extends BaseCustomConfirmDialog {
+
+    public interface I${name}DialogCallback {
+        void on${name}DialogCallback();
+    }
+
+    // todo sample code, please delete it 属性字段定义
+    I${name}DialogCallback mCallback;
+    String mTitle;
+
+    TextView textView;
+
+    public static final class Builder {
+        Bundle bundle;
+
+        public Builder() {
+            bundle = new Bundle();
+        }
+
+        public Builder title(String val) {
+            bundle.putString("title", val);
+            return this;
+        }
+
+        public ${name}Dialog build() {
+            ${name}Dialog dialog = new ${name}Dialog();
+            // 自定义确定按钮文本
+//          bundle.putString(KEY_CONFIRM_TEXT, "发送到直播间");
+            dialog.setArguments(bundle);
+            return dialog;
+        }
+    }
+
+    @Override
+    public int bindLayoutId() {
+        return R.layout.${layoutName};
+    }
+
+    @Override
+    public void initData(@Nullable Bundle bundle, Bundle savedInstanceState) {
+        Bundle arguments = getArguments();
+        if(arguments != null) {
+            // todo sample code, please delete it
+            mTitle = arguments.getString("title");
+            mCallback = getDialogListener(this, I${name}DialogCallback.class);
+        }
+    }
+
+    @Override
+    public void initView(View view) {
+        super.initView(view);
+        // todo sample code, please delete it
+        textView = view.findViewById(R.id.tv_test);
+    }
+
+    @Override
+    public void bindData(Bundle savedInstanceState) {
+        // todo sample code, please delete it
+        textView.setText(mTitle);
+
+    }
+
+    @Override
+    protected void onConfirmClick() {
+        if(mCallback != null) {
+            mCallback.on${name}DialogCallback();
+        }
+        super.onConfirmClick();
+    }
+
+}
