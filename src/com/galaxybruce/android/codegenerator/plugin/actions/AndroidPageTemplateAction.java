@@ -197,7 +197,7 @@ public class AndroidPageTemplateAction extends AndroidUiTemplateAction {
 
     private void generateActivity() {
         generateCommonFiles();
-        generateFile("page/RecyclerViewGridLayout.txt", psiPath, ACTIVITY_DIR, "Activity.java");
+        generateFile("page/Activity.java.txt", psiPath, ACTIVITY_DIR, "Activity.java");
     }
 
     private void generateFragment() {
