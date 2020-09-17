@@ -73,7 +73,7 @@ public class ${name}Fragment extends BSBaseFragment<${name}Contract.View, ${name
         mBBSRecyclerView.setBbsAdapter(mInnerAdapter)
                 //.setNeedShowEmptyNoData(false)
                 .setPullRefreshEnable(true)
-                .setRequestDataIfViewCreated(true)
+                .setRequestDataIfViewCreated(false)
                 .setInitPage(1)
 //                .setNoDataContent("暂无数据～")
 //                .setNoDataImage(R.drawable.live_lottery_list_empty_icon)
@@ -82,7 +82,7 @@ public class ${name}Fragment extends BSBaseFragment<${name}Contract.View, ${name
                 .setBbsRequestListener(new BBSRecyclerView2.BBSRequestListener() {
                     @Override
                     public void sendRequestData(boolean refresh, int page) {
-
+                        performRequest();
                     }
 
                     @Override
@@ -96,6 +96,12 @@ public class ${name}Fragment extends BSBaseFragment<${name}Contract.View, ${name
     public void bindData(@Nullable Bundle savedInstanceState) {
         super.bindData(savedInstanceState);
 
+        performRequest();
+    }
+
+    private void performRequest() {
+        // todo perform net Requrest
+        mPresenter.performRequest("xxx");
     }
 
     @Override
