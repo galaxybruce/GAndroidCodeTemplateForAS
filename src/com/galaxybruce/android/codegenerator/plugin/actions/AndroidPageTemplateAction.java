@@ -24,6 +24,7 @@ public class AndroidPageTemplateAction extends AndroidUiTemplateAction {
 
 
     static String MVP_DIR = "mvp";
+    static String MVVM_DIR = "mvvm";
     static String ACTIVITY_DIR = "activity";
     static String FRAGMENT_DIR = "fragment";
 
@@ -111,13 +112,19 @@ public class AndroidPageTemplateAction extends AndroidUiTemplateAction {
         container.add(template);
 
 
+
+        JPanel optionsPanel = new JPanel();
+        optionsPanel.setLayout(new GridLayout(1, 3));
+        optionsPanel.setBorder(BorderFactory.createTitledBorder("Add Options"));
+
         // 是否生成布局文件选项
-        JPanel file = new JPanel();
-        file.setLayout(new GridLayout(2, 3));
-        file.setBorder(BorderFactory.createTitledBorder("Add Layout"));
         layoutBox = new JCheckBox("Layout", true);
-        file.add(layoutBox);
-        container.add(file);
+        kotlinBox = new JCheckBox("Kotlin", false);
+        mvvmBox = new JCheckBox("MVVM", false);
+        optionsPanel.add(layoutBox);
+        optionsPanel.add(kotlinBox);
+        optionsPanel.add(mvvmBox);
+        container.add(optionsPanel);
 
         // 添加一个Panel，用于输入模板文件的名称前缀
         JPanel nameField = new JPanel();
@@ -197,40 +204,55 @@ public class AndroidPageTemplateAction extends AndroidUiTemplateAction {
 
     private void generateActivity() {
         generateCommonFiles();
-        generateFile("page/Activity.java.txt", psiPath, ACTIVITY_DIR, "Activity.java");
+        String srcFile = "page" + (mvvmBox.isSelected() ? "/" + MVVM_DIR : "") + "/Activity.java.txt";
+        generateFile(srcFile, psiPath, ACTIVITY_DIR, "Activity.java");
     }
 
     private void generateFragment() {
         generateCommonFiles();
-        generateFile("page/Fragment.java.txt", psiPath, FRAGMENT_DIR, "Fragment.java");
+        String srcFile = "page" + (mvvmBox.isSelected() ? "/" + MVVM_DIR : "") + "/Fragment.java.txt";
+        generateFile(srcFile, psiPath, FRAGMENT_DIR, "Fragment.java");
     }
 
     private void generateFragmentActivity() {
         generateFragment();
-        generateFile("page/FragmentActivity.java.txt", psiPath, ACTIVITY_DIR, "FragmentActivity.java");
+        String srcFile = "page" + (mvvmBox.isSelected() ? "/" + MVVM_DIR : "") + "/FragmentActivity.java.txt";
+        generateFile(srcFile, psiPath, ACTIVITY_DIR, "FragmentActivity.java");
     }
 
     private void generateRefreshActivity() {
         generateCommonFiles();
-        generateFile("page/RefreshActivity.java.txt", psiPath, ACTIVITY_DIR, "Activity.java");
+        String srcFile = "page" + (mvvmBox.isSelected() ? "/" + MVVM_DIR : "") + "/RefreshActivity.java.txt";
+        generateFile(srcFile, psiPath, ACTIVITY_DIR, "Activity.java");
     }
 
     private void generateRefreshFragment() {
         generateCommonFiles();
-        generateFile("page/RefreshFragment.java.txt", psiPath, FRAGMENT_DIR, "Fragment.java");
+        String srcFile = "page" + (mvvmBox.isSelected() ? "/" + MVVM_DIR : "") + "/RefreshFragment.java.txt";
+        generateFile(srcFile, psiPath, FRAGMENT_DIR, "Fragment.java");
     }
 
     private void generateRefreshFragmentActivity() {
         generateRefreshFragment();
-        generateFile("page/FragmentActivity.java.txt", psiPath, ACTIVITY_DIR, "FragmentActivity.java");
+        String srcFile = "page" + (mvvmBox.isSelected() ? "/" + MVVM_DIR : "") + "/FragmentActivity.java.txt";
+        generateFile(srcFile, psiPath, ACTIVITY_DIR, "FragmentActivity.java");
     }
 
     private void generateCommonFiles() {
-        generateFile("page/Contract.java.txt", psiPath, MVP_DIR, "Contract.java");
-        generateFile("page/Presenter.java.txt", psiPath, MVP_DIR, "Presenter.java");
+        if (mvvmBox.isSelected()) {
+            generateFile("page/mvvm/Request.java.txt", psiPath, MVVM_DIR + File.separator + "request", "Request.java");
+            generateFile("page/mvvm/ViewModel.java.txt", psiPath, MVVM_DIR + File.separator + "viewmodel", "ViewModel.java");
 
-        if (layoutBox.isSelected()) {
-            generateLayoutFile("page/RefreshLayout.xml.txt", psiPath);
+            if (layoutBox.isSelected()) {
+                generateLayoutFile("page/mvvm/Layout.xml.txt", psiPath);
+            }
+        } else {
+            generateFile("page/Contract.java.txt", psiPath, MVP_DIR, "Contract.java");
+            generateFile("page/Presenter.java.txt", psiPath, MVP_DIR, "Presenter.java");
+
+            if (layoutBox.isSelected()) {
+                generateLayoutFile("page/RefreshLayout.xml.txt", psiPath);
+            }
         }
     }
 

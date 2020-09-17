@@ -8,11 +8,11 @@
     <data>
         <variable
             name="vm"
-            type="com.linkkids.app.officialaccounts.testmvvm.mvvm.viewmodel.TestMvvmViewModel" />
+            type="${package}.mvvm.viewmodel.${name}ViewModel" />
 
         <variable
             name="click"
-            type="com.linkkids.app.officialaccounts.testmvvm.activity.TestMvvmActivity.ClickProxy" />
+            type="${package}.activity.${name}Activity.ClickProxy" />
 
     </data>
 

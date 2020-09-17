@@ -32,6 +32,8 @@ public abstract class AndroidUiTemplateAction extends AnAction {
     protected ButtonGroup templateGroup;
 
     protected JCheckBox layoutBox;
+    protected JCheckBox kotlinBox;
+    protected JCheckBox mvvmBox;
 
     protected String javaParentPath;
     protected String layoutFileName;
@@ -93,9 +95,25 @@ public abstract class AndroidUiTemplateAction extends AnAction {
             currentDirPath = currentDirPath  + File.separator + featureDir;
         }
 
+        String content = "";
+
+        if(kotlinBox != null && kotlinBox.isSelected()) {
+            String tempSrcFile = srcFile.replaceAll("\\.java\\.txt", ".kt.txt");
+            String tempFileName = fileName.replaceAll("\\.java", ".kt");
+            content = FileUtils.readFile(this.getClass(), tempSrcFile);
+
+            if(content != null && !"".equals(content.trim())) {
+                srcFile = tempSrcFile;
+                fileName = tempFileName;
+            }
+        }
+
+        if(content == null || "".equals(content.trim())) {
+            content = FileUtils.readFile(this.getClass(), srcFile);
+        }
+
         fileName = nameTextField.getText().trim() + fileName;
-        String content = FileUtils.readFile(this.getClass(), srcFile);
-        content = dealFile(psiPath, currentDirPath, content, fileName);
+        content = dealFile(psiPath, currentDirPath, content, false);
         FileUtils.writeToFile(content, currentDirPath, fileName);
     }
 
@@ -108,6 +126,7 @@ public abstract class AndroidUiTemplateAction extends AnAction {
         String currentDirPath = javaParentPath + "res" + File.separator + "layout";
         String fileName = layoutFileName + ".xml";
         String content = FileUtils.readFile(this.getClass(), srcFile);
+        content = dealFile(psiPath, currentDirPath, content, true);
         FileUtils.writeToFile(content, currentDirPath, fileName);
     }
 
@@ -123,15 +142,19 @@ public abstract class AndroidUiTemplateAction extends AnAction {
         return "";
     }
 
-    protected String dealFile(String psiPath, String currentDirPath, String content, String fileName) {
-        content = FileUtils.makePackageString(currentDirPath) + content;
+    protected String dealFile(String psiPath, String currentDirPath, String content, boolean isLayout) {
+        if(!isLayout) {
+            content = FileUtils.makePackageString(currentDirPath) + content;
+        }
         content = content.replaceAll("\\$\\{name\\}", nameTextField.getText());
         content = content.replaceAll("\\$\\{package\\}", FileUtils.pathToPackage(psiPath));
 
         if(modulePackage != null && !"".equals(modulePackage)) {
             content = content.replaceAll("\\$\\{importR\\}", "import " + modulePackage + ".R;");
+            content = content.replaceAll("\\$\\{importBR\\}", "import " + modulePackage + ".BR;");
         } else {
             content = content.replaceAll("\\$\\{importR\\}", "");
+            content = content.replaceAll("\\$\\{importBR\\}", "");
         }
 
         // 布局文件名称需要驼峰转下划线
