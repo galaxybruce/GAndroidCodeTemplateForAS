@@ -180,7 +180,7 @@ public class AndroidDialogTemplateAction extends AndroidUiTemplateAction {
         if (layoutBox.isSelected()) {
             generateLayoutFile("page/BottomDialogLayout.xml.txt", psiPath);
         }
-        generateFile("page/BottomDialog.java.txt", psiPath, DIALOG_DIR, "Dialog.java");
+        generateFile("page/BottomDialog.java.txt", psiPath, DIALOG_DIR, "Dialog.java", false);
     }
 
     private void generateCenterDialog() {
@@ -188,7 +188,7 @@ public class AndroidDialogTemplateAction extends AndroidUiTemplateAction {
         if (layoutBox.isSelected()) {
             generateLayoutFile("page/CenterDialogLayout.xml.txt", psiPath);
         }
-        generateFile("page/CenterDialog.java.txt", psiPath, DIALOG_DIR, "Dialog.java");
+        generateFile("page/CenterDialog.java.txt", psiPath, DIALOG_DIR, "Dialog.java", false);
     }
 
     private void generateCenterCustomConfirmDialog() {
@@ -196,7 +196,7 @@ public class AndroidDialogTemplateAction extends AndroidUiTemplateAction {
         if (layoutBox.isSelected()) {
             generateLayoutFile("page/CenterCustomConfirmDialogLayout.xml.txt", psiPath);
         }
-        generateFile("page/CenterCustomConfirmDialog.java.txt", psiPath, DIALOG_DIR, "Dialog.java");
+        generateFile("page/CenterCustomConfirmDialog.java.txt", psiPath, DIALOG_DIR, "Dialog.java", false);
     }
 
     private void generateCommonFiles() {

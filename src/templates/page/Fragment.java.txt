@@ -15,7 +15,6 @@ ${importR}
 import ${package}.mvp.${name}Contract;
 import ${package}.mvp.${name}Presenter;
 
-@Route(path = "xxx")
 public class ${name}Fragment extends BSBaseFragment<${name}Contract.View, ${name}Presenter>
         implements ${name}Contract.View {
 

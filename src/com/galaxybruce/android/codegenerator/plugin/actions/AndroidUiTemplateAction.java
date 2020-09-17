@@ -13,6 +13,9 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.File;
 
+import static com.galaxybruce.android.codegenerator.plugin.actions.AndroidPageTemplateAction.ACTIVITY_DIR;
+import static com.galaxybruce.android.codegenerator.plugin.actions.AndroidPageTemplateAction.FRAGMENT_DIR;
+
 /**
  * dialog模板
  *
@@ -39,6 +42,7 @@ public abstract class AndroidUiTemplateAction extends AnAction {
     protected String layoutFileName;
     protected String modulePackage;
 
+    protected String contextFileName;
 
     protected KeyListener keyListener = new KeyListener() {
         @Override
@@ -89,7 +93,7 @@ public abstract class AndroidUiTemplateAction extends AnAction {
 
     protected abstract void clickCreateFile();
 
-    protected void generateFile(String srcFile, String psiPath, String featureDir, String fileName) {
+    protected void generateFile(String srcFile, String psiPath, String featureDir, String fileName, boolean isContextFile) {
         String currentDirPath = psiPath;
         if(featureDir != null) {
             currentDirPath = currentDirPath  + File.separator + featureDir;
@@ -113,6 +117,9 @@ public abstract class AndroidUiTemplateAction extends AnAction {
         }
 
         fileName = nameTextField.getText().trim() + fileName;
+        if(isContextFile) {
+            contextFileName = fileName.substring(0, fileName.lastIndexOf("."));
+        }
         content = dealFile(psiPath, currentDirPath, content, false);
         FileUtils.writeToFile(content, currentDirPath, fileName);
     }
@@ -155,6 +162,11 @@ public abstract class AndroidUiTemplateAction extends AnAction {
         } else {
             content = content.replaceAll("\\$\\{importR\\}", "");
             content = content.replaceAll("\\$\\{importBR\\}", "");
+        }
+
+        if(isLayout) {
+            content = content.replaceAll("\\$\\{contextName\\}",
+                    (contextFileName.contains("Activity") ? ACTIVITY_DIR : FRAGMENT_DIR) + "." + contextFileName);
         }
 
         // 布局文件名称需要驼峰转下划线
