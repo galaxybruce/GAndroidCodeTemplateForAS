@@ -263,7 +263,7 @@ public class AndroidPageTemplateAction extends AndroidUiTemplateAction {
             String srcFile = "page" + (mvvmBox.isSelected() ? "/" + MVVM_DIR : "") + "/" + layoutSrcFile;
             generateLayoutFile(srcFile, psiPath);
 
-            if(isRefreshTemplate && mvvmBox.isSelected()) {
+            if(isRefreshTemplate) {
                 String itemSFile = "page" + (mvvmBox.isSelected() ? "/" + MVVM_DIR : "") + "/RefreshItemLayout.xml.txt";
                 generateLayoutFile(itemSFile, psiPath, true);
             }
