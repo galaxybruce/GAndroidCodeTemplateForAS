@@ -167,6 +167,7 @@ public abstract class AndroidUiTemplateAction extends AnAction {
         if(isLayout) {
             content = content.replaceAll("\\$\\{contextName\\}",
                     (contextFileName.contains("Activity") ? ACTIVITY_DIR : FRAGMENT_DIR) + "." + contextFileName);
+            contextFileName = null;
         }
 
         // 布局文件名称需要驼峰转下划线
