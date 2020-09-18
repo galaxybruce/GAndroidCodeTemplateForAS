@@ -85,8 +85,8 @@ public class FileUtils {
         return sb.toString().toLowerCase();
     }
 
-    public static String makePackageString(String filePath) {
-        return "package " + pathToPackage(filePath) + ";\n";
+    public static String makePackageString(String filePath, boolean isKoltin) {
+        return "package " + pathToPackage(filePath) + (isKoltin ? "\n" : ";\n");
     }
 
     public static String pathToPackage(String filePath) {

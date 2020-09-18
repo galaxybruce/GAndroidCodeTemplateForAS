@@ -1,0 +1,68 @@
+
+import android.os.Bundle
+import androidx.lifecycle.Observer
+
+import com.kidswant.annotation.router.Route
+import com.kidswant.basic.base.jetpack.JPBaseActivity
+import com.kidswant.basic.base.jetpack.JPBaseViewModel
+import com.kidswant.basic.base.jetpack.JPDataBindingConfig
+
+${importR}
+${importBR}
+import ${package}.mvvm.viewmodel.${name}ViewModel
+
+@Route(path = ["xxx"])
+class ${name}Activity : JPBaseActivity() {
+
+    private lateinit var mPageViewModel: ${name}ViewModel
+
+    override fun initViewModel(): JPBaseViewModel {
+        mPageViewModel = getActivityViewModel(${name}ViewModel::class.java)
+        // todo tip: 这里还可能会初始化全局的ViewModel
+        // mSharedViewModel = getAppViewModelProvider().get(SharedViewModel::class.java);
+        return mPageViewModel
+    }
+
+    override fun initDataBindConfig(): JPDataBindingConfig {
+        return JPDataBindingConfig(layoutId)
+            .addBindingParam(BR.vm, mPageViewModel)
+            .addBindingParam(BR.click, ClickProxy())
+    }
+
+    override fun getLayoutId(): Int {
+        return R.layout.${layoutName}
+    }
+
+    override fun initData(bundle: Bundle?, savedInstanceState: Bundle?) {
+        super.initData(bundle, savedInstanceState)
+
+        // todo init data from Intent
+//        final Intent intent = getIntent();
+//        String a = intent.getStringExtra("xxx");
+    }
+
+    override fun bindData(savedInstanceState: Bundle?) {
+        super.bindData(savedInstanceState)
+
+        // todo LiveData数据监听例子，实际代码请删除
+        mPageViewModel.name.observe(
+            this,
+            Observer { s: String? -> showToast("name has changed") })
+
+        performRequest()
+    }
+
+    private fun performRequest() {
+        // todo perform net Requrest
+        mPageViewModel.request.performRequest("xxx")
+    }
+
+    /**
+     * 页面事件类，可以把所有事件都写在这里
+     */
+    inner class ClickProxy {
+        fun handleName() {
+            showToast("handleName: " + mPageViewModel.name.value)
+        }
+    }
+}

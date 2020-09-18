@@ -7,8 +7,8 @@ import com.kidswant.basic.base.jetpack.JPDataBindingConfig;
 
 import org.jetbrains.annotations.Nullable;
 
-${importR}
-${importBR}
+${importR};
+${importBR};
 import ${package}.mvvm.viewmodel.${name}ViewModel;
 
 public class ${name}Fragment extends JPBaseFragment {

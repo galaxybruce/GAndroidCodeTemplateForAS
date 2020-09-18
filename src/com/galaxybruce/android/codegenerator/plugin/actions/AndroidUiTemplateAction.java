@@ -164,15 +164,15 @@ public abstract class AndroidUiTemplateAction extends AnAction {
 
     protected String dealFile(String psiPath, String currentDirPath, String content, boolean isLayout) {
         if(!isLayout) {
-            content = FileUtils.makePackageString(currentDirPath) + content;
+            content = FileUtils.makePackageString(currentDirPath, kotlinBox != null && kotlinBox.isSelected()) + content;
         }
         content = content.replaceAll("\\$\\{name\\}", nameTextField.getText());
         content = content.replaceAll("\\$\\{package\\}", FileUtils.pathToPackage(psiPath));
         content = content.replaceAll("\\$\\{modulePackage\\}", modulePackage);
 
         if(modulePackage != null && !"".equals(modulePackage)) {
-            content = content.replaceAll("\\$\\{importR\\}", "import " + modulePackage + ".R;");
-            content = content.replaceAll("\\$\\{importBR\\}", "import " + modulePackage + ".BR;");
+            content = content.replaceAll("\\$\\{importR\\}", "import " + modulePackage + ".R");
+            content = content.replaceAll("\\$\\{importBR\\}", "import " + modulePackage + ".BR");
         } else {
             content = content.replaceAll("\\$\\{importR\\}", "");
             content = content.replaceAll("\\$\\{importBR\\}", "");

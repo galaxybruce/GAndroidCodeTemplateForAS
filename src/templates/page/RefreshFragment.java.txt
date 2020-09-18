@@ -20,7 +20,7 @@ import com.linkkids.component.ui.view.bbsview.BBSRecyclerView2;
 import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
-${importR}
+${importR};
 import ${package}.mvp.${name}Contract;
 import ${package}.mvp.${name}Presenter;
 
