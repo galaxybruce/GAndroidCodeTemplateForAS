@@ -138,6 +138,7 @@ public abstract class AndroidUiTemplateAction extends AnAction {
         String currentDirPath = javaParentPath + "res" + File.separator + "layout";
         String fileName = (isItem ? itemLayoutFileName : layoutFileName) + ".xml";
         String content = FileUtils.readFile(this.getClass(), srcFile);
+        LOG.info("android generateLayoutFile content: \n" + content);
         content = dealFile(psiPath, currentDirPath, content, true);
         FileUtils.writeToFile(content, currentDirPath, fileName);
     }
