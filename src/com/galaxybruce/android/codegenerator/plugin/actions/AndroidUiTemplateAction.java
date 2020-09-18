@@ -40,6 +40,7 @@ public abstract class AndroidUiTemplateAction extends AnAction {
 
     protected String javaParentPath;
     protected String layoutFileName;
+    protected String itemLayoutFileName;
     protected String modulePackage;
 
     protected String contextFileName;
@@ -124,14 +125,18 @@ public abstract class AndroidUiTemplateAction extends AnAction {
         FileUtils.writeToFile(content, currentDirPath, fileName);
     }
 
+    protected void generateLayoutFile(String srcFile, String psiPath) {
+        generateLayoutFile(srcFile, psiPath, false);
+    }
+
     /**
      * 生成布局文件
      * @param srcFile
      * @param psiPath
      */
-    protected void generateLayoutFile(String srcFile, String psiPath) {
+    protected void generateLayoutFile(String srcFile, String psiPath, boolean isItem) {
         String currentDirPath = javaParentPath + "res" + File.separator + "layout";
-        String fileName = layoutFileName + ".xml";
+        String fileName = (isItem ? itemLayoutFileName : layoutFileName) + ".xml";
         String content = FileUtils.readFile(this.getClass(), srcFile);
         content = dealFile(psiPath, currentDirPath, content, true);
         FileUtils.writeToFile(content, currentDirPath, fileName);
@@ -149,12 +154,21 @@ public abstract class AndroidUiTemplateAction extends AnAction {
         return "";
     }
 
+    protected String makeListItemLayoutFileName() {
+        if (layoutBox.isSelected()) {
+            String fileName = nameTextField.getText().trim() + "ItemLayout";
+            return FileUtils.camelToUnderline(fileName);
+        }
+        return "";
+    }
+
     protected String dealFile(String psiPath, String currentDirPath, String content, boolean isLayout) {
         if(!isLayout) {
             content = FileUtils.makePackageString(currentDirPath) + content;
         }
         content = content.replaceAll("\\$\\{name\\}", nameTextField.getText());
         content = content.replaceAll("\\$\\{package\\}", FileUtils.pathToPackage(psiPath));
+        content = content.replaceAll("\\$\\{modulePackage\\}", modulePackage);
 
         if(modulePackage != null && !"".equals(modulePackage)) {
             content = content.replaceAll("\\$\\{importR\\}", "import " + modulePackage + ".R;");
@@ -167,12 +181,12 @@ public abstract class AndroidUiTemplateAction extends AnAction {
         if(isLayout) {
             content = content.replaceAll("\\$\\{contextName\\}",
                     (contextFileName.contains("Activity") ? ACTIVITY_DIR : FRAGMENT_DIR) + "." + contextFileName);
-            contextFileName = null;
         }
 
         // 布局文件名称需要驼峰转下划线
         if (layoutBox.isSelected()) {
             content = content.replaceAll("\\$\\{layoutName\\}", layoutFileName);
+            content = content.replaceAll("\\$\\{itemLayoutName\\}", itemLayoutFileName);
         }
         return content;
     }

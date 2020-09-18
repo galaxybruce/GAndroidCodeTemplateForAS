@@ -179,6 +179,7 @@ public class AndroidPageTemplateAction extends AndroidUiTemplateAction {
     @Override
     protected void clickCreateFile() {
         layoutFileName = makeLayoutFileName();
+        itemLayoutFileName = makeListItemLayoutFileName();
 
         switch (templateGroup.getSelection().getActionCommand()) {
             case "Activity":
@@ -205,15 +206,15 @@ public class AndroidPageTemplateAction extends AndroidUiTemplateAction {
     private void generateActivity() {
         String srcFile = "page" + (mvvmBox.isSelected() ? "/" + MVVM_DIR : "") + "/Activity.java.txt";
         generateFile(srcFile, psiPath, ACTIVITY_DIR, "Activity.java", true);
-        generateCommonFiles();
-        generateLayoutFile("Layout.xml.txt");
+        generateCommonFiles(false);
+        generateLayoutFile("Layout.xml.txt", false);
     }
 
     private void generateFragment() {
         String srcFile = "page" + (mvvmBox.isSelected() ? "/" + MVVM_DIR : "") + "/Fragment.java.txt";
         generateFile(srcFile, psiPath, FRAGMENT_DIR, "Fragment.java", true);
-        generateCommonFiles();
-        generateLayoutFile("Layout.xml.txt");
+        generateCommonFiles(false);
+        generateLayoutFile("Layout.xml.txt", false);
     }
 
     private void generateFragmentActivity() {
@@ -225,15 +226,15 @@ public class AndroidPageTemplateAction extends AndroidUiTemplateAction {
     private void generateRefreshActivity() {
         String srcFile = "page" + (mvvmBox.isSelected() ? "/" + MVVM_DIR : "") + "/RefreshActivity.java.txt";
         generateFile(srcFile, psiPath, ACTIVITY_DIR, "Activity.java", true);
-        generateCommonFiles();
-        generateLayoutFile("RefreshLayout.xml.txt");
+        generateCommonFiles(true);
+        generateLayoutFile("RefreshLayout.xml.txt", true);
     }
 
     private void generateRefreshFragment() {
         String srcFile = "page" + (mvvmBox.isSelected() ? "/" + MVVM_DIR : "") + "/RefreshFragment.java.txt";
         generateFile(srcFile, psiPath, FRAGMENT_DIR, "Fragment.java", true);
-        generateCommonFiles();
-        generateLayoutFile("RefreshLayout.xml.txt");
+        generateCommonFiles(true);
+        generateLayoutFile("RefreshLayout.xml.txt", true);
     }
 
     private void generateRefreshFragmentActivity() {
@@ -242,21 +243,30 @@ public class AndroidPageTemplateAction extends AndroidUiTemplateAction {
         generateFile(srcFile, psiPath, ACTIVITY_DIR, "FragmentActivity.java", false);
     }
 
-    private void generateCommonFiles() {
+    private void generateCommonFiles(boolean isRefreshTemplate) {
         if (mvvmBox.isSelected()) {
-            generateFile("page/mvvm/Request.java.txt", psiPath, MVVM_DIR + File.separator + "request", "Request.java", false);
-            generateFile("page/mvvm/ViewModel.java.txt", psiPath, MVVM_DIR + File.separator + "viewmodel", "ViewModel.java", false);
+            if(isRefreshTemplate) {
+                generateFile("page/mvvm/RefreshRequest.java.txt", psiPath, MVVM_DIR + File.separator + "request", "Request.java", false);
+                generateFile("page/mvvm/RefreshViewModel.java.txt", psiPath, MVVM_DIR + File.separator + "viewmodel", "ViewModel.java", false);
+            } else {
+                generateFile("page/mvvm/Request.java.txt", psiPath, MVVM_DIR + File.separator + "request", "Request.java", false);
+                generateFile("page/mvvm/ViewModel.java.txt", psiPath, MVVM_DIR + File.separator + "viewmodel", "ViewModel.java", false);
+            }
         } else {
             generateFile("page/Contract.java.txt", psiPath, MVP_DIR, "Contract.java", false);
             generateFile("page/Presenter.java.txt", psiPath, MVP_DIR, "Presenter.java", false);
         }
     }
 
-    private void generateLayoutFile(String layoutSrcFile) {
+    private void generateLayoutFile(String layoutSrcFile, boolean isRefreshTemplate) {
         if (layoutBox.isSelected()) {
             String srcFile = "page" + (mvvmBox.isSelected() ? "/" + MVVM_DIR : "") + "/" + layoutSrcFile;
-            LOG.info("generateLayoutFile: " + srcFile);
             generateLayoutFile(srcFile, psiPath);
+
+            if(isRefreshTemplate && mvvmBox.isSelected()) {
+                String itemSFile = "page" + (mvvmBox.isSelected() ? "/" + MVVM_DIR : "") + "/RefreshItemLayout.xml.txt";
+                generateLayoutFile(itemSFile, psiPath, true);
+            }
         }
     }
 
