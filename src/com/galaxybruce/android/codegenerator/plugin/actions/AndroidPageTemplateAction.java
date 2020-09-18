@@ -239,7 +239,7 @@ public class AndroidPageTemplateAction extends AndroidUiTemplateAction {
 
     private void generateRefreshFragmentActivity() {
         generateRefreshFragment();
-        String srcFile = "page" + (mvvmBox.isSelected() ? "/" + MVVM_DIR : "") + "/FragmentActivity.java.txt";
+        String srcFile = "page" + (mvvmBox.isSelected() ? "/" + "" : "") + "/FragmentActivity.java.txt";
         generateFile(srcFile, psiPath, ACTIVITY_DIR, "FragmentActivity.java", false);
     }
 

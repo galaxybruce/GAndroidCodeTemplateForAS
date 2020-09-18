@@ -1,0 +1,155 @@
+
+import android.content.Context;
+import android.os.Bundle;
+import android.view.View;
+
+import androidx.databinding.ViewDataBinding;
+
+import com.kidswant.annotation.router.Route;
+import com.kidswant.basic.base.jetpack.JPBaseFragment;
+import com.kidswant.basic.base.jetpack.JPBaseViewModel;
+import com.kidswant.basic.base.jetpack.JPDataBindingConfig;
+import com.kidswant.basic.base.jetpack.adapter.JPRecyclerViewLoadMoreAdapter;
+import com.kidswant.basic.utils.ToastUtils;
+import ${modulePackage}.databinding.${name}ItemLayoutBinding;
+import ${modulePackage}.databinding.${name}LayoutBinding;
+import com.linkkids.component.ui.view.bbsview.BBSRecyclerView2;
+
+import org.jetbrains.annotations.Nullable;
+
+${importR}
+${importBR}
+import ${package}.mvvm.viewmodel.${name}ViewModel;
+
+public class ${name}Fragment extends JPBaseFragment {
+
+    public static ${name}Fragment newInstance(Bundle args) {
+        if(args == null) {
+            args = new Bundle();
+        }
+        ${name}Fragment fragment = new ${name}Fragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    private ${name}ViewModel mPageViewModel;
+
+    @Override
+    protected JPBaseViewModel initViewModel() {
+        mPageViewModel = getFragmentViewModel(${name}ViewModel.class);
+        // todo tip: 这里还可能会初始化全局的ViewModel
+        // mSharedViewModel = getAppViewModelProvider().get(SharedViewModel.class);
+        return mPageViewModel;
+    }
+
+    @Override
+    protected JPDataBindingConfig initDataBindConfig() {
+        return new JPDataBindingConfig(getLayoutId())
+                .addBindingParam(BR.vm, mPageViewModel);
+    }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.${layoutName};
+    }
+
+    @Override
+    public void initData(@Nullable Bundle bundle, @Nullable Bundle savedInstanceState) {
+        super.initData(bundle, savedInstanceState);
+
+        // todo init data from Intent
+//        final Intent intent = getIntent();
+//        String a = intent.getStringExtra("xxx");
+    }
+
+    @Override
+    public void initView(View view) {
+        super.initView(view);
+
+        ${name}LayoutBinding binding = (${name}LayoutBinding)getBinding();
+        BBSRecyclerView2<String> bbsRecyclerView = binding.bbsRecyclerView;
+        bbsRecyclerView.setBbsAdapter(new InnerAdapter(mContext))
+                //.setNeedShowEmptyNoData(false)
+                .setPullRefreshEnable(true)
+                .setRequestDataIfViewCreated(false)
+                .setInitPage(1)
+//                .setNoDataContent("暂无数据～")
+//                .setNoDataImage(R.drawable.live_lottery_list_empty_icon)
+//                .setRecyclerViewPadding(new Rect(0, DensityUtil.dp2px(12f), 0, DensityUtil.dp2px(12f)))
+//                .addItemDecoration(SpacesItemDecoration(0, DensityUtil.dp2px(10f)))
+                .setBbsRequestListener(new BBSRecyclerView2.BBSRequestListener() {
+                    @Override
+                    public void sendRequestData(boolean refresh, int page) {
+                        performRequest();
+                    }
+
+                    @Override
+                    public void sendRequestLoadMoreData(int page) {
+                        performRequest();
+                    }
+                }).create();
+    }
+
+    @Override
+    public void bindData(@Nullable Bundle savedInstanceState) {
+        super.bindData(savedInstanceState);
+
+        mPageViewModel.title.set("xxx");
+
+        // 页面重建时，判断是否有数据，没有数据才发送请求
+        if(mPageViewModel.listData.getValue().getList() == null || mPageViewModel.listData.getValue().getList().isEmpty()) {
+            performRequest();
+        }
+    }
+
+    private void performRequest() {
+        // todo perform net Requrest
+        mPageViewModel.request.performRequest("xxx");
+    }
+
+
+    private class InnerAdapter extends JPRecyclerViewLoadMoreAdapter<String> {
+
+        private static final int VIEW_TYPE_XXX = 0x2001f;
+
+        public InnerAdapter(Context context) {
+            super(context);
+        }
+
+        @Override
+        public boolean needLoadMore() {
+            return true;
+        }
+
+        @Override
+        protected boolean showFooterViewOfHint() {
+            return true;
+        }
+
+        @Override
+        protected int getRealItemViewType(int position) {
+            return VIEW_TYPE_XXX;
+        }
+
+        @Override
+        protected int getLayoutId(int viewType) {
+            if(viewType == VIEW_TYPE_XXX) {
+                return R.layout.${itemLayoutName};
+            }
+            return super.getLayoutId(viewType);
+        }
+
+        @Override
+        protected void onBindItem(ViewDataBinding binding, int dataPosition) {
+            if(binding instanceof ${name}ItemLayoutBinding) {
+                String itemInfo = getData().get(dataPosition);
+                ${name}ItemLayoutBinding itemLayoutBinding = ((${name}ItemLayoutBinding) binding);
+                itemLayoutBinding.setVm(itemInfo);
+                itemLayoutBinding.tvName.setOnClickListener(v -> {
+                    ToastUtils.showToast(mContext, "click item: " + itemInfo);
+                });
+            }
+        }
+    }
+
+}
