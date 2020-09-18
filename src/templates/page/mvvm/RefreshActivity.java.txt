@@ -11,8 +11,7 @@ import com.kidswant.basic.base.jetpack.JPBaseViewModel;
 import com.kidswant.basic.base.jetpack.JPDataBindingConfig;
 import com.kidswant.basic.base.jetpack.adapter.JPRecyclerViewLoadMoreAdapter;
 import com.kidswant.basic.utils.ToastUtils;
-import ${modulePackage}.databinding.${name}ItemLayoutBinding;
-import ${modulePackage}.databinding.${name}LayoutBinding;
+
 import com.linkkids.component.ui.view.bbsview.BBSRecyclerView2;
 
 import org.jetbrains.annotations.Nullable;
@@ -20,6 +19,8 @@ import org.jetbrains.annotations.Nullable;
 ${importR};
 ${importBR};
 import ${package}.mvvm.viewmodel.${name}ViewModel;
+import ${modulePackage}.databinding.${name}ItemLayoutBinding;
+import ${modulePackage}.databinding.${name}LayoutBinding;
 
 @Route(path = "xxx")
 public class ${name}Activity extends JPBaseActivity {

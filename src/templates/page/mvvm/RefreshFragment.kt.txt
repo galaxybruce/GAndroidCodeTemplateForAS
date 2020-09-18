@@ -1,0 +1,140 @@
+
+import android.content.Context
+import android.os.Bundle
+import android.view.View
+import androidx.databinding.ViewDataBinding
+
+import com.kidswant.basic.base.jetpack.JPBaseFragment
+import com.kidswant.basic.base.jetpack.JPBaseViewModel
+import com.kidswant.basic.base.jetpack.JPDataBindingConfig
+import com.kidswant.basic.base.jetpack.adapter.JPRecyclerViewLoadMoreAdapter
+import com.kidswant.basic.utils.ToastUtils
+import com.kidswant.common.utils.click
+
+import com.linkkids.component.ui.view.bbsview.AbsBBSRecyclerView.BBSRequestListener
+import com.linkkids.component.ui.view.bbsview.BBSRecyclerView2
+
+${importR}
+${importBR}
+import ${package}.mvvm.viewmodel.${name}ViewModel
+import ${modulePackage}.databinding.${name}ItemLayoutBinding
+import ${modulePackage}.databinding.${name}LayoutBinding
+
+
+class ${name}Fragment : JPBaseFragment() {
+
+    companion object {
+        fun newInstance(args: Bundle?): ${name}Fragment {
+            var args = args
+            if (args == null) {
+                args = Bundle()
+            }
+            val fragment = ${name}Fragment()
+            fragment.arguments = args
+            return fragment
+        }
+    }
+
+    private lateinit var mPageViewModel: ${name}ViewModel
+
+    override fun initViewModel(): JPBaseViewModel {
+        mPageViewModel = getFragmentViewModel(${name}ViewModel::class.java)
+        // todo tip: 这里还可能会初始化全局的ViewModel
+        // mSharedViewModel = getAppViewModelProvider().get(SharedViewModel::class.java)
+        return mPageViewModel
+    }
+
+    override fun initDataBindConfig(): JPDataBindingConfig {
+        return JPDataBindingConfig(layoutId)
+            .addBindingParam(BR.vm, mPageViewModel)
+    }
+
+    override fun getLayoutId(): Int {
+        return R.layout.${layoutName}
+    }
+
+    override fun initData(bundle: Bundle?, savedInstanceState: Bundle?) {
+        super.initData(bundle, savedInstanceState)
+
+        // todo init data from Intent
+//        final Intent intent = getIntent();
+//        String a = intent.getStringExtra("xxx");
+    }
+
+    override fun initView(view: View?) {
+        super.initView(view)
+
+        val binding = binding as ${name}LayoutBinding
+        val bbsRecyclerView: BBSRecyclerView2<String> = binding.bbsRecyclerView as BBSRecyclerView2<String>
+        bbsRecyclerView.setBbsAdapter(InnerAdapter(mContext)) //.setNeedShowEmptyNoData(false)
+            .setPullRefreshEnable(true)
+            .setRequestDataIfViewCreated(false)
+            .setInitPage(1)
+//                .setNoDataContent("暂无数据～")
+//                .setNoDataImage(R.drawable.live_lottery_list_empty_icon)
+//                .setRecyclerViewPadding(new Rect(0, DensityUtil.dp2px(12f), 0, DensityUtil.dp2px(12f)))
+//                .addItemDecoration(SpacesItemDecoration(0, DensityUtil.dp2px(10f)))
+            .setBbsRequestListener(object : BBSRequestListener {
+                override fun sendRequestData(refresh: Boolean, page: Int) {
+                    performRequest()
+                }
+
+                override fun sendRequestLoadMoreData(page: Int) {
+                    performRequest()
+                }
+            }).create()
+    }
+
+    override fun bindData(savedInstanceState: Bundle?) {
+        super.bindData(savedInstanceState)
+        mPageViewModel.title.set("xxx")
+
+        // 页面重建时，判断是否有数据，没有数据才发送请求
+        if (mPageViewModel.listData.value?.list.isNullOrEmpty()) {
+            performRequest()
+        }
+    }
+
+    private fun performRequest() {
+        // todo perform net Requrest
+        mPageViewModel.request.performRequest("xxx")
+    }
+
+    private inner class InnerAdapter(context: Context) : JPRecyclerViewLoadMoreAdapter<String?>(context) {
+
+        private val VIEW_TYPE_XXX = 0x2001f
+
+        override fun needLoadMore(): Boolean {
+            return true
+        }
+
+        override fun showFooterViewOfHint(): Boolean {
+            return true
+        }
+
+        override fun getRealItemViewType(position: Int): Int {
+            return VIEW_TYPE_XXX
+        }
+
+        override fun getLayoutId(viewType: Int): Int {
+            return if (viewType == VIEW_TYPE_XXX) {
+                R.layout.${itemLayoutName}
+            } else {
+                super.getLayoutId(viewType)
+            }
+        }
+
+        override fun onBindItem(binding: ViewDataBinding, dataPosition: Int) {
+            if (binding is ${name}ItemLayoutBinding) {
+                val itemInfo = data[dataPosition]
+                binding.vm = itemInfo
+                binding.tvName.click {
+                    ToastUtils.showToast(mContext, "click item: $itemInfo"
+                    )
+                }
+            }
+        }
+
+    }
+
+}
