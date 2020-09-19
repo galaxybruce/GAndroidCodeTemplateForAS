@@ -10,12 +10,12 @@ import com.kidswant.component.util.statusbar.BBSStatusBarUtil;
 import com.kidswant.component.view.titlebar.TitleBarLayout;
 
 import org.jetbrains.annotations.Nullable;
+import java.util.List;
 
-${importR}
+${importR};
 import ${package}.mvp.${name}Contract;
 import ${package}.mvp.${name}Presenter;
 
-@Route(path = "xxx")
 public class ${name}Fragment extends BSBaseFragment<${name}Contract.View, ${name}Presenter>
         implements ${name}Contract.View {
 
@@ -75,7 +75,7 @@ public class ${name}Fragment extends BSBaseFragment<${name}Contract.View, ${name
     }
 
     @Override
-    public void handleRequestResult() {
+    public void handleRequestResult(List<String> list) {
 
     }
 }

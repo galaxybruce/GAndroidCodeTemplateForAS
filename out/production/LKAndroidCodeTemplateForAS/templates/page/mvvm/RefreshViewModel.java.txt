@@ -1,0 +1,38 @@
+
+import androidx.databinding.ObservableField;
+import androidx.lifecycle.MutableLiveData;
+
+import com.kidswant.basic.base.jetpack.JPBaseRequest;
+import com.kidswant.basic.base.jetpack.JPBaseViewModel;
+import com.kidswant.basic.base.jetpack.JPListDataModel;
+
+import org.jetbrains.annotations.Nullable;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import ${package}.mvvm.request.${name}Request;
+
+public class ${name}ViewModel extends JPBaseViewModel {
+
+    // ObservableField 有防抖的特点, 防抖可以避免重复刷新 以减少不必要的性能开销，所以看情况选择 ObservableField 或 LiveData。
+    public final ObservableField<String> title = new ObservableField<>();
+    // 控制recyclerView是否调用notifyDataSetChanged()
+    public final MutableLiveData<Boolean> notifyCurrentListChanged = new MutableLiveData<>();
+    public final MutableLiveData<JPListDataModel> listData = new MutableLiveData<>();
+
+    public final ${name}Request request = new ${name}Request(this);
+
+    @Nullable
+    @Override
+    public List<JPBaseRequest> getRequests() {
+        List<JPBaseRequest> list = new ArrayList<>(1);
+        list.add(request);
+        return list;
+    }
+
+
+    {
+        listData.setValue(new JPListDataModel(null, false));
+    }
+}

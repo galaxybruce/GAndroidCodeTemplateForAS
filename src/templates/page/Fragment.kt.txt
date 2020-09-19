@@ -1,0 +1,75 @@
+
+import android.app.Activity
+import android.os.Bundle
+import android.view.View
+import com.kidswant.common.base.BSBaseFragment
+import com.kidswant.common.utils.TitleUtils
+import com.kidswant.component.util.statusbar.BBSStatusBarUtil
+import com.kidswant.component.view.titlebar.TitleBarLayout
+
+${importR}
+import ${package}.mvp.${name}Contract
+import ${package}.mvp.${name}Presenter
+
+class ${name}Fragment : BSBaseFragment<${name}Contract.View, ${name}Presenter>(), ${name}Contract.View {
+
+    companion object {
+        fun newInstance(args: Bundle?): ${name}Fragment {
+            var args = args
+            if (args == null) {
+                args = Bundle()
+            }
+            val fragment = ${name}Fragment()
+            fragment.arguments = args
+            return fragment
+        }
+    }
+
+    private lateinit var titleBar: TitleBarLayout
+
+    override fun createPresenter(): ${name}Presenter {
+        return ${name}Presenter()
+    }
+
+    override fun getLayoutId(): Int {
+        return R.layout.${layoutName}
+    }
+
+    override fun initData(bundle: Bundle?, savedInstanceState: Bundle?) {
+        super.initData(bundle, savedInstanceState)
+
+        // todo init data from Intent
+//       String a = bundle.getString("xxx")
+    }
+
+    override fun initView(view: View?) {
+        super.initView(view)
+
+        val activity: Activity? = activity
+        // init titleBar
+        titleBar = findViewById(com.linkkids.component.R.id.title_bar)
+        BBSStatusBarUtil.setTranslucentForWindow(
+            activity,
+            titleBar,
+            com.linkkids.component.R.drawable.titlebar_gradient_bg,
+            true
+        )
+        TitleUtils.setDefaultTitleByNoBackgroud(titleBar, activity, "xxx", null, true)
+
+        // todo init view
+//        titleBar = findViewById(com.linkkids.component.R.id.title_bar);
+    }
+
+    override fun bindData(savedInstanceState: Bundle?) {
+        super.bindData(savedInstanceState)
+
+        performRequest()
+    }
+
+    private fun performRequest() {
+        // todo perform net Requrest
+        mPresenter.performRequest("xxx")
+    }
+
+    override fun handleRequestResult(list: List<String>?) {}
+}

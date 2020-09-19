@@ -1,0 +1,15 @@
+
+import com.kidswant.common.base.BSBaseView
+
+interface ${name}Contract {
+
+    interface Presenter {
+        // sample method, please delete it
+        fun performRequest(activityId: String?)
+    }
+
+    interface View : BSBaseView {
+        // sample method, please delete it
+        fun handleRequestResult(list: List<String>?)
+    }
+}

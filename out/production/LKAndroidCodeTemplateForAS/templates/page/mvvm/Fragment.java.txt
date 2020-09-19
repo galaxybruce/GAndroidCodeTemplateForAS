@@ -1,0 +1,83 @@
+
+import android.os.Bundle;
+
+import com.kidswant.basic.base.jetpack.JPBaseFragment;
+import com.kidswant.basic.base.jetpack.JPBaseViewModel;
+import com.kidswant.basic.base.jetpack.JPDataBindingConfig;
+
+import org.jetbrains.annotations.Nullable;
+
+${importR};
+${importBR};
+import ${package}.mvvm.viewmodel.${name}ViewModel;
+
+public class ${name}Fragment extends JPBaseFragment {
+
+    public static ${name}Fragment newInstance(Bundle args) {
+        if(args == null) {
+            args = new Bundle();
+        }
+        ${name}Fragment fragment = new ${name}Fragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    private ${name}ViewModel mPageViewModel;
+
+    @Override
+    protected JPBaseViewModel initViewModel() {
+        mPageViewModel = getFragmentViewModel(${name}ViewModel.class);
+        // todo tip: 这里还可能会初始化全局的ViewModel
+        // mSharedViewModel = getAppViewModelProvider().get(SharedViewModel.class);
+        return mPageViewModel;
+    }
+
+    @Override
+    protected JPDataBindingConfig initDataBindConfig() {
+        return new JPDataBindingConfig(getLayoutId())
+                .addBindingParam(BR.vm, mPageViewModel)
+                .addBindingParam(BR.click, new ClickProxy());
+    }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.${layoutName};
+    }
+
+    @Override
+    public void initData(@Nullable Bundle bundle, @Nullable Bundle savedInstanceState) {
+        super.initData(bundle, savedInstanceState);
+
+        // todo init data from Intent
+//        final Intent intent = getIntent();
+//        String a = intent.getStringExtra("xxx");
+    }
+
+    @Override
+    public void bindData(@Nullable Bundle savedInstanceState) {
+        super.bindData(savedInstanceState);
+
+        // todo LiveData数据监听例子，实际代码请删除
+        mPageViewModel.name.observe(getViewLifecycleOwner(), s -> {
+            showToast("name has changed");
+        });
+
+        performRequest();
+    }
+
+    private void performRequest() {
+        // todo perform net Requrest
+        mPageViewModel.request.performRequest("xxx");
+    }
+
+    /**
+     * 页面事件类，可以把所有事件都写在这里
+     */
+    public class ClickProxy {
+
+        public void handleName() {
+            showToast("handleName: " + mPageViewModel.name.getValue());
+        }
+
+    }
+}

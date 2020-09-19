@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -18,8 +19,9 @@ import com.kidswant.component.view.titlebar.TitleBarLayout;
 import com.linkkids.component.ui.view.bbsview.BBSRecyclerView2;
 
 import org.jetbrains.annotations.Nullable;
+import java.util.List;
 
-${importR}
+${importR};
 import ${package}.mvp.${name}Contract;
 import ${package}.mvp.${name}Presenter;
 
@@ -65,7 +67,7 @@ public class ${name}Activity extends BSBaseActivity<${name}Contract.View, ${name
         mBBSRecyclerView.setBbsAdapter(mInnerAdapter)
                 //.setNeedShowEmptyNoData(false)
                 .setPullRefreshEnable(true)
-                .setRequestDataIfViewCreated(true)
+                .setRequestDataIfViewCreated(false)
                 .setInitPage(1)
 //                .setNoDataContent("暂无数据～")
 //                .setNoDataImage(R.drawable.live_lottery_list_empty_icon)
@@ -74,7 +76,7 @@ public class ${name}Activity extends BSBaseActivity<${name}Contract.View, ${name
                 .setBbsRequestListener(new BBSRecyclerView2.BBSRequestListener() {
                     @Override
                     public void sendRequestData(boolean refresh, int page) {
-
+                        performRequest();
                     }
 
                     @Override
@@ -88,11 +90,17 @@ public class ${name}Activity extends BSBaseActivity<${name}Contract.View, ${name
     public void bindData(@Nullable Bundle savedInstanceState) {
         super.bindData(savedInstanceState);
 
+        performRequest();
+    }
+
+    private void performRequest() {
+        // todo perform net Requrest
+        mPresenter.performRequest("xxx");
     }
 
     @Override
-    public void handleRequestResult() {
-        mBBSRecyclerView.getBbsExecuteListener().executeOnLoadDataSuccess(info != null ? info.list : null);
+    public void handleRequestResult(List<String> list) {
+        mBBSRecyclerView.getBbsExecuteListener().executeOnLoadDataSuccess(list);
         mBBSRecyclerView.getBbsExecuteListener().executeOnLoadFinish();
     }
 
@@ -124,7 +132,7 @@ public class ${name}Activity extends BSBaseActivity<${name}Contract.View, ${name
             if (viewType == VIEW_TYPE_XXX) {
                 return new RecyclerViewHolder(mContext,
                         LayoutInflater.from(mContext)
-                        .inflate(R.layout.xxx, viewGroup,false));
+                        .inflate(R.layout.${itemLayoutName}, viewGroup,false));
             }
             return super.onCreateRealViewHolder(viewGroup, viewType);
         }
@@ -135,8 +143,8 @@ public class ${name}Activity extends BSBaseActivity<${name}Contract.View, ${name
             if (holder instanceof RecyclerViewHolder) {
                 RecyclerViewHolder recyclerViewHolder = (RecyclerViewHolder) holder;
 
-//                ((TextView)recyclerViewHolder.getView(com.linkkids.component.R.id.tv_choose))
-//                        .setText("已选");
+                ((TextView)recyclerViewHolder.getView(R.id.tv_name))
+                        .setText("已选");
             }
         }
 

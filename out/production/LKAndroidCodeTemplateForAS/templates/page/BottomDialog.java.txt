@@ -4,7 +4,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.kidswant.common.dialog.BaseBottomSheetDialog;
-${importR}
+${importR};
 
 /**
  * @date

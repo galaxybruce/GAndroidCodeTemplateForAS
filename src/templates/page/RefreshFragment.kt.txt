@@ -1,0 +1,147 @@
+
+import android.app.Activity
+import android.content.Context
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
+
+import com.kidswant.common.base.BSBaseFragment
+import com.kidswant.common.utils.TitleUtils
+import com.kidswant.component.base.adapter.KWRecyclerLoadMoreAdapter
+import com.kidswant.component.base.adapter.RecyclerViewHolder
+import com.kidswant.component.util.statusbar.BBSStatusBarUtil
+import com.kidswant.component.view.titlebar.TitleBarLayout
+
+import com.linkkids.component.ui.view.bbsview.AbsBBSRecyclerView.BBSRequestListener
+import com.linkkids.component.ui.view.bbsview.BBSRecyclerView2
+
+${importR}
+import ${package}.mvp.${name}Contract
+import ${package}.mvp.${name}Presenter
+
+class ${name}Fragment : BSBaseFragment<${name}Contract.View, ${name}Presenter>(), ${name}Contract.View {
+
+    companion object {
+        fun newInstance(args: Bundle?): ${name}Fragment {
+            var args = args
+            if (args == null) {
+                args = Bundle()
+            }
+            val fragment = ${name}Fragment()
+            fragment.arguments = args
+            return fragment
+        }
+    }
+    
+    private lateinit var titleBar: TitleBarLayout
+    private lateinit var mBBSRecyclerView: BBSRecyclerView2<Any>
+    private lateinit var mInnerAdapter: InnerAdapter
+
+    override fun createPresenter(): ${name}Presenter {
+        return ${name}Presenter()
+    }
+
+    override fun getLayoutId(): Int {
+        return R.layout.${layoutName}
+    }
+
+    override fun initData(bundle: Bundle?, savedInstanceState: Bundle?) {
+        super.initData(bundle, savedInstanceState)
+
+        // todo init data from Intent
+//       String a = bundle.getString("xxx")
+    }
+
+    override fun initView(view: View?) {
+        super.initView(view)
+
+        val activity: Activity? = activity
+        // init titleBar
+        titleBar = findViewById(com.linkkids.component.R.id.title_bar)
+        BBSStatusBarUtil.setTranslucentForWindow(
+            activity,
+            titleBar,
+            com.linkkids.component.R.drawable.titlebar_gradient_bg,
+            true
+        )
+        TitleUtils.setDefaultTitleByNoBackgroud(titleBar, activity, "xxx", null, true)
+
+        // todo init view
+        mBBSRecyclerView = findViewById(R.id.bbs_recyclerView)
+        mInnerAdapter = InnerAdapter(mContext)
+        mBBSRecyclerView.setBbsAdapter(mInnerAdapter)
+            //.setNeedShowEmptyNoData(false)
+            .setPullRefreshEnable(true)
+            .setRequestDataIfViewCreated(false)
+            .setInitPage(1)
+//                .setNoDataContent("暂无数据～")
+//                .setNoDataImage(R.drawable.live_lottery_list_empty_icon)
+//                .setRecyclerViewPadding(new Rect(0, DensityUtil.dp2px(12f), 0, DensityUtil.dp2px(12f)))
+//                .addItemDecoration(SpacesItemDecoration(0, DensityUtil.dp2px(10f)))
+            .setBbsRequestListener(object : BBSRequestListener {
+                override fun sendRequestData(refresh: Boolean, page: Int) {
+                    performRequest()
+                }
+
+                override fun sendRequestLoadMoreData(page: Int) {
+
+                }
+
+            }).create()
+    }
+
+    override fun bindData(savedInstanceState: Bundle?) {
+        super.bindData(savedInstanceState)
+
+        performRequest()
+    }
+
+    private fun performRequest() {
+        // todo perform net Requrest
+        mPresenter.performRequest("xxx")
+    }
+
+    override fun handleRequestResult(list: List<String>?) {
+        mBBSRecyclerView.bbsExecuteListener.executeOnLoadDataSuccess(list)
+        mBBSRecyclerView.bbsExecuteListener.executeOnLoadFinish()
+    }
+
+    private inner class InnerAdapter(context: Context?) : KWRecyclerLoadMoreAdapter<Any?>(context) {
+
+        private val VIEW_TYPE_XXX = 0x2001f
+        
+        override fun needLoadMore(): Boolean {
+            return true
+        }
+
+        override fun showFooterViewOfHint(): Boolean {
+            return true
+        }
+
+        override fun getRealItemViewType(position: Int): Int {
+            return VIEW_TYPE_XXX
+        }
+
+        override fun onCreateRealViewHolder(viewGroup: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+            return if (viewType == VIEW_TYPE_XXX) {
+                RecyclerViewHolder(
+                    mContext,
+                    LayoutInflater.from(mContext).inflate(R.layout.${itemLayoutName}, viewGroup, false)
+                )
+            } else super.onCreateRealViewHolder(
+                viewGroup, viewType
+            )
+        }
+
+        override fun onBindRealViewHolder(holder: RecyclerView.ViewHolder, dataPosition: Int) {
+            super.onBindRealViewHolder(holder, dataPosition)
+            if (holder is RecyclerViewHolder) {
+                (holder.getView<View>(R.id.tv_name) as TextView).text = "已选"
+            }
+        }
+    }
+    
+}
