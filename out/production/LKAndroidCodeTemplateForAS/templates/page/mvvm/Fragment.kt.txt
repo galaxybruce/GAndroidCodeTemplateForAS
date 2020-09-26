@@ -55,8 +55,8 @@ class ${name}Fragment : JPBaseFragment() {
         super.bindData(savedInstanceState)
 
         // todo LiveData数据监听例子，实际代码请删除
-        mPageViewModel.name.observe(
-            viewLifecycleOwner,
+        setLiveDataObserver(
+            mPageViewModel.name,
             Observer { s: String? -> showToast("name has changed") })
 
         performRequest()

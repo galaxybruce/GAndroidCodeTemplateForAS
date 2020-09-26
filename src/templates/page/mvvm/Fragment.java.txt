@@ -58,7 +58,7 @@ public class ${name}Fragment extends JPBaseFragment {
         super.bindData(savedInstanceState);
 
         // todo LiveData数据监听例子，实际代码请删除
-        mPageViewModel.name.observe(getViewLifecycleOwner(), s -> {
+        setLiveDataObserver(mPageViewModel.name, s -> {
             showToast("name has changed");
         });
 

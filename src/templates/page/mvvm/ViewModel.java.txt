@@ -1,4 +1,5 @@
 
+import androidx.databinding.ObservableField;
 import androidx.lifecycle.MutableLiveData;
 
 import com.kidswant.basic.base.jetpack.JPBaseRequest;
@@ -14,13 +15,10 @@ import ${package}.mvvm.request.${name}Request;
 public class ${name}ViewModel extends JPBaseViewModel {
 
     // ObservableField 有防抖的特点, 防抖可以避免重复刷新 以减少不必要的性能开销，所以看情况选择 ObservableField 或 LiveData。
+    public final ObservableField<String> title = new ObservableField<>();
     public final MutableLiveData<String> name = new MutableLiveData<>();
 
     public final ${name}Request request = new ${name}Request(this);
-
-    {
-        name.setValue("初始化数据");
-    }
 
     @Nullable
     @Override
@@ -29,4 +27,10 @@ public class ${name}ViewModel extends JPBaseViewModel {
         list.add(request);
         return list;
     }
+
+
+    {
+        name.setValue("初始化数据");
+    }
+
 }

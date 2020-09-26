@@ -50,8 +50,9 @@ public class ${name}Activity extends JPBaseActivity {
     public void bindData(@Nullable Bundle savedInstanceState) {
         super.bindData(savedInstanceState);
 
+        mPageViewModel.title.set("xxx");
         // todo LiveData数据监听例子，实际代码请删除
-        mPageViewModel.name.observe(this, s -> {
+        setLiveDataObserver(mPageViewModel.name, s -> {
             showToast("name has changed");
         });
 

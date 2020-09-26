@@ -78,8 +78,8 @@ class ${name}Activity : JPBaseActivity() {
 
     override fun bindData(savedInstanceState: Bundle?) {
         super.bindData(savedInstanceState)
-        mPageViewModel.title.set("xxx")
 
+        mPageViewModel.title.set("xxx")
         // 页面重建时，判断是否有数据，没有数据才发送请求
         if (mPageViewModel.listData.value?.list.isNullOrEmpty()) {
             performRequest()
