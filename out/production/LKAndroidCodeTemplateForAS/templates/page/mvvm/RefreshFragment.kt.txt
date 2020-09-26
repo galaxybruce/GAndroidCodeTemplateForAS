@@ -21,7 +21,7 @@ import ${modulePackage}.databinding.${name}ItemLayoutBinding
 import ${modulePackage}.databinding.${name}LayoutBinding
 
 
-class ${name}Fragment : JPBaseFragment() {
+class ${name}Fragment : JPBaseFragment<${name}LayoutBinding>() {
 
     companion object {
         fun newInstance(args: Bundle?): ${name}Fragment {
@@ -64,8 +64,8 @@ class ${name}Fragment : JPBaseFragment() {
     override fun initView(view: View?) {
         super.initView(view)
 
-        val binding = binding as ${name}LayoutBinding
-        val bbsRecyclerView: BBSRecyclerView2<String> = binding.bbsRecyclerView as BBSRecyclerView2<String>
+        val realBinding = binding
+        val bbsRecyclerView: BBSRecyclerView2<String> = realBinding.bbsRecyclerView as BBSRecyclerView2<String>
         bbsRecyclerView.setBbsAdapter(InnerAdapter(mContext)) //.setNeedShowEmptyNoData(false)
             .setPullRefreshEnable(true)
             .setRequestDataIfViewCreated(false)

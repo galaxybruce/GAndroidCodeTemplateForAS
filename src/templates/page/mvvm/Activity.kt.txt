@@ -10,9 +10,10 @@ import com.kidswant.basic.base.jetpack.JPDataBindingConfig
 ${importR}
 ${importBR}
 import ${package}.mvvm.viewmodel.${name}ViewModel
+import ${modulePackage}.databinding.${name}LayoutBinding
 
 @Route(path = ["xxx"])
-class ${name}Activity : JPBaseActivity() {
+class ${name}Activity : JPBaseActivity<${name}LayoutBinding>() {
 
     private lateinit var mPageViewModel: ${name}ViewModel
 

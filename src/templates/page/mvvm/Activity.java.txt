@@ -11,9 +11,10 @@ import org.jetbrains.annotations.Nullable;
 ${importR};
 ${importBR};
 import ${package}.mvvm.viewmodel.${name}ViewModel;
+import ${modulePackage}.databinding.${name}LayoutBinding;
 
 @Route(path = "xxx")
-public class ${name}Activity extends JPBaseActivity {
+public class ${name}Activity extends JPBaseActivity<${name}LayoutBinding> {
 
     private ${name}ViewModel mPageViewModel;
 

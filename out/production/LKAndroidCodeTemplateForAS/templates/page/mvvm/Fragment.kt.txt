@@ -9,8 +9,9 @@ import com.kidswant.basic.base.jetpack.JPDataBindingConfig
 ${importR}
 ${importBR}
 import ${package}.mvvm.viewmodel.${name}ViewModel
+import ${modulePackage}.databinding.${name}LayoutBinding
 
-class ${name}Fragment : JPBaseFragment() {
+class ${name}Fragment : JPBaseFragment<${name}LayoutBinding>() {
 
     companion object {
         fun newInstance(args: Bundle?): ${name}Fragment {
@@ -54,6 +55,7 @@ class ${name}Fragment : JPBaseFragment() {
     override fun bindData(savedInstanceState: Bundle?) {
         super.bindData(savedInstanceState)
 
+        mPageViewModel.title.set("xxx")
         // todo LiveData数据监听例子，实际代码请删除
         setLiveDataObserver(
             mPageViewModel.name,

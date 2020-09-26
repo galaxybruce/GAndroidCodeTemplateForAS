@@ -10,8 +10,9 @@ import org.jetbrains.annotations.Nullable;
 ${importR};
 ${importBR};
 import ${package}.mvvm.viewmodel.${name}ViewModel;
+import ${modulePackage}.databinding.${name}LayoutBinding;
 
-public class ${name}Fragment extends JPBaseFragment {
+public class ${name}Fragment extends JPBaseFragment<${name}LayoutBinding> {
 
     public static ${name}Fragment newInstance(Bundle args) {
         if(args == null) {
@@ -57,6 +58,7 @@ public class ${name}Fragment extends JPBaseFragment {
     public void bindData(@Nullable Bundle savedInstanceState) {
         super.bindData(savedInstanceState);
 
+        mPageViewModel.title.set("xxx");
         // todo LiveData数据监听例子，实际代码请删除
         setLiveDataObserver(mPageViewModel.name, s -> {
             showToast("name has changed");

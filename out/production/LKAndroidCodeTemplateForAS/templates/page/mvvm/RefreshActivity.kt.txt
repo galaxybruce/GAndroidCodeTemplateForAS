@@ -24,7 +24,7 @@ import ${modulePackage}.databinding.${name}LayoutBinding
 
 
 @Route(path = ["xxx"])
-class ${name}Activity : JPBaseActivity() {
+class ${name}Activity : JPBaseActivity<${name}LayoutBinding>() {
     
     private lateinit var mPageViewModel: ${name}ViewModel
     
@@ -55,8 +55,8 @@ class ${name}Activity : JPBaseActivity() {
     override fun initView(view: View?) {
         super.initView(view)
 
-        val binding = binding as ${name}LayoutBinding
-        val bbsRecyclerView: BBSRecyclerView2<String> = binding.bbsRecyclerView as BBSRecyclerView2<String>
+        val realBinding = binding
+        val bbsRecyclerView: BBSRecyclerView2<String> = realBinding.bbsRecyclerView as BBSRecyclerView2<String>
         bbsRecyclerView.setBbsAdapter(InnerAdapter(mContext)) //.setNeedShowEmptyNoData(false)
             .setPullRefreshEnable(true)
             .setRequestDataIfViewCreated(false)

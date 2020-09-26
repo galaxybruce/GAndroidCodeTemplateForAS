@@ -11,8 +11,7 @@ import com.kidswant.basic.base.jetpack.JPBaseViewModel;
 import com.kidswant.basic.base.jetpack.JPDataBindingConfig;
 import com.kidswant.basic.base.jetpack.adapter.JPRecyclerViewLoadMoreAdapter;
 import com.kidswant.basic.utils.ToastUtils;
-import ${modulePackage}.databinding.${name}ItemLayoutBinding;
-import ${modulePackage}.databinding.${name}LayoutBinding;
+
 import com.linkkids.component.ui.view.bbsview.BBSRecyclerView2;
 
 import org.jetbrains.annotations.Nullable;
@@ -20,8 +19,10 @@ import org.jetbrains.annotations.Nullable;
 ${importR};
 ${importBR};
 import ${package}.mvvm.viewmodel.${name}ViewModel;
+import ${modulePackage}.databinding.${name}ItemLayoutBinding;
+import ${modulePackage}.databinding.${name}LayoutBinding;
 
-public class ${name}Fragment extends JPBaseFragment {
+public class ${name}Fragment extends JPBaseFragment<${name}LayoutBinding> {
 
     public static ${name}Fragment newInstance(Bundle args) {
         if(args == null) {
@@ -66,8 +67,8 @@ public class ${name}Fragment extends JPBaseFragment {
     public void initView(View view) {
         super.initView(view);
 
-        ${name}LayoutBinding binding = (${name}LayoutBinding)getBinding();
-        BBSRecyclerView2<String> bbsRecyclerView = binding.bbsRecyclerView;
+        ${name}LayoutBinding realBinding = getBinding();
+        BBSRecyclerView2<String> bbsRecyclerView = realBinding.bbsRecyclerView;
         bbsRecyclerView.setBbsAdapter(new InnerAdapter(mContext))
                 //.setNeedShowEmptyNoData(false)
                 .setPullRefreshEnable(true)
