@@ -18,7 +18,7 @@ public class FileUtils {
         in = cls.getResourceAsStream("/templates/" + filename);
         String content = "";
         try {
-            content = new String(readStream(in));
+            content = new String(readStream(in), "utf-8");
         } catch (Exception e) {
         }
         return content;
@@ -54,8 +54,9 @@ public class FileUtils {
                 file.createNewFile();
             }
 
-            FileWriter fw = new FileWriter(file.getAbsoluteFile());
-            BufferedWriter bw = new BufferedWriter(fw);
+//            FileWriter fw = new FileWriter(file.getAbsoluteFile());
+//            BufferedWriter bw = new BufferedWriter(fw);
+            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file.getAbsoluteFile()),"UTF-8"));
             bw.write(content);
             bw.close();
 
