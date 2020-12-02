@@ -14,7 +14,7 @@ ${importR};
  * 使用方式：
  * new ${name}Dialog.Builder()
  *      .title("哈哈哈")
- *      .build().show(getSupportFragmentManager(), null);
+ *      .build().show(getSupportFragmentManager(), "${name}Dialog");
  *
  * <p>
  * modification history:
