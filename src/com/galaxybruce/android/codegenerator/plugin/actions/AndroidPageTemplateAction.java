@@ -22,13 +22,6 @@ public class AndroidPageTemplateAction extends AndroidUiTemplateAction {
 
     private static final Logger LOG = Logger.getInstance("AndroidPageTemplateAction");
 
-
-    static String MVP_DIR = "mvp";
-    static String MVVM_DIR = "mvvm";
-    static String ACTIVITY_DIR = "activity";
-    static String FRAGMENT_DIR = "fragment";
-
-
     @Override
     public void actionPerformed(@NotNull AnActionEvent event) {
         LOG.info("android page template code creates start... ");
@@ -119,6 +112,7 @@ public class AndroidPageTemplateAction extends AndroidUiTemplateAction {
 
         // 是否生成布局文件选项
         layoutBox = new JCheckBox("Layout", true);
+        layoutBox.setEnabled(false);
         kotlinBox = new JCheckBox("Kotlin", false);
         mvvmBox = new JCheckBox("MVVM", false);
         optionsPanel.add(layoutBox);

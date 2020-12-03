@@ -13,9 +13,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.File;
 
-import static com.galaxybruce.android.codegenerator.plugin.actions.AndroidPageTemplateAction.ACTIVITY_DIR;
-import static com.galaxybruce.android.codegenerator.plugin.actions.AndroidPageTemplateAction.FRAGMENT_DIR;
-
 /**
  * dialog模板
  *
@@ -26,6 +23,12 @@ public abstract class AndroidUiTemplateAction extends AnAction {
 
     private static final Logger LOG = Logger.getInstance("AndroidUiTemplateAction");
 
+    static String MVP_DIR = "mvp";
+    static String MVVM_DIR = "mvvm";
+
+    static String ACTIVITY_DIR = "activity";
+    static String FRAGMENT_DIR = "fragment";
+    static String DIALOG_DIR = "dialog";
 
     protected Project project;
     protected String psiPath;
@@ -167,7 +170,7 @@ public abstract class AndroidUiTemplateAction extends AnAction {
         if(!isLayout) {
             content = FileUtils.makePackageString(currentDirPath, kotlinBox != null && kotlinBox.isSelected()) + content;
         }
-        content = content.replaceAll("\\$\\{name\\}", nameTextField.getText());
+        content = content.replaceAll("\\$\\{name\\}", nameTextField.getText() + getNameSuffixStr());
         content = content.replaceAll("\\$\\{package\\}", FileUtils.pathToPackage(psiPath));
         content = content.replaceAll("\\$\\{modulePackage\\}", modulePackage);
 
@@ -180,8 +183,16 @@ public abstract class AndroidUiTemplateAction extends AnAction {
         }
 
         if(isLayout && contextFileName != null) {
+            String contextNameReplace = "";
+            if(contextFileName.contains("Activity")) {
+                contextNameReplace = ACTIVITY_DIR;
+            } else if(contextFileName.contains("Fragment")) {
+                contextNameReplace = FRAGMENT_DIR;
+            } else if(contextFileName.contains("Dialog")) {
+                contextNameReplace = DIALOG_DIR;
+            }
             content = content.replaceAll("\\$\\{contextName\\}",
-                    (contextFileName.contains("Activity") ? ACTIVITY_DIR : FRAGMENT_DIR) + "." + contextFileName);
+                    contextNameReplace + "." + contextFileName);
         }
 
         // 布局文件名称需要驼峰转下划线
@@ -190,6 +201,10 @@ public abstract class AndroidUiTemplateAction extends AnAction {
             content = content.replaceAll("\\$\\{itemLayoutName\\}", itemLayoutFileName);
         }
         return content;
+    }
+
+    protected String getNameSuffixStr() {
+        return "";
     }
 
 }

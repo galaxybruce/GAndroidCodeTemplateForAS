@@ -93,12 +93,21 @@ public class AndroidDialogTemplateAction extends AndroidUiTemplateAction {
 
 
         // 是否生成布局文件选项
-        JPanel file = new JPanel();
-        file.setLayout(new GridLayout(2, 3));
-        file.setBorder(BorderFactory.createTitledBorder("Add Layout"));
+        JPanel optionsPanel = new JPanel();
+        optionsPanel.setLayout(new GridLayout(1, 3));
+        optionsPanel.setBorder(BorderFactory.createTitledBorder("Add Options"));
+
+
+        // 是否生成布局文件选项
         layoutBox = new JCheckBox("Layout", true);
-        file.add(layoutBox);
-        container.add(file);
+        layoutBox.setEnabled(false);
+        kotlinBox = new JCheckBox("Kotlin", false);
+        kotlinBox.setEnabled(false);
+        mvvmBox = new JCheckBox("MVVM", false);
+        optionsPanel.add(layoutBox);
+        optionsPanel.add(kotlinBox);
+        optionsPanel.add(mvvmBox);
+        container.add(optionsPanel);
 
         // 添加一个Panel，用于输入模板文件的名称前缀
         JPanel nameField = new JPanel();
@@ -176,32 +185,38 @@ public class AndroidDialogTemplateAction extends AndroidUiTemplateAction {
     }
 
     private void generateBottomDialog() {
+        generateFile("page" + (mvvmBox.isSelected() ? "/" + MVVM_DIR : "") + "/BottomDialog.java.txt", psiPath, DIALOG_DIR, "Dialog.java", true);
         generateCommonFiles();
         if (layoutBox.isSelected()) {
-            generateLayoutFile("page/BottomDialogLayout.xml.txt", psiPath);
+            generateLayoutFile("page" + (mvvmBox.isSelected() ? "/" + MVVM_DIR : "") + "/BottomDialogLayout.xml.txt", psiPath);
         }
-        generateFile("page/BottomDialog.java.txt", psiPath, DIALOG_DIR, "Dialog.java", false);
     }
 
     private void generateCenterDialog() {
+        generateFile("page" + (mvvmBox.isSelected() ? "/" + MVVM_DIR : "") + "/CenterDialog.java.txt", psiPath, DIALOG_DIR, "Dialog.java", true);
         generateCommonFiles();
         if (layoutBox.isSelected()) {
-            generateLayoutFile("page/CenterDialogLayout.xml.txt", psiPath);
+            generateLayoutFile("page" + (mvvmBox.isSelected() ? "/" + MVVM_DIR : "") + "/CenterDialogLayout.xml.txt", psiPath);
         }
-        generateFile("page/CenterDialog.java.txt", psiPath, DIALOG_DIR, "Dialog.java", false);
     }
 
     private void generateCenterCustomConfirmDialog() {
+        generateFile("page" + (mvvmBox.isSelected() ? "/" + MVVM_DIR : "") + "/CenterCustomConfirmDialog.java.txt", psiPath, DIALOG_DIR, "Dialog.java", true);
         generateCommonFiles();
         if (layoutBox.isSelected()) {
-            generateLayoutFile("page/CenterCustomConfirmDialogLayout.xml.txt", psiPath);
+            generateLayoutFile("page" + (mvvmBox.isSelected() ? "/" + MVVM_DIR : "") + "/CenterCustomConfirmDialogLayout.xml.txt", psiPath);
         }
-        generateFile("page/CenterCustomConfirmDialog.java.txt", psiPath, DIALOG_DIR, "Dialog.java", false);
     }
 
     private void generateCommonFiles() {
-
+        if (mvvmBox.isSelected()) {
+            generateFile("page/mvvm/Request.java.txt", psiPath, MVVM_DIR + File.separator + "request", "DialogRequest.java", false);
+            generateFile("page/mvvm/ViewModel.java.txt", psiPath, MVVM_DIR + File.separator + "viewmodel", "DialogViewModel.java", false);
+        }
     }
 
-
+    @Override
+    protected String getNameSuffixStr() {
+        return "Dialog";
+    }
 }

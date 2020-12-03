@@ -26,7 +26,7 @@ public class ${name}Fragment extends JPBaseFragment<${name}LayoutBinding> {
     private ${name}ViewModel mPageViewModel;
 
     @Override
-    protected JPBaseViewModel initViewModel() {
+    public JPBaseViewModel initViewModel() {
         mPageViewModel = getFragmentViewModel(${name}ViewModel.class);
         // todo tip: 这里还可能会初始化全局的ViewModel
         // mSharedViewModel = getAppViewModelProvider().get(SharedViewModel.class);
@@ -34,7 +34,7 @@ public class ${name}Fragment extends JPBaseFragment<${name}LayoutBinding> {
     }
 
     @Override
-    protected JPDataBindingConfig initDataBindConfig() {
+    public JPDataBindingConfig initDataBindConfig() {
         return new JPDataBindingConfig(getLayoutId())
                 .addBindingParam(BR.vm, mPageViewModel)
                 .addBindingParam(BR.click, new ClickProxy());

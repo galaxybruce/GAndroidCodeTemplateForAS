@@ -1,10 +1,14 @@
 
 import android.os.Bundle;
-import android.view.View;
-import android.widget.TextView;
+import com.kidswant.basic.base.jetpack.JPBaseViewModel;
+import com.kidswant.basic.base.jetpack.JPDataBindingConfig;
+import com.kidswant.common.dialog.BaseBottomDialog;
+import com.kidswant.basic.utils.ToastUtils;
 
-import com.kidswant.common.dialog.BaseCenterDialogFragment;
 ${importR};
+${importBR};
+import ${package}.mvvm.viewmodel.${name}ViewModel;
+import ${modulePackage}.databinding.${name}Binding;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -21,7 +25,7 @@ import org.jetbrains.annotations.Nullable;
  * <p>
  * modification history:
  */
-public class ${name} extends BaseCenterDialogFragment {
+public class ${name} extends BaseBottomDialog<${name}Binding> {
 
     public interface I${name}Callback {
         void on${name}Callback();
@@ -31,7 +35,7 @@ public class ${name} extends BaseCenterDialogFragment {
     I${name}Callback mCallback;
     String mTitle;
 
-    TextView textView;
+    ${name}ViewModel mPageViewModel;
 
     public static final class Builder {
         Bundle bundle;
@@ -53,6 +57,24 @@ public class ${name} extends BaseCenterDialogFragment {
     }
 
     @Override
+    protected boolean supportMVVM() {
+        return true;
+    }
+
+    @Override
+    public JPBaseViewModel initViewModel() {
+        mPageViewModel = getFragmentViewModel(${name}ViewModel.class);
+        return mPageViewModel;
+    }
+
+    @Override
+    public JPDataBindingConfig initDataBindConfig() {
+        return new JPDataBindingConfig(bindLayoutId())
+                .addBindingParam(BR.vm, mPageViewModel)
+                .addBindingParam(BR.click, new ClickProxy());
+    }
+
+    @Override
     public int bindLayoutId() {
         return R.layout.${layoutName};
     }
@@ -70,19 +92,34 @@ public class ${name} extends BaseCenterDialogFragment {
     }
 
     @Override
-    public void initView(View view) {
-        // todo sample code, please delete it
-        textView = view.findViewById(R.id.tv_test);
-    }
-
-    @Override
     public void bindData(Bundle savedInstanceState) {
         // todo sample code, please delete it
-        textView.setText(mTitle);
+        mPageViewModel.title.set("xxx");
+        // todo LiveData数据监听例子，实际代码请删除
+        setLiveDataObserver(mPageViewModel.name, s -> {
+            ToastUtils.showToast(getContext(), "name has changed");
+        });
+
+        performRequest();
+
         if(mCallback != null) {
             mCallback.on${name}Callback();
         }
     }
 
+    private void performRequest() {
+        // todo perform net Requrest
+        mPageViewModel.request.performRequest("xxx");
+    }
 
+    /**
+     * 页面事件类，可以把所有事件都写在这里
+     */
+    public class ClickProxy {
+
+        public void handleName() {
+            ToastUtils.showToast(getContext(), "handleName: " + mPageViewModel.name.getValue());
+        }
+
+    }
 }

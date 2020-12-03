@@ -14,21 +14,21 @@ import org.jetbrains.annotations.Nullable;
  * @description (亲，我是做什么的)
  *
  * 使用方式：
- * new ${name}Dialog.Builder()
+ * new ${name}.Builder()
  *      .title("哈哈哈")
- *      .build().show(getSupportFragmentManager(), "${name}Dialog");
+ *      .build().show(getSupportFragmentManager(), "${name}");
  *
  * <p>
  * modification history:
  */
-public class ${name}Dialog extends BaseCenterDialogFragment {
+public class ${name} extends BaseCenterDialogFragment {
 
-    public interface I${name}DialogCallback {
-        void on${name}DialogCallback();
+    public interface I${name}Callback {
+        void on${name}Callback();
     }
 
     // todo sample code, please delete it 属性字段定义
-    I${name}DialogCallback mCallback;
+    I${name}Callback mCallback;
     String mTitle;
 
     TextView textView;
@@ -45,8 +45,8 @@ public class ${name}Dialog extends BaseCenterDialogFragment {
             return this;
         }
 
-        public ${name}Dialog build() {
-            ${name}Dialog dialog = new ${name}Dialog();
+        public ${name} build() {
+            ${name} dialog = new ${name}();
             dialog.setArguments(bundle);
             return dialog;
         }
@@ -61,9 +61,11 @@ public class ${name}Dialog extends BaseCenterDialogFragment {
     public void initData(@Nullable Bundle bundle, Bundle savedInstanceState) {
         Bundle arguments = getArguments();
         if(arguments != null) {
+           // 获取listener
+           mCallback = getDialogListener(this, I${name}Callback.class);
+
             // todo sample code, please delete it
             mTitle = arguments.getString("title");
-            mCallback = getDialogListener(this, I${name}DialogCallback.class);
         }
     }
 
@@ -78,7 +80,7 @@ public class ${name}Dialog extends BaseCenterDialogFragment {
         // todo sample code, please delete it
         textView.setText(mTitle);
         if(mCallback != null) {
-            mCallback.on${name}DialogCallback();
+            mCallback.on${name}Callback();
         }
     }
 

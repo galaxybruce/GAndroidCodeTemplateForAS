@@ -3,8 +3,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import com.kidswant.common.dialog.BaseBottomSheetDialog;
+import com.kidswant.common.dialog.BaseBottomDialog;
 ${importR};
+
+import org.jetbrains.annotations.Nullable;
 
 /**
  * @date
@@ -12,21 +14,21 @@ ${importR};
  * @description (亲，我是做什么的)
  *
  * 使用方式：
- * new ${name}Dialog.Builder()
+ * new ${name}.Builder()
  *      .title("哈哈哈")
- *      .build().show(getSupportFragmentManager(), "${name}Dialog");
+ *      .build().show(getSupportFragmentManager(), "${name}");
  *
  * <p>
  * modification history:
  */
-public class ${name}Dialog extends BaseBottomSheetDialog {
+public class ${name} extends BaseBottomDialog {
 
-    public interface I${name}DialogCallback {
-        void on${name}DialogCallback();
+    public interface I${name}Callback {
+        void on${name}Callback();
     }
 
     // todo sample code, please delete it 属性字段定义
-    I${name}DialogCallback mCallback;
+    I${name}Callback mCallback;
     String mTitle;
 
     TextView textView;
@@ -43,8 +45,8 @@ public class ${name}Dialog extends BaseBottomSheetDialog {
             return this;
         }
 
-        public ${name}Dialog build() {
-            ${name}Dialog dialog = new ${name}Dialog();
+        public ${name} build() {
+            ${name} dialog = new ${name}();
             dialog.setArguments(bundle);
             return dialog;
         }
@@ -60,7 +62,7 @@ public class ${name}Dialog extends BaseBottomSheetDialog {
         Bundle arguments = getArguments();
         if(arguments != null) {
            // 获取listener
-           mCallback = getDialogListener(this, I${name}DialogCallback.class);
+           mCallback = getDialogListener(this, I${name}Callback.class);
 
             // todo sample code, please delete it
             mTitle = arguments.getString("title");
@@ -78,7 +80,7 @@ public class ${name}Dialog extends BaseBottomSheetDialog {
         // todo sample code, please delete it
         textView.setText(mTitle);
         if(mCallback != null) {
-            mCallback.on${name}DialogCallback();
+            mCallback.on${name}Callback();
         }
     }
 

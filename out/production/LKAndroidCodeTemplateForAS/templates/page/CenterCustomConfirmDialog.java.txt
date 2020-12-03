@@ -14,21 +14,21 @@ import org.jetbrains.annotations.Nullable;
  * @description (亲，我是做什么的)
  *
  * 使用方式：
- * new ${name}Dialog.Builder()
+ * new ${name}.Builder()
  *      .title("哈哈哈")
- *      .build().show(getSupportFragmentManager(), "${name}Dialog");
+ *      .build().show(getSupportFragmentManager(), "${name}");
  *
  * <p>
  * modification history:
  */
-public class ${name}Dialog extends BaseCustomConfirmDialog {
+public class ${name} extends BaseCustomConfirmDialog {
 
-    public interface I${name}DialogCallback {
-        void on${name}DialogCallback();
+    public interface I${name}Callback {
+        void on${name}Callback();
     }
 
     // todo sample code, please delete it 属性字段定义
-    I${name}DialogCallback mCallback;
+    I${name}Callback mCallback;
     String mTitle;
 
     TextView textView;
@@ -45,8 +45,8 @@ public class ${name}Dialog extends BaseCustomConfirmDialog {
             return this;
         }
 
-        public ${name}Dialog build() {
-            ${name}Dialog dialog = new ${name}Dialog();
+        public ${name} build() {
+            ${name} dialog = new ${name}();
             // 自定义确定按钮文本
 //          bundle.putString(KEY_CONFIRM_TEXT, "发送到直播间");
             dialog.setArguments(bundle);
@@ -55,18 +55,20 @@ public class ${name}Dialog extends BaseCustomConfirmDialog {
     }
 
     @Override
-    public int bindLayoutId() {
+    public int bindContentLayoutId() {
         return R.layout.${layoutName};
     }
 
     @Override
     public void initData(@Nullable Bundle bundle, Bundle savedInstanceState) {
-        Bundle arguments = getArguments();
-        if(arguments != null) {
-            // todo sample code, please delete it
-            mTitle = arguments.getString("title");
-            mCallback = getDialogListener(this, I${name}DialogCallback.class);
-        }
+         Bundle arguments = getArguments();
+         if(arguments != null) {
+            // 获取listener
+            mCallback = getDialogListener(this, I${name}Callback.class);
+
+             // todo sample code, please delete it
+             mTitle = arguments.getString("title");
+         }
     }
 
     @Override
@@ -86,7 +88,7 @@ public class ${name}Dialog extends BaseCustomConfirmDialog {
     @Override
     protected void onConfirmClick() {
         if(mCallback != null) {
-            mCallback.on${name}DialogCallback();
+            mCallback.on${name}Callback();
         }
         super.onConfirmClick();
     }
