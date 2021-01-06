@@ -29,7 +29,7 @@
             android:onClick="@{()->click.handleName()}"
             android:gravity="center"
             android:textSize="20sp"
-            binding:text="@{vm.title}"
+            android:text="@{vm.title}"
             tools:text="测试"
             />
 

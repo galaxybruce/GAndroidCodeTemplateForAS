@@ -28,7 +28,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:titleBarDividerHeight="1dp"
-                binding:title='@{vm.title}'
+                binding_title='@{vm.title}'
                 />
         </FrameLayout>
 
@@ -40,8 +40,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/fl_title_layout"
             app:layout_constraintBottom_toBottomOf="parent"
-            binding:bbsRecyclerViewListData="@{vm.listData}"
-            binding:notifyBBSRecyclerViewListChanged="@{vm.notifyCurrentListChanged}"
+            binding_bbsRecyclerViewListData="@{vm.listData}"
+            binding_notifyBBSRecyclerViewListChanged="@{vm.notifyCurrentListChanged}"
             />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
