@@ -64,6 +64,7 @@ public class ${name} extends BaseCenterDialogFragment<${name}Binding> {
     @Override
     public JPBaseViewModel initViewModel() {
         mPageViewModel = getFragmentViewModel(${name}ViewModel.class);
+//        mParentViewModel = getActivityViewModel(LiveCreateViewModel.class);
         return mPageViewModel;
     }
 

@@ -173,7 +173,7 @@ public class AndroidPageTemplateAction extends AndroidUiTemplateAction {
     @Override
     protected void clickCreateFile() {
         layoutFileName = makeLayoutFileName();
-        itemLayoutFileName = makeListItemLayoutFileName();
+        itemLayoutFileName = makeListItemLayoutFileName(false);
 
         switch (templateGroup.getSelection().getActionCommand()) {
             case "Activity":
@@ -204,19 +204,6 @@ public class AndroidPageTemplateAction extends AndroidUiTemplateAction {
         generateLayoutFile("Layout.xml.txt", false);
     }
 
-    private void generateFragment() {
-        String srcFile = "page" + (mvvmBox.isSelected() ? "/" + MVVM_DIR : "") + "/Fragment.java.txt";
-        generateFile(srcFile, psiPath, FRAGMENT_DIR, "Fragment.java", true);
-        generateCommonFiles(false);
-        generateLayoutFile("Layout.xml.txt", false);
-    }
-
-    private void generateFragmentActivity() {
-        generateFragment();
-        String srcFile = "page" + (mvvmBox.isSelected() ? "/" + "" : "") + "/FragmentActivity.java.txt";
-        generateFile(srcFile, psiPath, ACTIVITY_DIR, "FragmentActivity.java", false);
-    }
-
     private void generateRefreshActivity() {
         String srcFile = "page" + (mvvmBox.isSelected() ? "/" + MVVM_DIR : "") + "/RefreshActivity.java.txt";
         generateFile(srcFile, psiPath, ACTIVITY_DIR, "Activity.java", true);
@@ -224,11 +211,24 @@ public class AndroidPageTemplateAction extends AndroidUiTemplateAction {
         generateLayoutFile("RefreshLayout.xml.txt", true);
     }
 
+    private void generateFragment() {
+        String srcFile = "page" + (mvvmBox.isSelected() ? "/" + MVVM_DIR : "") + "/Fragment.java.txt";
+        generateFile(srcFile, psiPath, FRAGMENT_DIR, "Fragment.java", true);
+        generateCommonFiles(false);
+        generateLayoutFile("Layout.xml.txt", false);
+    }
+
     private void generateRefreshFragment() {
         String srcFile = "page" + (mvvmBox.isSelected() ? "/" + MVVM_DIR : "") + "/RefreshFragment.java.txt";
         generateFile(srcFile, psiPath, FRAGMENT_DIR, "Fragment.java", true);
         generateCommonFiles(true);
         generateLayoutFile("RefreshLayout.xml.txt", true);
+    }
+
+    private void generateFragmentActivity() {
+        generateFragment();
+        String srcFile = "page" + (mvvmBox.isSelected() ? "/" + "" : "") + "/FragmentActivity.java.txt";
+        generateFile(srcFile, psiPath, ACTIVITY_DIR, "FragmentActivity.java", false);
     }
 
     private void generateRefreshFragmentActivity() {

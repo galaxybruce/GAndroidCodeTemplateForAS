@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <import type="java.util.ArrayList"/>
         <variable
             name="vm"
             type="java.lang.String" />

@@ -68,27 +68,42 @@ public class AndroidDialogTemplateAction extends AndroidUiTemplateAction {
 
         // 添加一个Panel，用于提供可用的模板类型，如Activity，Fragment
         JPanel template = new JPanel();
-        template.setLayout(new GridLayout(1, 2));
+        template.setLayout(new GridLayout(2, 3));
         template.setBorder(BorderFactory.createTitledBorder("Select Template"));
 
-        JRadioButton bottomDialog = new JRadioButton("Bottom Dialog", true);
-        bottomDialog.setActionCommand("Bottom-Dialog");
+        JRadioButton bottomDialog = new JRadioButton("BottomDialog", true);
+        bottomDialog.setActionCommand("BottomDialog");
         bottomDialog.addActionListener(radioActionListener);
-        JRadioButton centerDialog = new JRadioButton("Center Dialog");
-        centerDialog.setActionCommand("Center-Dialog");
+        JRadioButton centerDialog = new JRadioButton("CenterDialog");
+        centerDialog.setActionCommand("CenterDialog");
         centerDialog.addActionListener(radioActionListener);
-
-        JRadioButton centerCustomConfirmDialog = new JRadioButton("Center CustomConfirm Dialog");
-        centerCustomConfirmDialog.setActionCommand("Center-CustomConfirm-Dialog");
+        JRadioButton centerCustomConfirmDialog = new JRadioButton("CenterCustomConfirmDialog");
+        centerCustomConfirmDialog.setActionCommand("CenterCustomConfirmDialog");
         centerCustomConfirmDialog.addActionListener(radioActionListener);
+
+        JRadioButton refreshBottomDialog = new JRadioButton("RefreshBottomDialog", true);
+        refreshBottomDialog.setActionCommand("RefreshBottomDialog");
+        refreshBottomDialog.addActionListener(radioActionListener);
+        JRadioButton refreshCenterDialog = new JRadioButton("RefreshCenterDialog");
+        refreshCenterDialog.setActionCommand("RefreshCenterDialog");
+        refreshCenterDialog.addActionListener(radioActionListener);
+        JRadioButton refreshCenterCustomConfirmDialog = new JRadioButton("RefreshCenterCustomConfirmDialog");
+        refreshCenterCustomConfirmDialog.setActionCommand("RefreshCenterCustomConfirmDialog");
+        refreshCenterCustomConfirmDialog.addActionListener(radioActionListener);
 
         template.add(bottomDialog);
         template.add(centerDialog);
         template.add(centerCustomConfirmDialog);
+        template.add(refreshBottomDialog);
+        template.add(refreshCenterDialog);
+        template.add(refreshCenterCustomConfirmDialog);
         templateGroup = new ButtonGroup();
         templateGroup.add(bottomDialog);
         templateGroup.add(centerDialog);
         templateGroup.add(centerCustomConfirmDialog);
+        templateGroup.add(refreshBottomDialog);
+        templateGroup.add(refreshCenterDialog);
+        templateGroup.add(refreshCenterCustomConfirmDialog);
         container.add(template);
 
 
@@ -148,10 +163,10 @@ public class AndroidDialogTemplateAction extends AndroidUiTemplateAction {
         @Override
         public void actionPerformed(ActionEvent e) {
             switch (e.getActionCommand()) {
-                case "Bottom-Dialog":
+                case "BottomDialog":
 
                     break;
-                case "Center-Dialog":
+                case "CenterDialog":
 
                     break;
             }
@@ -161,16 +176,26 @@ public class AndroidDialogTemplateAction extends AndroidUiTemplateAction {
     @Override
     protected void clickCreateFile() {
         layoutFileName = makeLayoutFileName();
+        itemLayoutFileName = makeListItemLayoutFileName(true);
 
         switch (templateGroup.getSelection().getActionCommand()) {
-            case "Bottom-Dialog":
+            case "BottomDialog":
                 generateBottomDialog();
                 break;
-            case "Center-Dialog":
+            case "RefreshBottomDialog":
+                generateRefreshBottomDialog();
+                break;
+            case "CenterDialog":
                 generateCenterDialog();
                 break;
-            case "Center-CustomConfirm-Dialog":
+            case "RefreshCenterDialog":
+                generateRefreshCenterDialog();
+                break;
+            case "CenterCustomConfirmDialog":
                 generateCenterCustomConfirmDialog();
+                break;
+            case "RefreshCenterCustomConfirmDialog":
+                generateRefreshCenterCustomConfirmDialog();
                 break;
         }
     }
@@ -186,32 +211,74 @@ public class AndroidDialogTemplateAction extends AndroidUiTemplateAction {
 
     private void generateBottomDialog() {
         generateFile("page" + (mvvmBox.isSelected() ? "/" + MVVM_DIR : "") + "/BottomDialog.java.txt", psiPath, DIALOG_DIR, "Dialog.java", true);
-        generateCommonFiles();
+        generateCommonFiles(false);
         if (layoutBox.isSelected()) {
-            generateLayoutFile("page" + (mvvmBox.isSelected() ? "/" + MVVM_DIR : "") + "/BottomDialogLayout.xml.txt", psiPath);
+            generateLayoutFile("BottomDialogLayout.xml.txt", false);
+        }
+    }
+
+    private void generateRefreshBottomDialog() {
+        generateFile("page" + (mvvmBox.isSelected() ? "/" + MVVM_DIR : "") + "/RefreshBottomDialog.java.txt", psiPath, DIALOG_DIR, "Dialog.java", true);
+        generateCommonFiles(true);
+        if (layoutBox.isSelected()) {
+            generateLayoutFile("RefreshBottomDialogLayout.xml.txt", true);
         }
     }
 
     private void generateCenterDialog() {
         generateFile("page" + (mvvmBox.isSelected() ? "/" + MVVM_DIR : "") + "/CenterDialog.java.txt", psiPath, DIALOG_DIR, "Dialog.java", true);
-        generateCommonFiles();
+        generateCommonFiles(false);
         if (layoutBox.isSelected()) {
-            generateLayoutFile("page" + (mvvmBox.isSelected() ? "/" + MVVM_DIR : "") + "/CenterDialogLayout.xml.txt", psiPath);
+            generateLayoutFile("CenterDialogLayout.xml.txt", false);
+        }
+    }
+
+    private void generateRefreshCenterDialog() {
+        generateFile("page" + (mvvmBox.isSelected() ? "/" + MVVM_DIR : "") + "/RefreshCenterDialog.java.txt", psiPath, DIALOG_DIR, "Dialog.java", true);
+        generateCommonFiles(true);
+        if (layoutBox.isSelected()) {
+            generateLayoutFile("RefreshCenterDialogLayout.xml.txt", true);
         }
     }
 
     private void generateCenterCustomConfirmDialog() {
         generateFile("page" + (mvvmBox.isSelected() ? "/" + MVVM_DIR : "") + "/CenterCustomConfirmDialog.java.txt", psiPath, DIALOG_DIR, "Dialog.java", true);
-        generateCommonFiles();
+        generateCommonFiles(false);
         if (layoutBox.isSelected()) {
-            generateLayoutFile("page" + (mvvmBox.isSelected() ? "/" + MVVM_DIR : "") + "/CenterCustomConfirmDialogLayout.xml.txt", psiPath);
+            generateLayoutFile("CenterCustomConfirmDialogLayout.xml.txt", false);
         }
     }
 
-    private void generateCommonFiles() {
+    private void generateRefreshCenterCustomConfirmDialog() {
+        generateFile("page" + (mvvmBox.isSelected() ? "/" + MVVM_DIR : "") + "/RefreshCenterCustomConfirmDialog.java.txt", psiPath, DIALOG_DIR, "Dialog.java", true);
+        generateCommonFiles(true);
+        if (layoutBox.isSelected()) {
+            generateLayoutFile("RefreshCenterCustomConfirmDialogLayout.xml.txt", true);
+        }
+    }
+
+    private void generateCommonFiles(boolean isRefreshTemplate) {
         if (mvvmBox.isSelected()) {
-            generateFile("page/mvvm/Request.java.txt", psiPath, MVVM_DIR + File.separator + "request", "DialogRequest.java", false);
-            generateFile("page/mvvm/ViewModel.java.txt", psiPath, MVVM_DIR + File.separator + "viewmodel", "DialogViewModel.java", false);
+            if(isRefreshTemplate) {
+                generateFile("page/mvvm/RefreshRequest.java.txt", psiPath, MVVM_DIR + File.separator + "request", "DialogRequest.java", false);
+                generateFile("page/mvvm/RefreshViewModel.java.txt", psiPath, MVVM_DIR + File.separator + "viewmodel", "DialogViewModel.java", false);
+            } else {
+                generateFile("page/mvvm/Request.java.txt", psiPath, MVVM_DIR + File.separator + "request", "DialogRequest.java", false);
+                generateFile("page/mvvm/ViewModel.java.txt", psiPath, MVVM_DIR + File.separator + "viewmodel", "DialogViewModel.java", false);
+            }
+        }
+    }
+
+    private void generateLayoutFile(String layoutSrcFile, boolean isRefreshTemplate) {
+        if (layoutBox.isSelected()) {
+            String srcFile = "page" + (mvvmBox.isSelected() ? "/" + MVVM_DIR : "") + "/" + layoutSrcFile;
+            LOG.info("android generateLayoutFile: " + srcFile);
+            generateLayoutFile(srcFile, psiPath);
+
+            if(isRefreshTemplate) {
+                String itemSFile = "page" + (mvvmBox.isSelected() ? "/" + MVVM_DIR : "") + "/RefreshItemLayout.xml.txt";
+                generateLayoutFile(itemSFile, psiPath, true);
+            }
         }
     }
 

@@ -39,7 +39,7 @@ class ${name}Fragment : BSBaseFragment<${name}Contract.View, ${name}Presenter>()
         super.initData(bundle, savedInstanceState)
 
         // todo init data from Intent
-//       String a = bundle.getString("xxx")
+//       var a = bundle.getString("xxx")
     }
 
     override fun initView(view: View?) {

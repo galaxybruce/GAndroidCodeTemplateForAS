@@ -38,8 +38,7 @@ class ${name}Activity : JPBaseActivity<${name}LayoutBinding>() {
         super.initData(bundle, savedInstanceState)
 
         // todo init data from Intent
-//        final Intent intent = getIntent();
-//        String a = intent.getStringExtra("xxx");
+//        var a = intent.getStringExtra("xxx");
     }
 
     override fun bindData(savedInstanceState: Bundle?) {

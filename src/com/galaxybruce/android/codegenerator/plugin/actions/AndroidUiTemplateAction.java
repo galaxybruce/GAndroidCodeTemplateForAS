@@ -158,9 +158,9 @@ public abstract class AndroidUiTemplateAction extends AnAction {
         return "";
     }
 
-    protected String makeListItemLayoutFileName() {
+    protected String makeListItemLayoutFileName(boolean isDialog) {
         if (layoutBox.isSelected()) {
-            String fileName = nameTextField.getText().trim() + "ItemLayout";
+            String fileName = nameTextField.getText().trim() + (isDialog ? "DialogItemLayout" : "ItemLayout");
             return FileUtils.camelToUnderline(fileName);
         }
         return "";
