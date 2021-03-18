@@ -39,7 +39,7 @@ import org.jetbrains.annotations.Nullable;
  */
 public class ${name} extends BaseBottomDialog<${name}Binding> {
 
-    // todo mvvm方式建议不要使用callback交互，建议删除该代码，通过mParentViewModel和父容器进行交互
+    // todo mvvm方式建议不要使用callback交互，建议删除该代码，通过mParentViewModel和父容器进行交互！！！
     public interface I${name}Callback {
         void on${name}Callback();
     }

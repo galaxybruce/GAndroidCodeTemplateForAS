@@ -9,7 +9,7 @@ import androidx.databinding.ViewDataBinding;
 import com.kidswant.basic.base.jetpack.JPBaseViewModel;
 import com.kidswant.basic.base.jetpack.JPDataBindingConfig;
 import com.kidswant.basic.base.jetpack.adapter.JPRecyclerViewLoadMoreAdapter;
-import com.kidswant.common.dialog.BaseBottomDialog;
+import com.kidswant.common.dialog.BaseCenterDialogFragment;
 import com.kidswant.component.util.DisplayUtil;
 import com.kidswant.basic.utils.ToastUtils;
 
@@ -37,7 +37,7 @@ import org.jetbrains.annotations.Nullable;
  * <p>
  * modification history:
  */
-public class ${name} extends BaseBottomDialog<${name}Binding> {
+public class ${name} extends BaseCenterDialogFragment<${name}Binding> {
 
     // todo mvvm方式建议不要使用callback交互，建议删除该代码，通过mParentViewModel和父容器进行交互！！！
     public interface I${name}Callback {

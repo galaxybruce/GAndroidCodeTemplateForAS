@@ -106,17 +106,17 @@ public class ${name} extends BaseCustomConfirmDialog<${name}Binding> {
         performRequest();
     }
 
-    private void performRequest() {
-        // todo perform net Requrest
-        mPageViewModel.request.performRequest("xxx");
-    }
-
     @Override
     protected void onConfirmClick() {
         if(mCallback != null) {
             mCallback.on${name}Callback();
         }
         super.onConfirmClick();
+    }
+
+    private void performRequest() {
+        // todo perform net Requrest
+        mPageViewModel.request.performRequest("xxx");
     }
 
     /**
