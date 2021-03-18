@@ -163,11 +163,15 @@ public class AndroidDialogTemplateAction extends AndroidUiTemplateAction {
         @Override
         public void actionPerformed(ActionEvent e) {
             switch (e.getActionCommand()) {
-                case "BottomDialog":
-
+                case "RefreshBottomDialog":
+                case "RefreshCenterDialog":
+                case "RefreshCenterCustomConfirmDialog":
+                    mvvmBox.setSelected(true);
+                    mvvmBox.setEnabled(false);
                     break;
-                case "CenterDialog":
-
+                default:
+                    mvvmBox.setSelected(true);
+                    mvvmBox.setEnabled(true);
                     break;
             }
         }
