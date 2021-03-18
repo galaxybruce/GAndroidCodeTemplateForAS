@@ -14,28 +14,22 @@ import ${package}.mvvm.viewmodel.${name}ViewModel
 
 class ${name}Request(private val viewModel: ${name}ViewModel) : JPBaseRequest() {
 
-    //    private LiveApi mLiveApi = KRetrofitFactory.createService(LiveApi.class);
+//    private val mApi: LiveApi = KRetrofitFactory.createService(LiveApi::class.java)
 
     @SuppressLint("CheckResult")
     fun performRequest(activityId: String?) {
+//        val requestUrl: String = LiveServer.URL_CREATE_LIVE
+//        mApi.getInviteUserDetails(requestUrl, activityId)
+//            .compose(this.handleEverythingResult<AppBean4Invite<InviteUserDetailsModel>>(true))
+//            .subscribeOn(Schedulers.io())
+//            .observeOn(AndroidSchedulers.mainThread())
+//            .subscribe({
+//               this.viewModel.listData.setValue(new JPListDataModel(list, true))
+//            }, {
+//                showToast(it.message)
+//                this.viewModel.listData.setValue(new JPListDataModel(list, true))
+//            })
 
-//        String requestUrl = LiveServerManager.getLiverServerUrl(scene).URL_BOOST_LIST_DETAILS;
-//        mLiveApi.getInviteUserDetails(requestUrl, activityId)
-//                .compose(this.<AppBean4Invite<InviteUserDetailsModel>>handleEverythingResult(true))
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(new Consumer<AppBean4Invite<InviteUserDetailsModel> >() {
-//                    @Override
-//                    public void accept(AppBean4Invite<InviteUserDetailsModel> inviteUserDetailsModel) throws Exception {
-//                        this.viewModel.listData.setValue(new JPListDataModel(list, true));
-//                    }
-//                }, new Consumer<Throwable>() {
-//                    @Override
-//                    public void accept(Throwable throwable) throws Exception {
-//                        showToast(throwable.getMessage());
-//                        this.viewModel.listData.setValue(new JPListDataModel(list, true));
-//                    }
-//                });
         val list: MutableList<String> = ArrayList()
         for (i in 0..19) {
             list.add("data-" + (i + 1))

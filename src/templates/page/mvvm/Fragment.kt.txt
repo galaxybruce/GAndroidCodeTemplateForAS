@@ -48,8 +48,7 @@ class ${name}Fragment : JPBaseFragment<${name}LayoutBinding>() {
         super.initData(bundle, savedInstanceState)
 
         // todo init data from Intent
-//        final Intent intent = getIntent();
-//        String a = intent.getStringExtra("xxx");
+//        var a = bundle?.getString("xxx");
     }
 
     override fun bindData(savedInstanceState: Bundle?) {

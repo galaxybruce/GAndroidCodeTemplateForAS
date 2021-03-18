@@ -41,7 +41,7 @@ class ${name}Activity : BSBaseActivity<${name}Contract.View, ${name}Presenter>()
         super.initData(bundle, savedInstanceState)
 
         // todo init data from Intent
-//        String a = intent.getStringExtra("xxx")
+//        var a = intent.getStringExtra("xxx")
     }
 
     override fun initView(view: View?) {
