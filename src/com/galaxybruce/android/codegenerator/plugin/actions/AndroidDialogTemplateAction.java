@@ -170,8 +170,8 @@ public class AndroidDialogTemplateAction extends AndroidUiTemplateAction {
                     mvvmBox.setEnabled(false);
                     break;
                 default:
-                    mvvmBox.setSelected(true);
-                    mvvmBox.setEnabled(true);
+                    mvvmBox.setSelected(false);
+                    mvvmBox.setEnabled(false);
                     break;
             }
         }
