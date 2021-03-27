@@ -1,26 +1,31 @@
 
 import android.app.Activity
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import com.kidswant.common.base.BSBaseFragment
 import com.kidswant.common.utils.TitleUtils
 import com.kidswant.component.util.statusbar.BBSStatusBarUtil
 import com.kidswant.component.view.titlebar.TitleBarLayout
+import com.kidswant.annotation.router.Route
+import com.kidswant.router.Router
 
 ${importR}
 import ${package}.mvp.${name}Contract
 import ${package}.mvp.${name}Presenter
 
+@Route(path = ["xxx"])
 class ${name}Fragment : BSBaseFragment<${name}Contract.View, ${name}Presenter>(), ${name}Contract.View {
 
     companion object {
-        fun newInstance(args: Bundle?): ${name}Fragment {
-            var args = args
-            if (args == null) {
-                args = Bundle()
+        fun newInstance(context: Context, args: Bundle?): ${name}Fragment {
+            var bundle = args
+            if (bundle == null) {
+                bundle = Bundle()
             }
-            val fragment = ${name}Fragment()
-            fragment.arguments = args
+            val fragment = Router.getInstance().build("xxx")
+                .skip().navigation(context) as ${name}Fragment
+            fragment.arguments = bundle
             return fragment
         }
     }

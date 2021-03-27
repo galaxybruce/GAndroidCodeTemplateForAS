@@ -10,6 +10,8 @@ import com.kidswant.basic.base.jetpack.JPDataBindingConfig
 import com.kidswant.basic.base.jetpack.adapter.JPRecyclerViewLoadMoreAdapter
 import com.kidswant.basic.utils.ToastUtils
 import com.kidswant.common.utils.click
+import com.kidswant.annotation.router.Route
+import com.kidswant.router.Router
 
 import com.linkkids.component.ui.view.bbsview.AbsBBSRecyclerView.BBSRequestListener
 import com.linkkids.component.ui.view.bbsview.BBSRecyclerView2
@@ -20,17 +22,18 @@ import ${package}.mvvm.viewmodel.${name}ViewModel
 import ${modulePackage}.databinding.${name}ItemLayoutBinding
 import ${modulePackage}.databinding.${name}LayoutBinding
 
-
+@Route(path = ["xxx"])
 class ${name}Fragment : JPBaseFragment<${name}LayoutBinding>() {
 
     companion object {
-        fun newInstance(args: Bundle?): ${name}Fragment {
-            var args = args
-            if (args == null) {
-                args = Bundle()
+        fun newInstance(context: Context, args: Bundle?): ${name}Fragment {
+            var bundle = args
+            if (bundle == null) {
+                bundle = Bundle()
             }
-            val fragment = ${name}Fragment()
-            fragment.arguments = args
+            val fragment = Router.getInstance().build("xxx")
+                .skip().navigation(context) as ${name}Fragment
+            fragment.arguments = bundle
             return fragment
         }
     }
@@ -57,7 +60,7 @@ class ${name}Fragment : JPBaseFragment<${name}LayoutBinding>() {
         super.initData(bundle, savedInstanceState)
 
         // todo init data from Intent
-//        var a = bundle?.getString("xxx");
+//        var a = bundle?.getString("xxx")
     }
 
     override fun initView(view: View?) {

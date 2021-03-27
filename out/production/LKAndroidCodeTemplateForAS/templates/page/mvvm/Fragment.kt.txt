@@ -1,26 +1,31 @@
 
+import android.content.Context
 import android.os.Bundle
 import androidx.lifecycle.Observer
 
 import com.kidswant.basic.base.jetpack.JPBaseFragment
 import com.kidswant.basic.base.jetpack.JPBaseViewModel
 import com.kidswant.basic.base.jetpack.JPDataBindingConfig
+import com.kidswant.annotation.router.Route
+import com.kidswant.router.Router
 
 ${importR}
 ${importBR}
 import ${package}.mvvm.viewmodel.${name}ViewModel
 import ${modulePackage}.databinding.${name}LayoutBinding
 
+@Route(path = ["xxx"])
 class ${name}Fragment : JPBaseFragment<${name}LayoutBinding>() {
 
     companion object {
-        fun newInstance(args: Bundle?): ${name}Fragment {
-            var args = args
-            if (args == null) {
-                args = Bundle()
+        fun newInstance(context: Context, args: Bundle?): ${name}Fragment {
+            var bundle = args
+            if (bundle == null) {
+                bundle = Bundle()
             }
-            val fragment = ${name}Fragment()
-            fragment.arguments = args
+            val fragment = Router.getInstance().build("xxx")
+                .skip().navigation(context) as ${name}Fragment
+            fragment.arguments = bundle
             return fragment
         }
     }
@@ -48,7 +53,7 @@ class ${name}Fragment : JPBaseFragment<${name}LayoutBinding>() {
         super.initData(bundle, savedInstanceState)
 
         // todo init data from Intent
-//        var a = bundle?.getString("xxx");
+//        var a = bundle?.getString("xxx")
     }
 
     override fun bindData(savedInstanceState: Bundle?) {

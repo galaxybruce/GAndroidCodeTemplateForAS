@@ -14,6 +14,8 @@ import com.kidswant.component.base.adapter.KWRecyclerLoadMoreAdapter
 import com.kidswant.component.base.adapter.RecyclerViewHolder
 import com.kidswant.component.util.statusbar.BBSStatusBarUtil
 import com.kidswant.component.view.titlebar.TitleBarLayout
+import com.kidswant.annotation.router.Route
+import com.kidswant.router.Router
 
 import com.linkkids.component.ui.view.bbsview.AbsBBSRecyclerView.BBSRequestListener
 import com.linkkids.component.ui.view.bbsview.BBSRecyclerView2
@@ -22,16 +24,18 @@ ${importR}
 import ${package}.mvp.${name}Contract
 import ${package}.mvp.${name}Presenter
 
+@Route(path = ["xxx"])
 class ${name}Fragment : BSBaseFragment<${name}Contract.View, ${name}Presenter>(), ${name}Contract.View {
 
     companion object {
-        fun newInstance(args: Bundle?): ${name}Fragment {
-            var args = args
-            if (args == null) {
-                args = Bundle()
+        fun newInstance(context: Context, args: Bundle?): ${name}Fragment {
+            var bundle = args
+            if (bundle == null) {
+                bundle = Bundle()
             }
-            val fragment = ${name}Fragment()
-            fragment.arguments = args
+            val fragment = Router.getInstance().build("xxx")
+                .skip().navigation(context) as ${name}Fragment
+            fragment.arguments = bundle
             return fragment
         }
     }

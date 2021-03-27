@@ -1,9 +1,12 @@
 
+import android.content.Context;
 import android.os.Bundle;
 
 import com.kidswant.basic.base.jetpack.JPBaseFragment;
 import com.kidswant.basic.base.jetpack.JPBaseViewModel;
 import com.kidswant.basic.base.jetpack.JPDataBindingConfig;
+import com.kidswant.annotation.router.Route;
+import com.kidswant.router.Router;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -12,13 +15,15 @@ ${importBR};
 import ${package}.mvvm.viewmodel.${name}ViewModel;
 import ${modulePackage}.databinding.${name}LayoutBinding;
 
+@Route(path = "xxx")
 public class ${name}Fragment extends JPBaseFragment<${name}LayoutBinding> {
 
-    public static ${name}Fragment newInstance(Bundle args) {
+    public static ${name}Fragment newInstance(Context context, Bundle args) {
         if(args == null) {
             args = new Bundle();
         }
-        ${name}Fragment fragment = new ${name}Fragment();
+        ${name}Fragment fragment = (${name}Fragment)(Router.getInstance().build("xxx")
+            .skip().navigation(context));
         fragment.setArguments(args);
         return fragment;
     }
