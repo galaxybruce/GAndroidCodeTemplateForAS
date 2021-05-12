@@ -1,0 +1,45 @@
+/**
+ * @author bruce.zhang
+ * @date 2021/3/27 23:55
+ * @description 供应链要货-数据管理单例
+ *
+ * 这个类设计作用：
+ * 1. 虽然是单例，必须使用懒汉模式或者线程安全的懒汉式，该单例支持释放单例。某个独立业务退出主页面时需要情况数据。
+ * 2. 提供局部ViewModel（一般是该业务主页面的ViewModel）,便于更好的跨activity数据交互
+ * 3. 第2步中也可以不需要，直接在这个类中定义LiveData给该业务使用
+ * 4. 该类可以实现DefaultLifecycleObserver，在onDestroy中调用release
+ *
+ * <p>
+ * modification history:
+ */
+public class SupplyChainManager {
+
+    private static SupplyChainManager instance;
+
+    private SupplyChainManager() {
+    }
+
+    public static SupplyChainManager getInstance() {
+        if (instance == null) {
+            instance = new SupplyChainManager();
+        }
+        return instance;
+    }
+
+    /**
+     * 局部业务单例，必须释放
+     */
+    public void release() {
+       instance = null;
+//       mLocalMainViewModel = null;
+    }
+
+//    /**
+//     * 局部ViewModel
+//     * 作用：
+//     * 1. 为某个独立业务提供更好的跨activity数据交互
+//     * 2. 避免使用EventBus，通过监听mLocalMainViewModel中的LiveData字段
+//     */
+//    public SupplyChainHomeViewModel mLocalMainViewModel;
+
+}

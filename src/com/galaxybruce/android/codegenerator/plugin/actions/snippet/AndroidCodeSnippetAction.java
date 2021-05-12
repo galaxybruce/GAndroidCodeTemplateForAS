@@ -37,8 +37,9 @@ public class AndroidCodeSnippetAction extends AnAction {
     private void initTemplateInfo() {
         templateInfoList = new ArrayList<>();
 
-        TemplateInfo info = new TemplateInfo("snippet/RecyclerViewGridLayout.txt");
-        templateInfoList.add(info);
+        templateInfoList.add(new TemplateInfo("snippet/RecyclerViewGridLayout.txt"));
+        templateInfoList.add(new TemplateInfo("snippet/LocalSingleton_Java.txt"));
+        templateInfoList.add(new TemplateInfo("snippet/LocalSingleton_kt.txt"));
     }
 
     @Override
@@ -193,6 +194,7 @@ public class AndroidCodeSnippetAction extends AnAction {
     private void dispose() {
         jFrame.dispose();
     }
+
     private void save() {
         ClipboardHelper.copy(codeArea.getText());
         dispose();

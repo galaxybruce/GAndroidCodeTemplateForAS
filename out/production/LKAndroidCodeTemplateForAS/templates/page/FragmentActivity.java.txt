@@ -37,7 +37,7 @@ public class ${name}FragmentActivity extends BSBaseActivity {
         if(bundle == null) {
             bundle = new Bundle();
         }
-        Fragment fragment = ${name}Fragment.newInstance(bundle);
+        Fragment fragment = ${name}Fragment.newInstance(mContext, bundle);
         getSupportFragmentManager().beginTransaction()
                 .replace(com.linkkids.component.R.id.fl_container, fragment)
                 .commitAllowingStateLoss();

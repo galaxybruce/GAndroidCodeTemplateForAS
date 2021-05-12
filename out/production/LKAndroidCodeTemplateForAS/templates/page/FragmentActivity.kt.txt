@@ -32,7 +32,7 @@ class ${name}FragmentActivity : BSBaseActivity<BSBaseView, BSBasePresenter<BSBas
         if (bundle == null) {
             bundle = Bundle()
         }
-        val fragment: Fragment = ${name}Fragment.Companion.newInstance(bundle)
+        val fragment: Fragment = ${name}Fragment.Companion.newInstance(mContext, bundle)
         supportFragmentManager.beginTransaction()
             .replace(R.id.fl_container, fragment)
             .commitAllowingStateLoss()
