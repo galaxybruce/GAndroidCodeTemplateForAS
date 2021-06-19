@@ -118,7 +118,8 @@ public class AndroidDialogTemplateAction extends AndroidUiTemplateAction {
         layoutBox.setEnabled(false);
         kotlinBox = new JCheckBox("Kotlin", false);
         kotlinBox.setEnabled(false);
-        mvvmBox = new JCheckBox("MVVM", false);
+        mvvmBox = new JCheckBox("MVVM", true);
+        mvvmBox.setEnabled(true);
         optionsPanel.add(layoutBox);
         optionsPanel.add(kotlinBox);
         optionsPanel.add(mvvmBox);
@@ -170,8 +171,8 @@ public class AndroidDialogTemplateAction extends AndroidUiTemplateAction {
                     mvvmBox.setEnabled(false);
                     break;
                 default:
-                    mvvmBox.setSelected(false);
-                    mvvmBox.setEnabled(false);
+                    mvvmBox.setSelected(true);
+                    mvvmBox.setEnabled(true);
                     break;
             }
         }
