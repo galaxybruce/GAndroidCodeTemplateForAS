@@ -18,11 +18,16 @@ import com.intellij.util.ui.JBUI;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.function.Consumer;
 
 /**
  * 代码片段生成
@@ -32,6 +37,7 @@ public class AndroidCodeSnippetAction extends AnAction {
     private static final Logger LOG = Logger.getInstance("AndroidCodeSnippetAction");
 
     private static final String SNIPPET_PATH_KEY = "code_snippet_path";
+    private static final String SEARCH_HINT = "输入搜索文件名";
 
     private static final int FRAME_WIDTH = 1000;
     private static final int FRAME_HEIGHT = 700;
@@ -98,7 +104,7 @@ public class AndroidCodeSnippetAction extends AnAction {
 
         // 左边模板列表区域
         mainPanel.add(createTemplateListPanel(), BorderLayout.WEST);
-        updateTemplateList();
+        updateTemplateListView(templateInfoList);
 
         // 代码显示区域
         mainPanel.add(createTemplateCodePanel(), BorderLayout.CENTER);
@@ -156,6 +162,41 @@ public class AndroidCodeSnippetAction extends AnAction {
         panel.setBorder(BorderFactory.createTitledBorder("Template list"));
         panel.setPreferredSize(new Dimension(TEMPLATE_LIST_WIDTH, FRAME_HEIGHT - MENU_HEIGHT));
 
+        JTextField searchFiled = new JTextField();
+        searchFiled.setFont(new Font(null, Font.PLAIN, 13));
+        searchFiled.setPreferredSize(new Dimension(0, 35));
+        searchFiled.setText(SEARCH_HINT);
+        searchFiled.setForeground(JBColor.GRAY);
+        searchFiled.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                searchFiled.setText("");
+                searchFiled.setForeground(JBColor.BLACK);
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                searchFiled.setText(SEARCH_HINT);
+                searchFiled.setForeground(JBColor.GRAY);
+            }
+        });
+        searchFiled.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                searchFile(searchFiled.getText());
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                searchFile(searchFiled.getText());
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+            }
+        });
+        panel.add(searchFiled, BorderLayout.NORTH);
+
         JPanel templateListPanel = new JPanel();
         templateListPanel.setLayout(new BoxLayout(templateListPanel, BoxLayout.Y_AXIS));
         JBScrollPane scrollPane = new JBScrollPane(templateListPanel);
@@ -202,7 +243,7 @@ public class AndroidCodeSnippetAction extends AnAction {
         return verticalBox;
     }
 
-    private void updateTemplateList() {
+    private void updateTemplateListView(ArrayList<TemplateInfo> templateInfoList) {
         templateListPanel.removeAll();
         ButtonGroup templateGroup = new ButtonGroup();
         for (TemplateInfo info : templateInfoList) {
@@ -235,7 +276,28 @@ public class AndroidCodeSnippetAction extends AnAction {
         this.pathField.setText(path);
         PropertiesComponent.getInstance().setValue(SNIPPET_PATH_KEY, path);
         initTemplateInfo(path);
-        updateTemplateList();
+        updateTemplateListView(templateInfoList);
+    }
+
+    private void searchFile(String keyWord) {
+        final String finalKeyWord = keyWord.trim();
+        if(SEARCH_HINT.equals(finalKeyWord)) {
+            return;
+        }
+        if("".equals(finalKeyWord)) {
+            updateTemplateListView(templateInfoList);
+            return;
+        }
+        ArrayList<TemplateInfo> list = new ArrayList<>();
+        templateInfoList.forEach(new Consumer<TemplateInfo>() {
+            @Override
+            public void accept(TemplateInfo templateInfo) {
+                if(templateInfo.name.toLowerCase().contains(finalKeyWord)) {
+                    list.add(templateInfo);
+                }
+            }
+        });
+        updateTemplateListView(list);
     }
 
     private void dispose() {

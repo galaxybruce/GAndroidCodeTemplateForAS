@@ -17,6 +17,7 @@
       <b>Version 1.0</b>
         <ul>
             <li>generating android MVP file</li>
+            <li>generating android MVVM file</li>
             <li>generating android Dialog file</li>
         </ul>
 
