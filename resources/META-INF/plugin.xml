@@ -1,7 +1,7 @@
 <idea-plugin>
   <id>com.galaxybruce.android.codegenerator.plugin.lkanroidcodetemplate.id</id>
   <name>LKAndroidCodeTemplateForAS</name>
-  <version>1.0.</version>
+  <version>1.0</version>
   <vendor email="brucezhanggood@gmail.com" url="https://github.com/galaxybruce">Galaxybruce</vendor>
 
   <description><![CDATA[
@@ -17,6 +17,7 @@
       <b>Version 1.0</b>
         <ul>
             <li>generating android MVP file</li>
+            <li>generating android MVVM file</li>
             <li>generating android Dialog file</li>
         </ul>
 
@@ -29,9 +30,7 @@
 
   <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
        on how to target different products -->
-  <!-- uncomment to enable plugin in all products
   <depends>com.intellij.modules.lang</depends>
-  -->
 
   <extensions defaultExtensionNs="com.intellij">
     <projectService serviceInterface="com.galaxybruce.android.codegenerator.plugin.persistence.Settings"
