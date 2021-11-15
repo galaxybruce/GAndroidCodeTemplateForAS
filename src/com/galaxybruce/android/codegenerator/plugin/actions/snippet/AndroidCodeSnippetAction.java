@@ -2,6 +2,7 @@ package com.galaxybruce.android.codegenerator.plugin.actions.snippet;
 
 import com.galaxybruce.android.codegenerator.plugin.util.ClipboardHelper;
 import com.galaxybruce.android.codegenerator.plugin.util.FileUtils;
+import com.galaxybruce.android.codegenerator.plugin.widget.JTextFieldHintListener;
 import com.intellij.ide.util.PropertiesComponent;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
@@ -27,6 +28,7 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.function.Consumer;
 
 /**
@@ -55,6 +57,7 @@ public class AndroidCodeSnippetAction extends AnAction {
 
     private String snippetPath;
     private ArrayList<TemplateInfo> templateInfoList = new ArrayList<>();
+    private TemplateInfo currentTemplate;
 
     @Override
     public void actionPerformed(@NotNull AnActionEvent event) {
@@ -83,6 +86,12 @@ public class AndroidCodeSnippetAction extends AnAction {
         for (File file : list) {
             templateInfoList.add(new TemplateInfo(file.getName(), file.getAbsolutePath()));
         }
+        templateInfoList.sort(new Comparator<TemplateInfo>() {
+            @Override
+            public int compare(TemplateInfo o1, TemplateInfo o2) {
+                return o1.name.compareTo(o2.name);
+            }
+        });
         this.snippetPath = path;
     }
 
@@ -165,21 +174,7 @@ public class AndroidCodeSnippetAction extends AnAction {
         JTextField searchFiled = new JTextField();
         searchFiled.setFont(new Font(null, Font.PLAIN, 13));
         searchFiled.setPreferredSize(new Dimension(0, 35));
-        searchFiled.setText(SEARCH_HINT);
-        searchFiled.setForeground(JBColor.GRAY);
-        searchFiled.addFocusListener(new FocusListener() {
-            @Override
-            public void focusGained(FocusEvent e) {
-                searchFiled.setText("");
-                searchFiled.setForeground(JBColor.BLACK);
-            }
-
-            @Override
-            public void focusLost(FocusEvent e) {
-                searchFiled.setText(SEARCH_HINT);
-                searchFiled.setForeground(JBColor.GRAY);
-            }
-        });
+        searchFiled.addFocusListener(new JTextFieldHintListener(searchFiled, SEARCH_HINT));
         searchFiled.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
@@ -255,7 +250,8 @@ public class AndroidCodeSnippetAction extends AnAction {
 //                displayName = displayName.substring(0, displayName.indexOf("."));
 //            }
 
-            JRadioButton radioButton = new JRadioButton(displayName, false);
+            boolean selected = currentTemplate != null && currentTemplate.name.equals(info.name);
+            JRadioButton radioButton = new JRadioButton(displayName, selected);
             radioButton.setActionCommand(info.name);
             radioButton.addActionListener(radioActionListener);
             templateGroup.add(radioButton);
@@ -292,7 +288,7 @@ public class AndroidCodeSnippetAction extends AnAction {
         templateInfoList.forEach(new Consumer<TemplateInfo>() {
             @Override
             public void accept(TemplateInfo templateInfo) {
-                if(templateInfo.name.toLowerCase().contains(finalKeyWord)) {
+                if(templateInfo.name.toLowerCase().contains(finalKeyWord.toLowerCase())) {
                     list.add(templateInfo);
                 }
             }
@@ -315,6 +311,7 @@ public class AndroidCodeSnippetAction extends AnAction {
             String cmd = e.getActionCommand();
             for (TemplateInfo info : templateInfoList) {
                 if(info.name.equals(cmd)) {
+                    currentTemplate = info;
 //                    String content = FileUtils.readFile(this.getClass(), info.templateName);
                     String content = FileUtils.readToString(info.path);
                     codeArea.setText(content);
