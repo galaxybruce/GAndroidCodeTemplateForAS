@@ -1,0 +1,186 @@
+
+import android.content.Context
+import android.os.Bundle
+import android.view.View
+import android.view.ViewGroup
+
+import androidx.databinding.ViewDataBinding
+
+import com.kidswant.basic.base.jetpack.JPBaseViewModel
+import com.kidswant.basic.base.jetpack.JPDataBindingConfig
+import com.kidswant.basic.base.jetpack.adapter.JPRecyclerViewLoadMoreAdapter
+import com.kidswant.common.dialog.BaseCenterDialogFragment
+import com.kidswant.component.util.DisplayUtil
+import com.kidswant.basic.utils.ToastUtils
+
+import com.linkkids.component.ui.view.bbsview.AbsBBSRecyclerView.BBSRequestListener
+import com.linkkids.component.ui.view.bbsview.BBSRecyclerView2
+
+${importR}
+${importBR}
+import ${package}.mvvm.viewmodel.${name}ViewModel
+import ${modulePackage}.databinding.${name}ItemLayoutBinding
+import ${modulePackage}.databinding.${name}Binding
+import kotlin.math.max
+
+/**
+ * @date
+ * @author
+ * @description (亲，我是做什么的)
+ *
+ * 使用方式：
+ * new ${name}.Builder()
+ * .title("哈哈哈")
+ * .build().show(getSupportFragmentManager(), "${name}");
+ *
+ *
+ *
+ * modification history:
+ */
+class ${name} : BaseCenterDialogFragment<${name}Binding>() {
+
+    // todo mvvm方式建议不要使用callback交互，建议删除该代码，通过mParentViewModel和父容器进行交互！！！
+    interface I${name}Callback {
+        fun on${name}Callback()
+    }
+
+    // todo sample code, please delete it 属性字段定义
+    var mCallback: I${name}Callback? = null
+    lateinit var mPageViewModel: ${name}ViewModel
+
+    class Builder {
+        var bundle: Bundle = Bundle()
+
+        fun title(value: String?): Builder {
+            bundle.putString("title", value)
+            return this
+        }
+
+        fun build(): ${name} {
+            return ${name}().apply {
+                arguments = bundle
+            }
+        }
+    }
+
+    override fun supportMVVM(): Boolean {
+        return true
+    }
+
+    override fun initViewModel(): JPBaseViewModel {
+        mPageViewModel = getFragmentViewModel(${name}ViewModel::class.java)
+//        mParentViewModel = getActivityViewModel(LiveCreateViewModel.class);
+        return mPageViewModel
+    }
+
+    override fun initDataBindConfig(): JPDataBindingConfig {
+        return JPDataBindingConfig(bindLayoutId())
+            .addBindingParam(BR.vm, mPageViewModel)
+            .addBindingParam(BR.click, ClickProxy())
+    }
+
+    override fun bindLayoutId(): Int {
+        return R.layout.${layoutName}
+    }
+
+    override fun initData(bundle: Bundle?, savedInstanceState: Bundle?) {
+        // 获取listener
+        mCallback = getDialogListener(this, I${name}Callback::class.java)
+        bundle?.let {
+            // todo sample code, please delete it
+            mPageViewModel.title.set(it.getString("title"))
+        }
+    }
+
+    override fun initView(view: View?) {
+        super.initView(view)
+
+        val realBinding = binding
+        // 根据实际需要动态设置RecyclerView高度
+        val layoutParams = realBinding.bbsRecyclerView.layoutParams
+        layoutParams.height = max(
+            (DisplayUtil.getScreenHeight(requireView().context) * 0.6f).toInt(),
+            DisplayUtil.dip2px(requireView().context, 400f)
+        )
+        val bbsRecyclerView: BBSRecyclerView2<String> = realBinding.bbsRecyclerView as BBSRecyclerView2<String>
+        bbsRecyclerView.setBbsAdapter(InnerAdapter(requireView().context)) //.setNeedShowEmptyNoData(false)
+            .setPullRefreshEnable(true)
+            .setRequestDataIfViewCreated(true)
+            .setInitPage(1)
+//                .setNoDataContent("暂无数据～")
+//                .setNoDataImage(R.drawable.live_lottery_list_empty_icon)
+//                .setRecyclerViewPadding(new Rect(0, DensityUtil.dp2px(12f), 0, DensityUtil.dp2px(12f)))
+//                .addItemDecoration(SpacesItemDecoration(0, DensityUtil.dp2px(10f)))
+            .setBbsRequestListener(object : AbsBBSRecyclerView.BBSRequestListener {
+                override fun sendRequestData(refresh: Boolean, page: Int) {
+                    performRequest(page)
+                }
+
+                override fun sendRequestLoadMoreData(page: Int) {
+                    performRequest(page)
+                }
+            }).create()
+    }
+
+    override fun bindData(savedInstanceState: Bundle?) {
+        super.bindData(savedInstanceState)
+        if (mCallback != null) {
+            mCallback!!.on${name}Callback()
+        }
+    }
+
+    private fun performRequest(pageIndex: Int) {
+        // todo perform net Requrest
+        mPageViewModel.request.performRequest("xxx")
+    }
+
+    /**
+     * 页面事件类，可以把所有事件都写在这里
+     */
+    inner class ClickProxy {
+        fun confirm() {
+            ToastUtils.showToast(context, "confirm: ")
+        }
+
+        fun cancel() {
+            dismiss()
+        }
+    }
+
+    private inner class InnerAdapter(context: Context) : JPRecyclerViewLoadMoreAdapter<String?>(context) {
+
+        private val VIEW_TYPE_XXX = 0x2001f
+
+        override fun needLoadMore(): Boolean {
+            return true
+        }
+
+        override fun showFooterViewOfHint(): Boolean {
+            return true
+        }
+
+        override fun getRealItemViewType(position: Int): Int {
+            return VIEW_TYPE_XXX
+        }
+
+        override fun getLayoutId(viewType: Int): Int {
+            return if (viewType == VIEW_TYPE_XXX) {
+                R.layout.${itemLayoutName}
+            } else {
+                super.getLayoutId(viewType)
+            }
+        }
+
+        override fun onBindItem(binding: ViewDataBinding, dataPosition: Int) {
+            if (binding is ${name}ItemLayoutBinding) {
+                val itemInfo = data[dataPosition]
+                binding.vm = itemInfo
+                binding.tvName.setOnClickListener { v: View? ->
+                    ToastUtils.showToast(mContext,
+                        "click item: $itemInfo"
+                    )
+                }
+            }
+        }
+    }
+}

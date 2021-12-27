@@ -16,21 +16,21 @@ import ${modulePackage}.databinding.${name}LayoutBinding
  * @description (亲，我是做什么的)
  *
  * 使用方式：
- * new ${name}Dialog.Builder()
+ * new ${name}.Builder()
  * .title("哈哈哈")
- * .build().show(getSupportFragmentManager(), "${name}Dialog");
+ * .build().show(getSupportFragmentManager(), "${name}");
  *
  * modification history:
  */
-class ${name}Dialog : BaseCenterDialogFragment<${name}DialogBinding>() {
+class ${name} : BaseCenterDialogFragment<${name}Binding>() {
 
-    interface I${name}DialogCallback {
-        fun on${name}DialogCallback()
+    interface I${name}Callback {
+        fun on${name}Callback()
     }
 
     // todo sample code, please delete it 属性字段定义
-    var mCallback: I${name}DialogCallback? = null
-    lateinit var mPageViewModel: ${name}DialogViewModel
+    var mCallback: I${name}Callback? = null
+    lateinit var mPageViewModel: ${name}ViewModel
 
     class Builder {
         var bundle: Bundle = Bundle()
@@ -40,8 +40,8 @@ class ${name}Dialog : BaseCenterDialogFragment<${name}DialogBinding>() {
             return this
         }
 
-        fun build(): ${name}Dialog {
-            return ${name}Dialog().apply {
+        fun build(): ${name} {
+            return ${name}().apply {
                 arguments = bundle
             }
         }
@@ -52,7 +52,7 @@ class ${name}Dialog : BaseCenterDialogFragment<${name}DialogBinding>() {
     }
 
     override fun initViewModel(): JPBaseViewModel {
-        mPageViewModel = getFragmentViewModel(${name}DialogViewModel::class.java)
+        mPageViewModel = getFragmentViewModel(${name}ViewModel::class.java)
 //        mParentViewModel = getActivityViewModel(LiveCreateViewModel.class);
         return mPageViewModel
     }
@@ -69,7 +69,7 @@ class ${name}Dialog : BaseCenterDialogFragment<${name}DialogBinding>() {
 
     override fun initData(bundle: Bundle?, savedInstanceState: Bundle?) {
         // 获取listener
-        mCallback = getDialogListener(this, I${name}DialogCallback::class.java)
+        mCallback = getDialogListener(this, I${name}Callback::class.java)
         bundle?.let {
             // todo sample code, please delete it
             mPageViewModel.title.set(it.getString("title"))
@@ -87,7 +87,7 @@ class ${name}Dialog : BaseCenterDialogFragment<${name}DialogBinding>() {
         performRequest()
 
         if (mCallback != null) {
-            mCallback!!.on${name}DialogCallback()
+            mCallback!!.on${name}Callback()
         }
     }
 
