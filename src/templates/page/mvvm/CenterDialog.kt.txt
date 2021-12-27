@@ -3,7 +3,7 @@ import android.os.Bundle
 import com.kidswant.basic.base.jetpack.JPBaseViewModel
 import com.kidswant.basic.base.jetpack.JPDataBindingConfig
 import com.kidswant.basic.utils.ToastUtils
-import com.kidswant.common.dialog.BaseCustomConfirmDialog
+import com.kidswant.common.dialog.BaseCenterDialogFragment
 
 ${importR}
 ${importBR}
@@ -22,7 +22,7 @@ import ${modulePackage}.databinding.${name}LayoutBinding
  *
  * modification history:
  */
-class ${name}Dialog : BaseCustomConfirmDialog<${name}DialogBinding>() {
+class ${name}Dialog : BaseCenterDialogFragment<${name}DialogBinding>() {
 
     interface I${name}DialogCallback {
         fun on${name}DialogCallback()
@@ -42,8 +42,6 @@ class ${name}Dialog : BaseCustomConfirmDialog<${name}DialogBinding>() {
 
         fun build(): ${name}Dialog {
             return ${name}Dialog().apply {
-            // 自定义确定按钮文本
-//          bundle.putString(KEY_CONFIRM_TEXT, "发送到直播间")
                 arguments = bundle
             }
         }
@@ -60,12 +58,12 @@ class ${name}Dialog : BaseCustomConfirmDialog<${name}DialogBinding>() {
     }
 
     override fun initDataBindConfig(): JPDataBindingConfig {
-        return JPDataBindingConfig(bindContentLayoutId())
+        return JPDataBindingConfig(bindLayoutId())
             .addBindingParam(BR.vm, mPageViewModel)
             .addBindingParam(BR.click, ClickProxy())
     }
 
-    override fun bindContentLayoutId(): Int {
+    override fun bindLayoutId(): Int {
         return R.layout.${layoutName}
     }
 
@@ -87,13 +85,10 @@ class ${name}Dialog : BaseCustomConfirmDialog<${name}DialogBinding>() {
         }
 
         performRequest()
-    }
 
-    override fun onConfirmClick() {
         if (mCallback != null) {
             mCallback!!.on${name}DialogCallback()
         }
-        super.onConfirmClick()
     }
 
     private fun performRequest() {
