@@ -8,7 +8,7 @@ import com.kidswant.common.dialog.BaseCustomConfirmDialog
 ${importR}
 ${importBR}
 import ${package}.mvvm.viewmodel.${name}ViewModel
-import ${modulePackage}.databinding.${name}LayoutBinding
+import ${modulePackage}.databinding.${name}Binding
 
 /**
  * @date

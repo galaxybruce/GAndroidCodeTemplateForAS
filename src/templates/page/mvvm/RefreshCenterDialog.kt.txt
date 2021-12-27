@@ -2,7 +2,6 @@
 import android.content.Context
 import android.os.Bundle
 import android.view.View
-import android.view.ViewGroup
 
 import androidx.databinding.ViewDataBinding
 
@@ -111,7 +110,7 @@ class ${name} : BaseCenterDialogFragment<${name}Binding>() {
 //                .setNoDataImage(R.drawable.live_lottery_list_empty_icon)
 //                .setRecyclerViewPadding(new Rect(0, DensityUtil.dp2px(12f), 0, DensityUtil.dp2px(12f)))
 //                .addItemDecoration(SpacesItemDecoration(0, DensityUtil.dp2px(10f)))
-            .setBbsRequestListener(object : AbsBBSRecyclerView.BBSRequestListener {
+            .setBbsRequestListener(object : BBSRequestListener {
                 override fun sendRequestData(refresh: Boolean, page: Int) {
                     performRequest(page)
                 }
