@@ -1,0 +1,107 @@
+
+import android.os.Bundle
+import com.kidswant.basic.base.jetpack.JPBaseViewModel
+import com.kidswant.basic.base.jetpack.JPDataBindingConfig
+import com.kidswant.basic.utils.ToastUtils
+import com.kidswant.common.dialog.BaseBottomDialog
+
+${importR}
+${importBR}
+import ${package}.mvvm.viewmodel.${name}ViewModel
+import ${modulePackage}.databinding.${name}LayoutBinding
+
+/**
+ * @date
+ * @author
+ * @description (亲，我是做什么的)
+ *
+ * 使用方式：
+ * new ${name}Dialog.Builder()
+ * .title("哈哈哈")
+ * .build().show(getSupportFragmentManager(), "${name}Dialog");
+ *
+ * modification history:
+ */
+class ${name}Dialog : BaseBottomDialog<${name}DialogBinding>() {
+
+    interface I${name}DialogCallback {
+        fun on${name}DialogCallback()
+    }
+
+    // todo sample code, please delete it 属性字段定义
+    var mCallback: I${name}DialogCallback? = null
+    lateinit var mPageViewModel: ${name}DialogViewModel
+
+    class Builder {
+        var bundle: Bundle = Bundle()
+
+        fun title(value: String?): Builder {
+            bundle.putString("title", value)
+            return this
+        }
+
+        fun build(): ${name}Dialog {
+            return ${name}Dialog().apply {
+                arguments = bundle
+            }
+        }
+    }
+
+    override fun supportMVVM(): Boolean {
+        return true
+    }
+
+    override fun initViewModel(): JPBaseViewModel {
+        mPageViewModel = getFragmentViewModel(${name}DialogViewModel::class.java)
+//        mParentViewModel = getActivityViewModel(LiveCreateViewModel.class);
+        return mPageViewModel
+    }
+
+    override fun initDataBindConfig(): JPDataBindingConfig {
+        return JPDataBindingConfig(bindLayoutId())
+            .addBindingParam(BR.vm, mPageViewModel)
+            .addBindingParam(BR.click, ClickProxy())
+    }
+
+    override fun bindLayoutId(): Int {
+        return R.layout.${layoutName}
+    }
+
+    override fun initData(bundle: Bundle?, savedInstanceState: Bundle?) {
+        // 获取listener
+        mCallback = getDialogListener(this, I${name}DialogCallback::class.java)
+        bundle?.let {
+            // todo sample code, please delete it
+            mPageViewModel.title.set(it.getString("title"))
+        }
+    }
+
+    override fun bindData(savedInstanceState: Bundle?) {
+        // todo LiveData数据监听例子，实际代码请删除
+        setLiveDataObserver(mPageViewModel.name) { s: String? ->
+            ToastUtils.showToast(
+                context, "name has changed"
+            )
+        }
+
+        performRequest()
+
+        if (mCallback != null) {
+            mCallback!!.on${name}DialogCallback()
+        }
+    }
+
+    private fun performRequest() {
+        // todo perform net Requrest
+        mPageViewModel.request.performRequest("xxx")
+    }
+
+    /**
+     * 页面事件类，可以把所有事件都写在这里
+     */
+    inner class ClickProxy {
+        fun handleName() {
+            ToastUtils.showToast(context, "handleName: " + mPageViewModel.name.value)
+        }
+    }
+}

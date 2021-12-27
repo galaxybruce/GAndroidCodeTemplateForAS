@@ -113,8 +113,8 @@ public class AndroidPageTemplateAction extends AndroidUiTemplateAction {
         // 是否生成布局文件选项
         layoutBox = new JCheckBox("Layout", true);
         layoutBox.setEnabled(false);
-        kotlinBox = new JCheckBox("Kotlin", false);
-        mvvmBox = new JCheckBox("MVVM", false);
+        kotlinBox = new JCheckBox("Kotlin", true);
+        mvvmBox = new JCheckBox("MVVM", true);
         optionsPanel.add(layoutBox);
         optionsPanel.add(kotlinBox);
         optionsPanel.add(mvvmBox);

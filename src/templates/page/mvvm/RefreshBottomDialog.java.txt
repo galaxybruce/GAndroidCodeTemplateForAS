@@ -95,13 +95,12 @@ public class ${name} extends BaseBottomDialog<${name}Binding> {
 
     @Override
     public void initData(@Nullable Bundle bundle, Bundle savedInstanceState) {
+        // 获取listener
+        mCallback = getDialogListener(this, I${name}Callback.class);
         Bundle arguments = getArguments();
         if(arguments != null) {
-           // 获取listener
-           mCallback = getDialogListener(this, I${name}Callback.class);
-
             // todo sample code, please delete it
-            mTitle = arguments.getString("title");
+            mPageViewModel.title.set(arguments.getString("title"));
         }
     }
 
@@ -141,8 +140,7 @@ public class ${name} extends BaseBottomDialog<${name}Binding> {
 
     @Override
     public void bindData(Bundle savedInstanceState) {
-        // todo sample code, please delete it
-        mPageViewModel.title.set("xxx");
+
 
         if(mCallback != null) {
             mCallback.on${name}Callback();

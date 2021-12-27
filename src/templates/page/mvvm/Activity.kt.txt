@@ -20,7 +20,7 @@ class ${name}Activity : JPBaseActivity<${name}LayoutBinding>() {
     override fun initViewModel(): JPBaseViewModel {
         mPageViewModel = getActivityViewModel(${name}ViewModel::class.java)
         // todo tip: 这里还可能会初始化全局的ViewModel
-        // mSharedViewModel = getAppViewModelProvider().get(SharedViewModel::class.java);
+        // mAppViewModel = appViewModelProvider.get(AppViewModel::class.java)
         return mPageViewModel
     }
 

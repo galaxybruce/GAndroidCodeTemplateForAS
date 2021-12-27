@@ -22,7 +22,7 @@ public class ${name}Activity extends JPBaseActivity<${name}LayoutBinding> {
     public JPBaseViewModel initViewModel() {
         mPageViewModel = getActivityViewModel(${name}ViewModel.class);
         // todo tip: 这里还可能会初始化全局的ViewModel
-        // mSharedViewModel = getAppViewModelProvider().get(SharedViewModel.class);
+        // mAppViewModel = getAppViewModelProvider().get(AppViewModel.class);
         return mPageViewModel;
     }
 
