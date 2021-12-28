@@ -2,9 +2,9 @@
 import androidx.databinding.ObservableField
 import androidx.lifecycle.MutableLiveData
 
-import com.kidswant.basic.base.jetpack.JPBaseRequest
-import com.kidswant.basic.base.jetpack.JPBaseViewModel
-import com.kidswant.basic.base.jetpack.JPListDataModel
+import com.galaxybruce.component.ui.jetpack.JPBaseRequest
+import com.galaxybruce.component.ui.jetpack.JPBaseViewModel
+import com.galaxybruce.component.ui.jetpack.JPListDataModel
 
 import ${package}.mvvm.request.${name}Request
 

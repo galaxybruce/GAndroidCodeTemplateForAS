@@ -1,9 +1,9 @@
 
 import android.os.Bundle;
-import com.kidswant.basic.base.jetpack.JPBaseViewModel;
-import com.kidswant.basic.base.jetpack.JPDataBindingConfig;
-import com.kidswant.common.dialog.BaseBottomDialog;
-import com.kidswant.basic.utils.ToastUtils;
+import com.galaxybruce.component.ui.jetpack.JPBaseViewModel;
+import com.galaxybruce.component.ui.jetpack.JPDataBindingConfig;
+import com.galaxybruce.component.ui.dialog.AppBottomDialog;
+import com.galaxybruce.component.util.ToastUtils;
 
 ${importR};
 ${importBR};
@@ -25,7 +25,7 @@ import org.jetbrains.annotations.Nullable;
  * <p>
  * modification history:
  */
-public class ${name} extends BaseBottomDialog<${name}Binding> {
+public class ${name} extends AppBottomDialog<${name}Binding> {
 
     public interface I${name}Callback {
         void on${name}Callback();

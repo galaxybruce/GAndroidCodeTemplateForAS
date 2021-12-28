@@ -4,20 +4,19 @@ import android.view.View;
 
 import androidx.fragment.app.Fragment;
 
-import com.kidswant.annotation.router.Route;
-import com.kidswant.basic.base.mvp.ExBasePresenter;
-import com.kidswant.common.base.BSBaseActivity;
+import com.alibaba.android.arouter.facade.annotation.Route;
+import com.galaxybruce.component.ui.activity.BaseActivity;
 
 import ${package}.fragment.${name}Fragment;
-
+import com.galaxybruce.component.R
 
 @Route(path = "xxx")
-public class ${name}FragmentActivity extends BSBaseActivity {
+public class ${name}FragmentActivity extends BaseActivity {
 
     @Override
-    public int getLayoutId() {
+    public int bindLayoutId() {
         // 这里不用改，是通用的容器
-        return com.linkkids.component.R.layout.common_fragment_container;
+        return R.layout.app_fragment_container;
     }
 
     @Override
@@ -27,19 +26,14 @@ public class ${name}FragmentActivity extends BSBaseActivity {
         addFragment();
     }
 
-    @Override
-    protected ExBasePresenter createPresenter() {
-        return null;
-    }
-
     private void addFragment() {
         Bundle bundle = getIntent().getExtras();
         if(bundle == null) {
             bundle = new Bundle();
         }
-        Fragment fragment = ${name}Fragment.newInstance(mContext, bundle);
+        Fragment fragment = ${name}Fragment.newInstance(mActivity, bundle);
         getSupportFragmentManager().beginTransaction()
-                .replace(com.linkkids.component.R.id.fl_container, fragment)
+                .replace(R.id.fl_container, fragment)
                 .commitAllowingStateLoss();
     }
 }

@@ -2,20 +2,18 @@
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
-import com.kidswant.annotation.router.Route
-import com.kidswant.common.base.BSBaseActivity
-import com.kidswant.common.base.BSBasePresenter
-import com.kidswant.common.base.BSBaseView
+import com.alibaba.android.arouter.facade.annotation.Route
+import com.galaxybruce.component.ui.activity.BaseActivity
 
 import ${package}.fragment.${name}Fragment
-import com.linkkids.component.R
+import com.galaxybruce.component.R
 
-@Route(path = ["xxx"])
-class ${name}FragmentActivity : BSBaseActivity<BSBaseView, BSBasePresenter<BSBaseView>>() {
+@Route(path = "xxx")
+class ${name}FragmentActivity : BaseActivity() {
 
-    override fun getLayoutId(): Int {
+    override fun bindLayoutId(): Int {
         // 这里不用改，是通用的容器
-        return R.layout.common_fragment_container
+        return R.layout.app_fragment_container
     }
 
     override fun initView(view: View?) {
@@ -23,16 +21,12 @@ class ${name}FragmentActivity : BSBaseActivity<BSBaseView, BSBasePresenter<BSBas
         addFragment()
     }
 
-    override fun createPresenter(): BSBasePresenter<BSBaseView>? {
-        return null
-    }
-
     private fun addFragment() {
         var bundle = intent.extras
         if (bundle == null) {
             bundle = Bundle()
         }
-        val fragment: Fragment = ${name}Fragment.Companion.newInstance(mContext, bundle)
+        val fragment: Fragment = ${name}Fragment.Companion.newInstance(mActivity, bundle)
         supportFragmentManager.beginTransaction()
             .replace(R.id.fl_container, fragment)
             .commitAllowingStateLoss()

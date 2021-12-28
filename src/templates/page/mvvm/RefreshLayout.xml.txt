@@ -22,16 +22,10 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             >
-            <com.kidswant.component.view.titlebar.TitleBarLayout
-                android:id="@+id/title_bar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:titleBarDividerHeight="1dp"
-                binding_title='@{vm.title}'
-                />
+
         </FrameLayout>
 
-        <com.linkkids.component.ui.view.bbsview.BBSRecyclerView2
+        <com.galaxybruce.component.ui.view.recyclerview.AppRecyclerView2
             android:id="@+id/bbs_recyclerView"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -39,8 +33,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/fl_title_layout"
             app:layout_constraintBottom_toBottomOf="parent"
-            binding_bbsRecyclerViewListData="@{vm.listData}"
-            binding_notifyBBSRecyclerViewListChanged="@{vm.notifyCurrentListChanged}"
+            binding_setRecyclerViewListData="@{vm.listData}"
+            binding_notifyRecyclerViewListChanged="@{vm.notifyCurrentListChanged}"
             />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

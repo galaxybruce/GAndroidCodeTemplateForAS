@@ -5,16 +5,16 @@ import android.view.View
 
 import androidx.databinding.ViewDataBinding
 
-import com.kidswant.annotation.router.Route
-import com.kidswant.basic.base.jetpack.JPBaseActivity
-import com.kidswant.basic.base.jetpack.JPBaseViewModel
-import com.kidswant.basic.base.jetpack.JPDataBindingConfig
-import com.kidswant.basic.base.jetpack.adapter.JPRecyclerViewLoadMoreAdapter
-import com.kidswant.basic.utils.ToastUtils
-import com.kidswant.common.utils.click
+import com.alibaba.android.arouter.facade.annotation.Route
+import com.galaxybruce.component.ui.jetpack.JPBaseActivity
+import com.galaxybruce.component.ui.jetpack.JPBaseViewModel
+import com.galaxybruce.component.ui.jetpack.JPDataBindingConfig
+import com.galaxybruce.component.ui.jetpack.adapter.JPRecyclerViewLoadMoreAdapter
+import com.galaxybruce.component.util.ToastUtils
+import com.galaxybruce.component.util.extensions.click
 
-import com.linkkids.component.ui.view.bbsview.AbsBBSRecyclerView.BBSRequestListener
-import com.linkkids.component.ui.view.bbsview.BBSRecyclerView2
+import com.galaxybruce.component.ui.view.recyclerview.AbsAppRecyclerView.AppRequestListener
+import com.galaxybruce.component.ui.view.recyclerview.AppRecyclerView2
 
 ${importR}
 ${importBR}
@@ -23,7 +23,7 @@ import ${modulePackage}.databinding.${name}ItemLayoutBinding
 import ${modulePackage}.databinding.${name}LayoutBinding
 
 
-@Route(path = ["xxx"])
+@Route(path = "xxx")
 class ${name}Activity : JPBaseActivity<${name}LayoutBinding>() {
     
     private lateinit var mPageViewModel: ${name}ViewModel
@@ -36,11 +36,11 @@ class ${name}Activity : JPBaseActivity<${name}LayoutBinding>() {
     }
 
     override fun initDataBindConfig(): JPDataBindingConfig {
-        return JPDataBindingConfig(layoutId)
+        return JPDataBindingConfig(bindLayoutId())
             .addBindingParam(BR.vm, mPageViewModel)
     }
 
-    override fun getLayoutId(): Int {
+    override fun bindLayoutId(): Int {
         return R.layout.${layoutName}
     }
 
@@ -55,8 +55,8 @@ class ${name}Activity : JPBaseActivity<${name}LayoutBinding>() {
         super.initView(view)
 
         val realBinding = binding
-        val bbsRecyclerView: BBSRecyclerView2<String> = realBinding.bbsRecyclerView as BBSRecyclerView2<String>
-        bbsRecyclerView.setBbsAdapter(InnerAdapter(mContext)) //.setNeedShowEmptyNoData(false)
+        val bbsRecyclerView: AppRecyclerView2<String> = realBinding.bbsRecyclerView as AppRecyclerView2<String>
+        bbsRecyclerView.setBbsAdapter(InnerAdapter(mActivity)) //.setNeedShowEmptyNoData(false)
             .setPullRefreshEnable(true)
             .setRequestDataIfViewCreated(false)
             .setInitPage(1)
@@ -64,7 +64,7 @@ class ${name}Activity : JPBaseActivity<${name}LayoutBinding>() {
 //                .setNoDataImage(R.drawable.live_lottery_list_empty_icon)
 //                .setRecyclerViewPadding(new Rect(0, DensityUtil.dp2px(12f), 0, DensityUtil.dp2px(12f)))
 //                .addItemDecoration(SpacesItemDecoration(0, DensityUtil.dp2px(10f)))
-            .setBbsRequestListener(object : BBSRequestListener {
+            .setBbsRequestListener(object : AppRequestListener {
                 override fun sendRequestData(refresh: Boolean, page: Int) {
                     performRequest()
                 }

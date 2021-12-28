@@ -1,7 +1,7 @@
 
 import android.annotation.SuppressLint
 
-import com.kidswant.basic.base.jetpack.JPBaseRequest
+import com.galaxybruce.component.ui.jetpack.JPBaseRequest
 
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.functions.Consumer

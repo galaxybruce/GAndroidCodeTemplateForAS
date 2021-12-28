@@ -19,15 +19,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <com.linkkids.component.ui.view.bbsview.BBSRecyclerView2
+        <com.galaxybruce.component.ui.view.recyclerview.AppRecyclerView2
             android:id="@+id/bbs_recyclerView"
             android:layout_width="0dp"
             android:layout_height="400dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            binding_bbsRecyclerViewListData="@{vm.listData}"
-            binding_notifyBBSRecyclerViewListChanged="@{vm.notifyCurrentListChanged}"
+            binding_setRecyclerViewListData="@{vm.listData}"
+            binding_notifyRecyclerViewListChanged="@{vm.notifyCurrentListChanged}"
             />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

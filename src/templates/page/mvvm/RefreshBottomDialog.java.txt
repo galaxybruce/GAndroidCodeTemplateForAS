@@ -6,15 +6,16 @@ import android.view.ViewGroup;
 
 import androidx.databinding.ViewDataBinding;
 
-import com.kidswant.basic.base.jetpack.JPBaseViewModel;
-import com.kidswant.basic.base.jetpack.JPDataBindingConfig;
-import com.kidswant.basic.base.jetpack.adapter.JPRecyclerViewLoadMoreAdapter;
-import com.kidswant.common.dialog.BaseBottomDialog;
-import com.kidswant.component.util.DisplayUtil;
-import com.kidswant.basic.utils.ToastUtils;
+import com.galaxybruce.component.ui.jetpack.JPBaseViewModel;
+import com.galaxybruce.component.ui.jetpack.JPDataBindingConfig;
+import com.galaxybruce.component.ui.jetpack.adapter.JPRecyclerViewLoadMoreAdapter;
+import com.galaxybruce.component.ui.dialog.AppBottomDialog;
+import com.blankj.utilcode.util.ConvertUtils;
+import com.blankj.utilcode.util.ScreenUtils;
+import com.galaxybruce.component.util.ToastUtils;
 
-import com.linkkids.component.ui.view.bbsview.AbsBBSRecyclerView.BBSRequestListener;
-import com.linkkids.component.ui.view.bbsview.BBSRecyclerView2;
+import com.galaxybruce.component.ui.view.recyclerview.AbsAppRecyclerView.AppRequestListener;
+import com.galaxybruce.component.ui.view.recyclerview.AppRecyclerView2;
 
 ${importR};
 ${importBR};
@@ -37,7 +38,7 @@ import org.jetbrains.annotations.Nullable;
  * <p>
  * modification history:
  */
-public class ${name} extends BaseBottomDialog<${name}Binding> {
+public class ${name} extends AppBottomDialog<${name}Binding> {
 
     // todo mvvm方式建议不要使用callback交互，建议删除该代码，通过mParentViewModel和父容器进行交互！！！
     public interface I${name}Callback {
@@ -112,10 +113,10 @@ public class ${name} extends BaseBottomDialog<${name}Binding> {
 
         // 根据实际需要动态设置RecyclerView高度
         ViewGroup.LayoutParams layoutParams = realBinding.bbsRecyclerView.getLayoutParams();
-        layoutParams.height = Math.max((int)(DisplayUtil.getScreenHeight(view.getContext()) * 0.6f),
-                DisplayUtil.dip2px(view.getContext(), 400));
+        layoutParams.height = Math.max((int)(ScreenUtils.getAppScreenHeight() * 0.6f),
+                ConvertUtils.dp2px(400));
 
-        BBSRecyclerView2<String> bbsRecyclerView = realBinding.bbsRecyclerView;
+        AppRecyclerView2<String> bbsRecyclerView = realBinding.bbsRecyclerView;
         bbsRecyclerView.setBbsAdapter(new InnerAdapter(getContext()))
                 //.setNeedShowEmptyNoData(false)
                 .setPullRefreshEnable(true)
@@ -125,7 +126,7 @@ public class ${name} extends BaseBottomDialog<${name}Binding> {
 //                .setNoDataImage(R.drawable.live_lottery_list_empty_icon)
 //                .setRecyclerViewPadding(new Rect(0, DensityUtil.dp2px(12f), 0, DensityUtil.dp2px(12f)))
 //                .addItemDecoration(SpacesItemDecoration(0, DensityUtil.dp2px(10f)))
-                .setBbsRequestListener(new BBSRecyclerView2.BBSRequestListener() {
+                .setBbsRequestListener(new AppRecyclerView2.AppRequestListener() {
                     @Override
                     public void sendRequestData(boolean refresh, int page) {
                         performRequest(page);

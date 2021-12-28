@@ -1,10 +1,10 @@
 
 import android.os.Bundle;
 
-import com.kidswant.annotation.router.Route;
-import com.kidswant.basic.base.jetpack.JPBaseActivity;
-import com.kidswant.basic.base.jetpack.JPBaseViewModel;
-import com.kidswant.basic.base.jetpack.JPDataBindingConfig;
+import com.alibaba.android.arouter.facade.annotation.Route;
+import com.galaxybruce.component.ui.jetpack.JPBaseActivity;
+import com.galaxybruce.component.ui.jetpack.JPBaseViewModel;
+import com.galaxybruce.component.ui.jetpack.JPDataBindingConfig;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -28,13 +28,13 @@ public class ${name}Activity extends JPBaseActivity<${name}LayoutBinding> {
 
     @Override
     public JPDataBindingConfig initDataBindConfig() {
-        return new JPDataBindingConfig(getLayoutId())
+        return new JPDataBindingConfig(bindLayoutId())
                 .addBindingParam(BR.vm, mPageViewModel)
                 .addBindingParam(BR.click, new ClickProxy());
     }
 
     @Override
-    public int getLayoutId() {
+    public int bindLayoutId() {
         return R.layout.${layoutName};
     }
 

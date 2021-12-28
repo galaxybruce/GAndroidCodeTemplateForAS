@@ -5,15 +5,16 @@ import android.view.View
 
 import androidx.databinding.ViewDataBinding
 
-import com.kidswant.basic.base.jetpack.JPBaseViewModel
-import com.kidswant.basic.base.jetpack.JPDataBindingConfig
-import com.kidswant.basic.base.jetpack.adapter.JPRecyclerViewLoadMoreAdapter
-import com.kidswant.common.dialog.BaseCustomConfirmDialog
-import com.kidswant.component.util.DisplayUtil
-import com.kidswant.basic.utils.ToastUtils
+import com.galaxybruce.component.ui.jetpack.JPBaseViewModel
+import com.galaxybruce.component.ui.jetpack.JPDataBindingConfig
+import com.galaxybruce.component.ui.jetpack.adapter.JPRecyclerViewLoadMoreAdapter
+import com.galaxybruce.component.ui.dialog.AppCustomConfirmDialog
+import com.blankj.utilcode.util.ConvertUtils
+import com.blankj.utilcode.util.ScreenUtils
+import com.galaxybruce.component.util.ToastUtils
 
-import com.linkkids.component.ui.view.bbsview.AbsBBSRecyclerView.BBSRequestListener
-import com.linkkids.component.ui.view.bbsview.BBSRecyclerView2
+import com.galaxybruce.component.ui.view.recyclerview.AbsAppRecyclerView.AppRequestListener
+import com.galaxybruce.component.ui.view.recyclerview.AppRecyclerView2
 
 ${importR}
 ${importBR}
@@ -36,7 +37,7 @@ import kotlin.math.max
  *
  * modification history:
  */
-class ${name} : BaseCustomConfirmDialog<${name}Binding>() {
+class ${name} : AppCustomConfirmDialog<${name}Binding>() {
 
     // todo mvvm方式建议不要使用callback交互，建议删除该代码，通过mParentViewModel和父容器进行交互！！！
     interface I${name}Callback {
@@ -98,10 +99,10 @@ class ${name} : BaseCustomConfirmDialog<${name}Binding>() {
         // 根据实际需要动态设置RecyclerView高度
         val layoutParams = realBinding.bbsRecyclerView.layoutParams
         layoutParams.height = max(
-            (DisplayUtil.getScreenHeight(requireView().context) * 0.6f).toInt(),
-            DisplayUtil.dip2px(requireView().context, 400f)
+            (ScreenUtils.getAppScreenHeight() * 0.6f).toInt(),
+            ConvertUtils.dp2px(400f)
         )
-        val bbsRecyclerView: BBSRecyclerView2<String> = realBinding.bbsRecyclerView as BBSRecyclerView2<String>
+        val bbsRecyclerView: AppRecyclerView2<String> = realBinding.bbsRecyclerView as AppRecyclerView2<String>
         bbsRecyclerView.setBbsAdapter(InnerAdapter(requireView().context)) //.setNeedShowEmptyNoData(false)
             .setPullRefreshEnable(true)
             .setRequestDataIfViewCreated(true)
@@ -110,7 +111,7 @@ class ${name} : BaseCustomConfirmDialog<${name}Binding>() {
 //                .setNoDataImage(R.drawable.live_lottery_list_empty_icon)
 //                .setRecyclerViewPadding(new Rect(0, DensityUtil.dp2px(12f), 0, DensityUtil.dp2px(12f)))
 //                .addItemDecoration(SpacesItemDecoration(0, DensityUtil.dp2px(10f)))
-            .setBbsRequestListener(object : BBSRequestListener {
+            .setBbsRequestListener(object : AppRequestListener {
                 override fun sendRequestData(refresh: Boolean, page: Int) {
                     performRequest(page)
                 }

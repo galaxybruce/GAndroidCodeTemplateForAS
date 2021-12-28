@@ -1,13 +1,13 @@
 
 import android.annotation.SuppressLint;
 
-import com.kidswant.basic.base.jetpack.JPBaseRequest;
+import com.galaxybruce.component.ui.jetpack.JPBaseRequest;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
-import com.kidswant.basic.base.jetpack.JPListDataModel;
+import com.galaxybruce.component.ui.jetpack.JPListDataModel;
 
 import java.util.ArrayList;
 import java.util.List;

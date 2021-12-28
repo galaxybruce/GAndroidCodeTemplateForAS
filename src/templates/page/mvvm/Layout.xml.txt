@@ -27,13 +27,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             >
-            <com.kidswant.component.view.titlebar.TitleBarLayout
-                android:id="@+id/title_bar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:titleBarDividerHeight="1dp"
-                binding_title='@{vm.title}'
-                />
+
         </FrameLayout>
 
         <TextView

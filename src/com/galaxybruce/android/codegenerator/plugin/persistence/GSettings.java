@@ -12,7 +12,7 @@ import org.jetbrains.annotations.Nullable;
                 @Storage("android_code_generator_settings.xml")
         }
 )
-public class Settings implements PersistentStateComponent<Settings> {
+public class GSettings implements PersistentStateComponent<GSettings> {
 
     private String sourcePath;
 
@@ -24,18 +24,18 @@ public class Settings implements PersistentStateComponent<Settings> {
         this.sourcePath = sourcePath;
     }
 
-    public static Settings getInstance(Project project) {
-        return ServiceManager.getService(project, Settings.class);
+    public static GSettings getInstance(Project project) {
+        return ServiceManager.getService(project, GSettings.class);
     }
 
     @Nullable
     @Override
-    public Settings getState() {
+    public GSettings getState() {
         return this;
     }
 
     @Override
-    public void loadState(Settings settings) {
+    public void loadState(GSettings settings) {
         XmlSerializerUtil.copyBean(settings, this);
     }
 }

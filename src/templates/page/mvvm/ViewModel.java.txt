@@ -2,8 +2,8 @@
 import androidx.databinding.ObservableField;
 import androidx.lifecycle.MutableLiveData;
 
-import com.kidswant.basic.base.jetpack.JPBaseRequest;
-import com.kidswant.basic.base.jetpack.JPBaseViewModel;
+import com.galaxybruce.component.ui.jetpack.JPBaseRequest;
+import com.galaxybruce.component.ui.jetpack.JPBaseViewModel;
 
 import org.jetbrains.annotations.Nullable;
 

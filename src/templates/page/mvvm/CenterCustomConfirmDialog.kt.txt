@@ -1,9 +1,9 @@
 
 import android.os.Bundle
-import com.kidswant.basic.base.jetpack.JPBaseViewModel
-import com.kidswant.basic.base.jetpack.JPDataBindingConfig
-import com.kidswant.basic.utils.ToastUtils
-import com.kidswant.common.dialog.BaseCustomConfirmDialog
+import com.galaxybruce.component.ui.jetpack.JPBaseViewModel
+import com.galaxybruce.component.ui.jetpack.JPDataBindingConfig
+import com.galaxybruce.component.util.ToastUtils
+import com.galaxybruce.component.ui.dialog.AppCustomConfirmDialog
 
 ${importR}
 ${importBR}
@@ -22,7 +22,7 @@ import ${modulePackage}.databinding.${name}Binding
  *
  * modification history:
  */
-class ${name} : BaseCustomConfirmDialog<${name}Binding>() {
+class ${name} : AppCustomConfirmDialog<${name}Binding>() {
 
     interface I${name}Callback {
         fun on${name}Callback()

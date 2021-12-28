@@ -5,14 +5,14 @@ import android.view.View;
 
 import androidx.databinding.ViewDataBinding;
 
-import com.kidswant.annotation.router.Route;
-import com.kidswant.basic.base.jetpack.JPBaseActivity;
-import com.kidswant.basic.base.jetpack.JPBaseViewModel;
-import com.kidswant.basic.base.jetpack.JPDataBindingConfig;
-import com.kidswant.basic.base.jetpack.adapter.JPRecyclerViewLoadMoreAdapter;
-import com.kidswant.basic.utils.ToastUtils;
+import com.alibaba.android.arouter.facade.annotation.Route;
+import com.galaxybruce.component.ui.jetpack.JPBaseActivity;
+import com.galaxybruce.component.ui.jetpack.JPBaseViewModel;
+import com.galaxybruce.component.ui.jetpack.JPDataBindingConfig;
+import com.galaxybruce.component.ui.jetpack.adapter.JPRecyclerViewLoadMoreAdapter;
+import com.galaxybruce.component.util.ToastUtils;
 
-import com.linkkids.component.ui.view.bbsview.BBSRecyclerView2;
+import com.galaxybruce.component.ui.view.recyclerview.AppRecyclerView2;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -37,12 +37,12 @@ public class ${name}Activity extends JPBaseActivity<${name}LayoutBinding> {
 
     @Override
     public JPDataBindingConfig initDataBindConfig() {
-        return new JPDataBindingConfig(getLayoutId())
+        return new JPDataBindingConfig(bindLayoutId())
                 .addBindingParam(BR.vm, mPageViewModel);
     }
 
     @Override
-    public int getLayoutId() {
+    public int bindLayoutId() {
         return R.layout.${layoutName};
     }
 
@@ -60,8 +60,8 @@ public class ${name}Activity extends JPBaseActivity<${name}LayoutBinding> {
         super.initView(view);
 
         ${name}LayoutBinding realBinding = getBinding();
-        BBSRecyclerView2<String> bbsRecyclerView = realBinding.bbsRecyclerView;
-        bbsRecyclerView.setBbsAdapter(new InnerAdapter(mContext))
+        AppRecyclerView2<String> bbsRecyclerView = realBinding.bbsRecyclerView;
+        bbsRecyclerView.setBbsAdapter(new InnerAdapter(mActivity))
                 //.setNeedShowEmptyNoData(false)
                 .setPullRefreshEnable(true)
                 .setRequestDataIfViewCreated(false)
@@ -70,7 +70,7 @@ public class ${name}Activity extends JPBaseActivity<${name}LayoutBinding> {
 //                .setNoDataImage(R.drawable.live_lottery_list_empty_icon)
 //                .setRecyclerViewPadding(new Rect(0, DensityUtil.dp2px(12f), 0, DensityUtil.dp2px(12f)))
 //                .addItemDecoration(SpacesItemDecoration(0, DensityUtil.dp2px(10f)))
-                .setBbsRequestListener(new BBSRecyclerView2.BBSRequestListener() {
+                .setBbsRequestListener(new AppRecyclerView2.AppRequestListener() {
                     @Override
                     public void sendRequestData(boolean refresh, int page) {
                         performRequest();
