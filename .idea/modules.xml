@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/LKAndroidCodeTemplateForAS.iml" filepath="$PROJECT_DIR$/LKAndroidCodeTemplateForAS.iml" />
+      <module fileurl="file://$PROJECT_DIR$/GAndroidCodeTemplateForAS.iml" filepath="$PROJECT_DIR$/GAndroidCodeTemplateForAS.iml" />
     </modules>
   </component>
 </project>
