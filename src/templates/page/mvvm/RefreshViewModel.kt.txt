@@ -18,7 +18,7 @@ class ${name}ViewModel : JPBaseViewModel() {
 
     val request = ${name}Request(this)
 
-    override fun getRequests(): List<JPBaseRequest>? {
+    override fun getRequests(): List<JPBaseRequest> {
         return listOf(request)
     }
 
