@@ -24,10 +24,10 @@ class ${name}Request(private val viewModel: ${name}ViewModel) : JPBaseRequest() 
 //            .subscribeOn(Schedulers.io())
 //            .observeOn(AndroidSchedulers.mainThread())
 //            .subscribe({
-//               this.viewModel.listData.setValue(new JPListDataModel(list, true))
+//               this.viewModel.listData.setValue(JPListDataModel(list, true))
 //            }, {
 //                showToast(it.message)
-//                this.viewModel.listData.setValue(new JPListDataModel(list, true))
+//                this.viewModel.listData.setValue(JPListDataModel(null, true))
 //            })
 
         val list: MutableList<String> = ArrayList()

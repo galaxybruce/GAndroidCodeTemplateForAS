@@ -41,7 +41,7 @@ public class ${name}Request extends JPBaseRequest {
 //                    @Override
 //                    public void accept(Throwable throwable) throws Exception {
 //                        showToast(throwable.getMessage());
-//                        this.viewModel.listData.setValue(new JPListDataModel(list, true));
+//                        this.viewModel.listData.setValue(new JPListDataModel(null, true));
 //                    }
 //                });
 
