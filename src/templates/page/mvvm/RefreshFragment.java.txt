@@ -77,6 +77,7 @@ public class ${name}Fragment extends JPBaseFragment<${name}LayoutBinding> {
                 //.setNeedShowEmptyNoData(false)
                 .setPullRefreshEnable(true)
                 .setRequestDataIfViewCreated(false)
+                .setNeedShowLoadingView(false)
                 .setInitPage(1)
 //                .setNoDataContent("暂无数据～")
 //                .setNoDataImage(R.drawable.live_lottery_list_empty_icon)

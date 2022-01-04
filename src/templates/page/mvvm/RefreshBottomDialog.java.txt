@@ -121,6 +121,7 @@ public class ${name} extends AppBottomDialog<${name}Binding> {
                 //.setNeedShowEmptyNoData(false)
                 .setPullRefreshEnable(true)
                 .setRequestDataIfViewCreated(true)
+                .setNeedShowLoadingView(false)
                 .setInitPage(1)
 //                .setNoDataContent("暂无数据～")
 //                .setNoDataImage(R.drawable.live_lottery_list_empty_icon)
