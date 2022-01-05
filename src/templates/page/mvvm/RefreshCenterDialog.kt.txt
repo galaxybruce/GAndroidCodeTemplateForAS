@@ -148,7 +148,7 @@ class ${name} : AppCenterDialog<${name}Binding>() {
         }
     }
 
-    private inner class InnerAdapter(context: Context) : JPRecyclerViewLoadMoreAdapter<String?>(context) {
+    private inner class InnerAdapter(context: Context) : JPRecyclerViewLoadMoreAdapter<String>(context) {
 
         private val VIEW_TYPE_XXX = 0x2001f
 

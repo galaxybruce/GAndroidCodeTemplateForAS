@@ -91,7 +91,7 @@ class ${name}Activity : JPBaseActivity<${name}LayoutBinding>() {
         mPageViewModel.request.performRequest("xxx")
     }
 
-    private inner class InnerAdapter(context: Context?) : JPRecyclerViewLoadMoreAdapter<String?>(context) {
+    private inner class InnerAdapter(context: Context?) : JPRecyclerViewLoadMoreAdapter<String>(context) {
 
         private val VIEW_TYPE_XXX = 0x2001f
 
