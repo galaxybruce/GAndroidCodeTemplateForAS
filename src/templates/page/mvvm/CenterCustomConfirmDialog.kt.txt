@@ -1,5 +1,6 @@
 
 import android.os.Bundle
+import android.os.Parcelable
 import com.galaxybruce.component.ui.jetpack.JPBaseViewModel
 import com.galaxybruce.component.ui.jetpack.JPDataBindingConfig
 import com.galaxybruce.component.util.ToastUtils
@@ -16,15 +17,19 @@ import ${modulePackage}.databinding.${name}Binding
  * @description (亲，我是做什么的)
  *
  * 使用方式：
- * new ${name}.Builder()
- * .title("哈哈哈")
- * .build().show(getSupportFragmentManager(), "${name}");
+ * ${name}.Builder()
+ *      .title("哈哈哈")
+ *      .callback(object: ${name}.I${name}Callback {
+ *           override fun on${name}Callback() {
+ *           }
+ *       })
+ * .build().show(supportFragmentManager, "${name}")
  *
  * modification history:
  */
 class ${name} : AppCustomConfirmDialog<${name}Binding>() {
 
-    interface I${name}Callback {
+    interface I${name}Callback : AppConfirmDialogCallback  {
         fun on${name}Callback()
     }
 
@@ -34,6 +39,11 @@ class ${name} : AppCustomConfirmDialog<${name}Binding>() {
 
     class Builder {
         var bundle: Bundle = Bundle()
+
+        fun callback(value: Parcelable): Builder {
+            bundle.putParcelable("callback", value)
+            return this
+        }
 
         fun title(value: String?): Builder {
             bundle.putString("title", value)
@@ -73,6 +83,7 @@ class ${name} : AppCustomConfirmDialog<${name}Binding>() {
         // 获取listener
         mCallback = getDialogListener(this, I${name}Callback::class.java)
         bundle?.let {
+            mCallback = it.getParcelable("callback")
             // todo sample code, please delete it
             mPageViewModel.title.set(it.getString("title"))
         }

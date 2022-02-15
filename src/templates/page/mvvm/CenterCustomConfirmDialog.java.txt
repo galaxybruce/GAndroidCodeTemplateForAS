@@ -1,5 +1,6 @@
 
 import android.os.Bundle;
+import android.os.Parcelable;
 import com.galaxybruce.component.ui.jetpack.JPBaseViewModel;
 import com.galaxybruce.component.ui.jetpack.JPDataBindingConfig;
 import com.galaxybruce.component.ui.dialog.AppCustomConfirmDialog;
@@ -20,6 +21,11 @@ import org.jetbrains.annotations.Nullable;
  * 使用方式：
  * new ${name}.Builder()
  *      .title("哈哈哈")
+ *      .callback(new ${name}.I${name}Callback() {
+ *          @Override
+ *          public void on${name}Callback() {
+ *          }
+ *       })
  *      .build().show(getSupportFragmentManager(), "${name}");
  *
  * <p>
@@ -27,14 +33,12 @@ import org.jetbrains.annotations.Nullable;
  */
 public class ${name} extends AppCustomConfirmDialog<${name}Binding> {
 
-    public interface I${name}Callback {
+    public interface I${name}Callback extends AppConfirmDialogCallback {
         void on${name}Callback();
     }
 
     // todo sample code, please delete it 属性字段定义
     I${name}Callback mCallback;
-    String mTitle;
-
     ${name}ViewModel mPageViewModel;
 
     public static final class Builder {
@@ -42,6 +46,11 @@ public class ${name} extends AppCustomConfirmDialog<${name}Binding> {
 
         public Builder() {
             bundle = new Bundle();
+        }
+
+        public Builder callback(Parcelable value) {
+            bundle.putParcelable("callback", value);
+            return this;
         }
 
         public Builder title(String val) {
@@ -88,6 +97,7 @@ public class ${name} extends AppCustomConfirmDialog<${name}Binding> {
         mCallback = getDialogListener(this, I${name}Callback.class);
         Bundle arguments = getArguments();
         if(arguments != null) {
+            mCallback = arguments.getParcelable("callback");
             // todo sample code, please delete it
             mPageViewModel.title.set(arguments.getString("title"));
         }
