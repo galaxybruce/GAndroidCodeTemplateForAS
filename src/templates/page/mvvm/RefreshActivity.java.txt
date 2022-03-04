@@ -30,7 +30,6 @@ public class ${name}Activity extends JPBaseActivity<${name}LayoutBinding> {
     @Override
     public JPBaseViewModel initViewModel() {
         mPageViewModel = getActivityViewModel(${name}ViewModel.class);
-        // todo tip: 这里还可能会初始化全局的ViewModel
         // mAppViewModel = getAppViewModelProvider().get(AppViewModel.class);
         return mPageViewModel;
     }
@@ -49,8 +48,6 @@ public class ${name}Activity extends JPBaseActivity<${name}LayoutBinding> {
     @Override
     public void initData(@Nullable Bundle bundle, @Nullable Bundle savedInstanceState) {
         super.initData(bundle, savedInstanceState);
-
-        // todo init data from Intent
 //        final Intent intent = getIntent();
 //        String a = intent.getStringExtra("xxx");
     }
@@ -96,7 +93,6 @@ public class ${name}Activity extends JPBaseActivity<${name}LayoutBinding> {
     }
 
     private void performRequest() {
-        // todo perform net Requrest
         mPageViewModel.request.performRequest("xxx");
     }
 

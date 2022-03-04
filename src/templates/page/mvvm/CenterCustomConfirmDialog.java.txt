@@ -37,7 +37,6 @@ public class ${name} extends AppCustomConfirmDialog<${name}Binding> {
         void on${name}Callback();
     }
 
-    // todo sample code, please delete it 属性字段定义
     I${name}Callback mCallback;
     ${name}ViewModel mPageViewModel;
 
@@ -122,7 +121,6 @@ public class ${name} extends AppCustomConfirmDialog<${name}Binding> {
     }
 
     private void performRequest() {
-        // todo perform net Requrest
         mPageViewModel.request.performRequest("xxx");
     }
 

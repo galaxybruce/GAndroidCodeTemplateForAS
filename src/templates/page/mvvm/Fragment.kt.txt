@@ -19,10 +19,7 @@ class ${name}Fragment : JPBaseFragment<${name}LayoutBinding>() {
 
     companion object {
         fun newInstance(context: Context, args: Bundle?): ${name}Fragment {
-            var bundle = args
-            if (bundle == null) {
-                bundle = Bundle()
-            }
+            val bundle = args ?: Bundle()
             val fragment = ARouter.getInstance().build("xxx")
                 .navigation() as ${name}Fragment
             fragment.arguments = bundle
@@ -34,7 +31,6 @@ class ${name}Fragment : JPBaseFragment<${name}LayoutBinding>() {
 
     override fun initViewModel(): JPBaseViewModel {
         mPageViewModel = getFragmentViewModel(${name}ViewModel::class.java)
-        // todo tip: 这里还可能会初始化全局的ViewModel
         // mAppViewModel = appViewModelProvider.get(AppViewModel::class.java)
         return mPageViewModel
     }
@@ -51,8 +47,6 @@ class ${name}Fragment : JPBaseFragment<${name}LayoutBinding>() {
 
     override fun initData(bundle: Bundle?, savedInstanceState: Bundle?) {
         super.initData(bundle, savedInstanceState)
-
-        // todo init data from Intent
 //        var a = bundle?.getString("xxx")
     }
 
@@ -69,7 +63,6 @@ class ${name}Fragment : JPBaseFragment<${name}LayoutBinding>() {
     }
 
     private fun performRequest() {
-        // todo perform net Requrest
         mPageViewModel.request.performRequest("xxx")
     }
 

@@ -34,7 +34,6 @@ class ${name} : AppCenterDialog<${name}Binding>() {
         fun on${name}Callback()
     }
 
-    // todo sample code, please delete it 属性字段定义
     var mCallback: I${name}Callback? = null
     lateinit var mPageViewModel: ${name}ViewModel
 
@@ -104,7 +103,6 @@ class ${name} : AppCenterDialog<${name}Binding>() {
     }
 
     private fun performRequest() {
-        // todo perform net Requrest
         mPageViewModel.request.performRequest("xxx")
     }
 

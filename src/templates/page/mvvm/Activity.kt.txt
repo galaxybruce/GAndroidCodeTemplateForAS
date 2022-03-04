@@ -19,7 +19,6 @@ class ${name}Activity : JPBaseActivity<${name}LayoutBinding>() {
 
     override fun initViewModel(): JPBaseViewModel {
         mPageViewModel = getActivityViewModel(${name}ViewModel::class.java)
-        // todo tip: 这里还可能会初始化全局的ViewModel
         // mAppViewModel = appViewModelProvider.get(AppViewModel::class.java)
         return mPageViewModel
     }
@@ -36,8 +35,6 @@ class ${name}Activity : JPBaseActivity<${name}LayoutBinding>() {
 
     override fun initData(bundle: Bundle?, savedInstanceState: Bundle?) {
         super.initData(bundle, savedInstanceState)
-
-        // todo init data from Intent
 //        var a = intent.getStringExtra("xxx")
     }
 
@@ -54,7 +51,6 @@ class ${name}Activity : JPBaseActivity<${name}LayoutBinding>() {
     }
 
     private fun performRequest() {
-        // todo perform net Requrest
         mPageViewModel.request.performRequest("xxx")
     }
 
