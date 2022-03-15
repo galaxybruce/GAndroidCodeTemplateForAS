@@ -52,8 +52,8 @@ class ${name}Activity : JPBaseActivity<${name}LayoutBinding>() {
         super.initView(view)
 
         val realBinding = binding
-        val bbsRecyclerView: AppRecyclerView2<String> = realBinding.bbsRecyclerView as AppRecyclerView2<String>
-        bbsRecyclerView.setBbsAdapter(InnerAdapter(mActivity)) //.setNeedShowEmptyNoData(false)
+        val appRecyclerView: AppRecyclerView2<String> = realBinding.appRecyclerView as AppRecyclerView2<String>
+        appRecyclerView.setAdapter(InnerAdapter(mActivity)) //.setNeedShowEmptyNoData(false)
             .setPullRefreshEnable(true)
             .setRequestDataIfViewCreated(false)
             .setNeedShowLoadingView(false)
@@ -62,7 +62,7 @@ class ${name}Activity : JPBaseActivity<${name}LayoutBinding>() {
 //                .setNoDataImage(R.drawable.live_lottery_list_empty_icon)
 //                .setRecyclerViewPadding(new Rect(0, DensityUtil.dp2px(12f), 0, DensityUtil.dp2px(12f)))
 //                .addItemDecoration(SpacesItemDecoration(0, DensityUtil.dp2px(10f)))
-            .setBbsRequestListener(object : AppRequestListener {
+            .setRequestListener(object : AppRequestListener {
                 override fun sendRequestData(refresh: Boolean, page: Int) {
                     performRequest()
                 }
@@ -89,22 +89,8 @@ class ${name}Activity : JPBaseActivity<${name}LayoutBinding>() {
 
     private inner class InnerAdapter(context: Context?) : JPRecyclerViewLoadMoreAdapter<String>(context) {
 
-        private val VIEW_TYPE_XXX = 0x2001f
-
-        override fun needLoadMore(): Boolean {
-            return true
-        }
-
-        override fun showFooterViewOfHint(): Boolean {
-            return true
-        }
-
-        override fun getRealItemViewType(position: Int): Int {
-            return VIEW_TYPE_XXX
-        }
-
         override fun getLayoutId(viewType: Int): Int {
-            return if (viewType == VIEW_TYPE_XXX) {
+            return if (viewType == DEFAULT_REAL_ITEM_VIEW_TYPE) {
                 R.layout.${itemLayoutName}
             } else {
                 super.getLayoutId(viewType)

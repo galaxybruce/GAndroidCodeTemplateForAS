@@ -121,12 +121,12 @@ public class ${name} extends AppCustomConfirmDialog<${name}Binding> {
         ${name}Binding realBinding = getBinding();
 
         // 根据实际需要动态设置RecyclerView高度
-        ViewGroup.LayoutParams layoutParams = realBinding.bbsRecyclerView.getLayoutParams();
+        ViewGroup.LayoutParams layoutParams = realBinding.appRecyclerView.getLayoutParams();
         layoutParams.height = Math.max((int)(ScreenUtils.getAppScreenHeight() * 0.6f),
                 ConvertUtils.dp2px(400));
 
-        AppRecyclerView2<String> bbsRecyclerView = realBinding.bbsRecyclerView;
-        bbsRecyclerView.setBbsAdapter(new InnerAdapter(getContext()))
+        AppRecyclerView2<String> appRecyclerView = realBinding.appRecyclerView;
+        appRecyclerView.setAdapter(new InnerAdapter(getContext()))
                 //.setNeedShowEmptyNoData(false)
                 .setPullRefreshEnable(true)
                 .setRequestDataIfViewCreated(true)
@@ -136,7 +136,7 @@ public class ${name} extends AppCustomConfirmDialog<${name}Binding> {
 //                .setNoDataImage(R.drawable.live_lottery_list_empty_icon)
 //                .setRecyclerViewPadding(new Rect(0, DensityUtil.dp2px(12f), 0, DensityUtil.dp2px(12f)))
 //                .addItemDecoration(SpacesItemDecoration(0, DensityUtil.dp2px(10f)))
-                .setBbsRequestListener(new AppRecyclerView2.AppRequestListener() {
+                .setRequestListener(new AppRecyclerView2.AppRequestListener() {
                     @Override
                     public void sendRequestData(boolean refresh, int page) {
                         performRequest(page);
@@ -182,45 +182,28 @@ public class ${name} extends AppCustomConfirmDialog<${name}Binding> {
 
     private class InnerAdapter extends JPRecyclerViewLoadMoreAdapter<String> {
 
-            private static final int VIEW_TYPE_XXX = 0x2001f;
+        public InnerAdapter(Context context) {
+            super(context);
+        }
 
-            public InnerAdapter(Context context) {
-                super(context);
+        @Override
+        protected int getLayoutId(int viewType) {
+            if(viewType == DEFAULT_REAL_ITEM_VIEW_TYPE) {
+                return R.layout.${itemLayoutName};
             }
+            return super.getLayoutId(viewType);
+        }
 
-            @Override
-            public boolean needLoadMore() {
-                return true;
-            }
-
-            @Override
-            protected boolean showFooterViewOfHint() {
-                return true;
-            }
-
-            @Override
-            protected int getRealItemViewType(int position) {
-                return VIEW_TYPE_XXX;
-            }
-
-            @Override
-            protected int getLayoutId(int viewType) {
-                if(viewType == VIEW_TYPE_XXX) {
-                    return R.layout.${itemLayoutName};
-                }
-                return super.getLayoutId(viewType);
-            }
-
-            @Override
-            protected void onBindItem(ViewDataBinding binding, int dataPosition) {
-                if(binding instanceof ${name}ItemLayoutBinding) {
-                    String itemInfo = getData().get(dataPosition);
-                    ${name}ItemLayoutBinding itemLayoutBinding = ((${name}ItemLayoutBinding) binding);
-                    itemLayoutBinding.setVm(itemInfo);
-                    itemLayoutBinding.tvName.setOnClickListener(v -> {
-                        ToastUtils.showToast(mContext, "click item: " + itemInfo);
-                    });
-                }
+        @Override
+        protected void onBindItem(ViewDataBinding binding, int dataPosition) {
+            if(binding instanceof ${name}ItemLayoutBinding) {
+                String itemInfo = getData().get(dataPosition);
+                ${name}ItemLayoutBinding itemLayoutBinding = ((${name}ItemLayoutBinding) binding);
+                itemLayoutBinding.setVm(itemInfo);
+                itemLayoutBinding.tvName.setOnClickListener(v -> {
+                    ToastUtils.showToast(mContext, "click item: " + itemInfo);
+                });
             }
         }
+    }
 }

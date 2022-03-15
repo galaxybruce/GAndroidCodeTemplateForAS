@@ -14,7 +14,7 @@ class ${name}ViewModel : JPBaseViewModel() {
     val title = ObservableField<String>()
     // 控制recyclerView是否调用notifyDataSetChanged()
     val notifyCurrentListChanged = MutableLiveData<Boolean>()
-    val listData = MutableLiveData<JPListDataModel>()
+    val listData = MutableLiveData<JPListDataModel<String>>()
 
     val request = ${name}Request(this)
 
@@ -23,6 +23,6 @@ class ${name}ViewModel : JPBaseViewModel() {
     }
 
     init {
-        listData.value = JPListDataModel(null, false)
+
     }
 }

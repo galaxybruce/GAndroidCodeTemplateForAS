@@ -19,7 +19,7 @@ public class ${name}ViewModel extends JPBaseViewModel {
     public final ObservableField<String> title = new ObservableField<>();
     // 控制recyclerView是否调用notifyDataSetChanged()
     public final MutableLiveData<Boolean> notifyCurrentListChanged = new MutableLiveData<>();
-    public final MutableLiveData<JPListDataModel> listData = new MutableLiveData<>();
+    public final MutableLiveData<JPListDataModel<String>> listData = new MutableLiveData<>();
 
     public final ${name}Request request = new ${name}Request(this);
 
@@ -33,6 +33,6 @@ public class ${name}ViewModel extends JPBaseViewModel {
 
 
     {
-        listData.setValue(new JPListDataModel(null, false));
+
     }
 }
