@@ -88,7 +88,7 @@ class ${name}Fragment : JPBaseFragment<${name}LayoutBinding>() {
 
         // 页面重建时，判断是否有数据，没有数据才发送请求
         if (mPageViewModel.listData.value?.list.isNullOrEmpty()) {
-            performRequest()
+            binding.appRecyclerView.requestDataWithLoading()
         }
     }
 

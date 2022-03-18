@@ -91,7 +91,7 @@ public class ${name}Activity extends JPBaseActivity<${name}LayoutBinding> {
         final JPListDataModel<String> listDataModel = mPageViewModel.listData.getValue();
         if(listDataModel == null || listDataModel.getList() == null
                 || listDataModel.getList().isEmpty()) {
-            performRequest();
+            binding.appRecyclerView.requestDataWithLoading();
         }
     }
 

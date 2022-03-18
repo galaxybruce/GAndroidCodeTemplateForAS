@@ -104,7 +104,7 @@ public class ${name}Fragment extends JPBaseFragment<${name}LayoutBinding> {
         final JPListDataModel<String> listDataModel = mPageViewModel.listData.getValue();
         if(listDataModel == null || listDataModel.getList() == null
                 || listDataModel.getList().isEmpty()) {
-            performRequest();
+            binding.appRecyclerView.requestDataWithLoading();
         }
     }
 
