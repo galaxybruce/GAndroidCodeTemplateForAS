@@ -27,8 +27,8 @@
 
         <com.galaxybruce.component.ui.view.recyclerview.AppRecyclerView2
             android:id="@+id/app_recyclerView"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="0pt"
+            android:layout_height="0pt"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/fl_title_layout"

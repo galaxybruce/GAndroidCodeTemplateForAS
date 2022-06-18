@@ -11,8 +11,8 @@ import com.galaxybruce.component.ui.jetpack.JPDataBindingConfig
 import com.galaxybruce.component.ui.jetpack.adapter.JPRecyclerViewLoadMoreAdapter
 import com.galaxybruce.component.ui.dialog.AppCenterDialog
 import com.galaxybruce.component.ui.dialog.AppDialogCallback
-import com.blankj.utilcode.util.ConvertUtils
 import com.blankj.utilcode.util.ScreenUtils
+import com.blankj.utilcode.util.AdaptScreenUtils
 import com.galaxybruce.component.util.ToastUtils
 
 import com.galaxybruce.component.ui.view.recyclerview.AbsAppRecyclerView.AppRequestListener
@@ -37,13 +37,13 @@ import kotlin.math.max
  *           override fun on${name}Callback() {
  *           }
  *       })
- * .build().show(supportFragmentManager, "${name}")
+ *      .build()
+ *      .show(supportFragmentManager, "${name}")
  *
  * modification history:
  */
 class ${name} : AppCenterDialog<${name}Binding>() {
 
-    // todo mvvm方式建议不要使用callback交互，建议删除该代码，通过mParentViewModel和父容器进行交互！！！
     interface I${name}Callback : AppDialogCallback {
         fun on${name}Callback()
     }
@@ -96,7 +96,6 @@ class ${name} : AppCenterDialog<${name}Binding>() {
         mCallback = getDialogListener(this, I${name}Callback::class.java)
         bundle?.let {
             mCallback = it.getParcelable("callback")
-            // todo sample code, please delete it
             mPageViewModel.title.set(it.getString("title"))
         }
     }
@@ -109,7 +108,7 @@ class ${name} : AppCenterDialog<${name}Binding>() {
         val layoutParams = realBinding.appRecyclerView.layoutParams
         layoutParams.height = max(
             (ScreenUtils.getAppScreenHeight() * 0.6f).toInt(),
-            ConvertUtils.dp2px(400f)
+            AdaptScreenUtils.pt2Px(400f)
         )
         val appRecyclerView: AppRecyclerView2<String> = realBinding.appRecyclerView as AppRecyclerView2<String>
         appRecyclerView.setAdapter(InnerAdapter(requireView().context)) //.setNeedShowEmptyNoData(false)
@@ -134,9 +133,6 @@ class ${name} : AppCenterDialog<${name}Binding>() {
 
     override fun bindData(savedInstanceState: Bundle?) {
         super.bindData(savedInstanceState)
-        if (mCallback != null) {
-            mCallback!!.on${name}Callback()
-        }
     }
 
     private fun performRequest(pageIndex: Int) {
@@ -147,13 +143,7 @@ class ${name} : AppCenterDialog<${name}Binding>() {
      * 页面事件类，可以把所有事件都写在这里
      */
     inner class ClickProxy {
-        fun confirm() {
-            ToastUtils.showToast(context, "confirm: ")
-        }
 
-        fun cancel() {
-            dismiss()
-        }
     }
 
     private inner class InnerAdapter(context: Context) : JPRecyclerViewLoadMoreAdapter<String>(context) {
@@ -171,9 +161,9 @@ class ${name} : AppCenterDialog<${name}Binding>() {
                 val itemInfo = data[dataPosition]
                 binding.vm = itemInfo
                 binding.tvName.setOnClickListener { v: View? ->
-                    ToastUtils.showToast(mContext,
-                        "click item: $itemInfo"
-                    )
+                    if (mCallback != null) {
+                        mCallback!!.on${name}Callback()
+                    }
                 }
             }
         }

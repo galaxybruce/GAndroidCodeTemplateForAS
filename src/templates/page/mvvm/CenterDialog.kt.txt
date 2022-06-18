@@ -24,7 +24,8 @@ import ${modulePackage}.databinding.${name}Binding
  *           override fun on${name}Callback() {
  *           }
  *       })
- * .build().show(supportFragmentManager, "${name}")
+ *      .build()
+ *      .show(supportFragmentManager, "${name}")
  *
  * modification history:
  */
@@ -82,13 +83,11 @@ class ${name} : AppCenterDialog<${name}Binding>() {
         mCallback = getDialogListener(this, I${name}Callback::class.java)
         bundle?.let {
             mCallback = it.getParcelable("callback")
-            // todo sample code, please delete it
             mPageViewModel.title.set(it.getString("title"))
         }
     }
 
     override fun bindData(savedInstanceState: Bundle?) {
-        // todo LiveData数据监听例子，实际代码请删除
         setLiveDataObserver(mPageViewModel.name) { s: String? ->
             ToastUtils.showToast(
                 context, "name has changed"
@@ -96,10 +95,6 @@ class ${name} : AppCenterDialog<${name}Binding>() {
         }
 
         performRequest()
-
-        if (mCallback != null) {
-            mCallback!!.on${name}Callback()
-        }
     }
 
     private fun performRequest() {
@@ -111,7 +106,9 @@ class ${name} : AppCenterDialog<${name}Binding>() {
      */
     inner class ClickProxy {
         fun handleName() {
-            ToastUtils.showToast(context, "handleName: " + mPageViewModel.name.value)
+            if (mCallback != null) {
+                mCallback!!.on${name}Callback()
+            }
         }
     }
 }

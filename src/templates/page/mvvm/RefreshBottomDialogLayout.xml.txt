@@ -26,15 +26,15 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_height="50dp">
+            android:layout_height="100pt">
 
             <TextView
                 android:id="@+id/tv_cancel"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_centerVertical="true"
-                android:paddingStart="15dp"
-                android:paddingEnd="15dp"
+                android:paddingStart="30pt"
+                android:paddingEnd="30pt"
                 android:text="取消"
                 android:gravity="center"
                 android:textColor="#FF666666"
@@ -47,8 +47,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:paddingStart="15dp"
-                android:paddingEnd="15dp"
+                android:paddingStart="30pt"
+                android:paddingEnd="30pt"
                 android:text="@{vm.title}"
                 android:textColor="@color/theme_text_color_1"
                 android:textSize="16sp"
@@ -60,8 +60,8 @@
                 android:layout_height="match_parent"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:paddingStart="15dp"
-                android:paddingEnd="15dp"
+                android:paddingStart="30pt"
+                android:paddingEnd="30pt"
                 android:gravity="center"
                 android:text="确定"
                 android:textColor="@color/dialog_confirm_color"
@@ -72,7 +72,7 @@
         <View
             android:id="@+id/divider"
             android:layout_width="match_parent"
-            android:layout_height="0.5dp"
+            android:layout_height="1pt"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/title_menu_layout"
             app:layout_constraintEnd_toEndOf="parent"
@@ -81,8 +81,8 @@
 
         <com.galaxybruce.component.ui.view.recyclerview.AppRecyclerView2
             android:id="@+id/app_recyclerView"
-            android:layout_width="0dp"
-            android:layout_height="400dp"
+            android:layout_width="0pt"
+            android:layout_height="800pt"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/divider"

@@ -27,7 +27,8 @@ import org.jetbrains.annotations.Nullable;
  *          public void on${name}Callback() {
  *          }
  *       })
- *      .build().show(getSupportFragmentManager(), "${name}");
+ *      .build()
+ *      .show(getSupportFragmentManager(), "${name}");
  *
  * <p>
  * modification history:
@@ -96,23 +97,17 @@ public class ${name} extends AppBottomDialog<${name}Binding> {
         Bundle arguments = getArguments();
         if(arguments != null) {
             mCallback = arguments.getParcelable("callback");
-            // todo sample code, please delete it
             mPageViewModel.title.set(arguments.getString("title"));
         }
     }
 
     @Override
     public void bindData(Bundle savedInstanceState) {
-        // todo LiveData数据监听例子，实际代码请删除
         setLiveDataObserver(mPageViewModel.name, s -> {
             ToastUtils.showToast(getContext(), "name has changed");
         });
 
         performRequest();
-
-        if(mCallback != null) {
-            mCallback.on${name}Callback();
-        }
     }
 
     private void performRequest() {
@@ -125,7 +120,9 @@ public class ${name} extends AppBottomDialog<${name}Binding> {
     public class ClickProxy {
 
         public void handleName() {
-            ToastUtils.showToast(getContext(), "handleName: " + mPageViewModel.name.getValue());
+            if(mCallback != null) {
+                mCallback.on${name}Callback();
+            }
         }
 
     }

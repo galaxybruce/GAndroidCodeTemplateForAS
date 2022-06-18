@@ -10,8 +10,8 @@ import com.galaxybruce.component.ui.jetpack.JPBaseViewModel
 import com.galaxybruce.component.ui.jetpack.JPDataBindingConfig
 import com.galaxybruce.component.ui.jetpack.adapter.JPRecyclerViewLoadMoreAdapter
 import com.galaxybruce.component.ui.dialog.AppCustomConfirmDialog
-import com.blankj.utilcode.util.ConvertUtils
 import com.blankj.utilcode.util.ScreenUtils
+import com.blankj.utilcode.util.AdaptScreenUtils
 import com.galaxybruce.component.util.ToastUtils
 
 import com.galaxybruce.component.ui.view.recyclerview.AbsAppRecyclerView.AppRequestListener
@@ -36,13 +36,13 @@ import kotlin.math.max
  *           override fun on${name}Callback() {
  *           }
  *       })
- * .build().show(supportFragmentManager, "${name}")
+ *      .build()
+ *      .show(supportFragmentManager, "${name}")
  *
  * modification history:
  */
 class ${name} : AppCustomConfirmDialog<${name}Binding>() {
 
-    // todo mvvm方式建议不要使用callback交互，建议删除该代码，通过mParentViewModel和父容器进行交互！！！
     interface I${name}Callback : AppConfirmDialogCallback {
         fun on${name}Callback()
     }
@@ -95,7 +95,6 @@ class ${name} : AppCustomConfirmDialog<${name}Binding>() {
         mCallback = getDialogListener(this, I${name}Callback::class.java)
         bundle?.let {
             mCallback = it.getParcelable("callback")
-            // todo sample code, please delete it
             mPageViewModel.title.set(it.getString("title"))
         }
     }
@@ -108,7 +107,7 @@ class ${name} : AppCustomConfirmDialog<${name}Binding>() {
         val layoutParams = realBinding.appRecyclerView.layoutParams
         layoutParams.height = max(
             (ScreenUtils.getAppScreenHeight() * 0.6f).toInt(),
-            ConvertUtils.dp2px(400f)
+            AdaptScreenUtils.pt2Px(400f)
         )
         val appRecyclerView: AppRecyclerView2<String> = realBinding.appRecyclerView as AppRecyclerView2<String>
         appRecyclerView.setAdapter(InnerAdapter(requireView().context)) //.setNeedShowEmptyNoData(false)
@@ -150,13 +149,7 @@ class ${name} : AppCustomConfirmDialog<${name}Binding>() {
      * 页面事件类，可以把所有事件都写在这里
      */
     inner class ClickProxy {
-        fun confirm() {
-            ToastUtils.showToast(context, "confirm: ")
-        }
 
-        fun cancel() {
-            dismiss()
-        }
     }
 
     private inner class InnerAdapter(context: Context) : JPRecyclerViewLoadMoreAdapter<String>(context) {
