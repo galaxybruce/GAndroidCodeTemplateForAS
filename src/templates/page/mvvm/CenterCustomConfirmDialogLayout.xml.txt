@@ -27,7 +27,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:onClick="@{()->click.handleName()}"
             android:gravity="center"
-            android:textSize="20sp"
+            android:textSize="40pt"
             android:text="@{vm.title}"
             tools:text="测试"
             />
