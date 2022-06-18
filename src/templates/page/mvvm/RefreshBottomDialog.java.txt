@@ -111,7 +111,7 @@ public class ${name} extends AppBottomDialog<${name}Binding> {
         if(arguments != null) {
             I${name}Callback tCallback = arguments.getParcelable("callback");
             if(tCallback != null) {
-                this.callback = tCallback;
+                mCallback = tCallback;
             }
             mPageViewModel.title.set(arguments.getString("title"));
         }
