@@ -5,6 +5,7 @@ import com.galaxybruce.component.ui.jetpack.JPBaseViewModel
 import com.galaxybruce.component.ui.jetpack.JPDataBindingConfig
 import com.galaxybruce.component.util.ToastUtils
 import com.galaxybruce.component.ui.dialog.AppCustomConfirmDialog
+import com.galaxybruce.component.ui.dialog.AppDialogCallback
 
 ${importR}
 ${importBR}
@@ -30,7 +31,7 @@ import ${modulePackage}.databinding.${name}Binding
  */
 class ${name} : AppCustomConfirmDialog<${name}Binding>() {
 
-    interface I${name}Callback : AppConfirmDialogCallback  {
+    interface I${name}Callback : AppDialogCallback  {
         fun on${name}Callback()
     }
 

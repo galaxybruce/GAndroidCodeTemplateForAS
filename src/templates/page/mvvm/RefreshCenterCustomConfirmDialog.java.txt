@@ -11,6 +11,7 @@ import com.galaxybruce.component.ui.jetpack.JPBaseViewModel;
 import com.galaxybruce.component.ui.jetpack.JPDataBindingConfig;
 import com.galaxybruce.component.ui.jetpack.adapter.JPRecyclerViewLoadMoreAdapter;
 import com.galaxybruce.component.ui.dialog.AppCustomConfirmDialog;
+import com.galaxybruce.component.ui.dialog.AppDialogCallback;
 import com.blankj.utilcode.util.ScreenUtils;
 import com.blankj.utilcode.util.AdaptScreenUtils;
 import com.galaxybruce.component.util.ToastUtils;
@@ -47,7 +48,7 @@ import org.jetbrains.annotations.Nullable;
  */
 public class ${name} extends AppCustomConfirmDialog<${name}Binding> {
 
-    public interface I${name}Callback extends AppConfirmDialogCallback {
+    public interface I${name}Callback extends AppDialogCallback {
         void on${name}Callback();
     }
 

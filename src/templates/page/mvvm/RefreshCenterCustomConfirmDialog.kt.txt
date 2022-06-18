@@ -10,6 +10,7 @@ import com.galaxybruce.component.ui.jetpack.JPBaseViewModel
 import com.galaxybruce.component.ui.jetpack.JPDataBindingConfig
 import com.galaxybruce.component.ui.jetpack.adapter.JPRecyclerViewLoadMoreAdapter
 import com.galaxybruce.component.ui.dialog.AppCustomConfirmDialog
+import com.galaxybruce.component.ui.dialog.AppDialogCallback
 import com.blankj.utilcode.util.ScreenUtils
 import com.blankj.utilcode.util.AdaptScreenUtils
 import com.galaxybruce.component.util.ToastUtils
@@ -43,7 +44,7 @@ import kotlin.math.max
  */
 class ${name} : AppCustomConfirmDialog<${name}Binding>() {
 
-    interface I${name}Callback : AppConfirmDialogCallback {
+    interface I${name}Callback : AppDialogCallback {
         fun on${name}Callback()
     }
 
