@@ -109,7 +109,10 @@ public class ${name} extends AppCenterDialog<${name}Binding> {
         mCallback = getDialogListener(this, I${name}Callback.class);
         Bundle arguments = getArguments();
         if(arguments != null) {
-            mCallback = arguments.getParcelable("callback");
+            I${name}Callback tCallback = arguments.getParcelable("callback");
+            if(tCallback != null) {
+                this.callback = tCallback;
+            }
             mPageViewModel.title.set(arguments.getString("title"));
         }
     }
@@ -123,7 +126,7 @@ public class ${name} extends AppCenterDialog<${name}Binding> {
         // 根据实际需要动态设置RecyclerView高度
         ViewGroup.LayoutParams layoutParams = realBinding.appRecyclerView.getLayoutParams();
         layoutParams.height = Math.max((int)(ScreenUtils.getAppScreenHeight() * 0.6f),
-                AdaptScreenUtils.pt2Px(800));
+                AdaptScreenUtils.pt2Px(800f));
 
         AppRecyclerView2<String> appRecyclerView = realBinding.appRecyclerView;
         appRecyclerView.setAdapter(new InnerAdapter(getContext()))

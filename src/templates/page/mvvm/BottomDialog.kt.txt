@@ -82,7 +82,7 @@ class ${name} : AppBottomDialog<${name}Binding>() {
         // 获取listener
         mCallback = getDialogListener(this, I${name}Callback::class.java)
         bundle?.let {
-            mCallback = it.getParcelable("callback")
+            mCallback = it.getParcelable("callback") ?: mCallback
             mPageViewModel.title.set(it.getString("title"))
         }
     }

@@ -94,7 +94,7 @@ class ${name} : AppCustomConfirmDialog<${name}Binding>() {
         // 获取listener
         mCallback = getDialogListener(this, I${name}Callback::class.java)
         bundle?.let {
-            mCallback = it.getParcelable("callback")
+            mCallback = it.getParcelable("callback") ?: mCallback
             mPageViewModel.title.set(it.getString("title"))
         }
     }
@@ -107,7 +107,7 @@ class ${name} : AppCustomConfirmDialog<${name}Binding>() {
         val layoutParams = realBinding.appRecyclerView.layoutParams
         layoutParams.height = max(
             (ScreenUtils.getAppScreenHeight() * 0.6f).toInt(),
-            AdaptScreenUtils.pt2Px(400f)
+            AdaptScreenUtils.pt2Px(800f)
         )
         val appRecyclerView: AppRecyclerView2<String> = realBinding.appRecyclerView as AppRecyclerView2<String>
         appRecyclerView.setAdapter(InnerAdapter(requireView().context)) //.setNeedShowEmptyNoData(false)

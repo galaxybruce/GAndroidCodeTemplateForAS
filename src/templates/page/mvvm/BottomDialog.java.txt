@@ -96,7 +96,10 @@ public class ${name} extends AppBottomDialog<${name}Binding> {
         mCallback = getDialogListener(this, I${name}Callback.class);
         Bundle arguments = getArguments();
         if(arguments != null) {
-            mCallback = arguments.getParcelable("callback");
+            I${name}Callback tCallback = arguments.getParcelable("callback");
+            if(tCallback != null) {
+                this.callback = tCallback;
+            }
             mPageViewModel.title.set(arguments.getString("title"));
         }
     }
