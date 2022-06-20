@@ -51,8 +51,7 @@ class ${name} : AppCustomConfirmDialog<${name}Binding>() {
     var mCallback: I${name}Callback? = null
     lateinit var mPageViewModel: ${name}ViewModel
 
-    class Builder {
-        var bundle: Bundle = Bundle()
+    class Builder: AppCustomConfirmDialog.Builder<Builder>() {
 
         fun callback(value: Parcelable): Builder {
             bundle.putParcelable("callback", value)
@@ -65,6 +64,8 @@ class ${name} : AppCustomConfirmDialog<${name}Binding>() {
         }
 
         fun build(): ${name} {
+            // 自定义确定按钮文本
+//          bundle.putString("confirmText", "发送到直播间")
             return ${name}().apply {
                 arguments = bundle
             }

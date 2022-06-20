@@ -55,11 +55,10 @@ public class ${name} extends AppCustomConfirmDialog<${name}Binding> {
     I${name}Callback mCallback;
     ${name}ViewModel mPageViewModel;
 
-    public static final class Builder {
-        Bundle bundle;
+    public static final class Builder extends AppCustomConfirmDialog.Builder<Builder> {
 
         public Builder() {
-            bundle = new Bundle();
+            super();
         }
 
         public Builder callback(Parcelable value) {
@@ -74,6 +73,8 @@ public class ${name} extends AppCustomConfirmDialog<${name}Binding> {
 
         public ${name} build() {
             ${name} dialog = new ${name}();
+            // 自定义确定按钮文本
+//          bundle.putString("confirmText", "发送到直播间");
             dialog.setArguments(bundle);
             return dialog;
         }
