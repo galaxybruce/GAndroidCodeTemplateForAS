@@ -51,8 +51,6 @@ class ${name} : AppCustomConfirmDialog<${name}Binding>() {
         }
 
         fun build(): ${name} {
-            // 自定义确定按钮文本
-//          bundle.putString("confirmText", "发送到直播间")
             return ${name}().apply {
                 arguments = bundle
             }
