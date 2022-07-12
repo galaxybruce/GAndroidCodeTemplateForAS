@@ -27,7 +27,7 @@ public class AndroidDialogTemplateAction extends AndroidUiTemplateAction {
 
     @Override
     public void actionPerformed(@NotNull AnActionEvent event) {
-        LOG.info("android page template code creates start... ");
+        LOG.info("android dialog template code creates start... ");
 
         project = event.getData(PlatformDataKeys.PROJECT);
         PsiElement psiElement = event.getData(PlatformDataKeys.PSI_ELEMENT);
@@ -53,7 +53,7 @@ public class AndroidDialogTemplateAction extends AndroidUiTemplateAction {
 
         initView();
 
-        LOG.info("android page template code creates end... ");
+        LOG.info("android dialog template code creates end... ");
     }
 
     private void initView() {
@@ -128,7 +128,7 @@ public class AndroidDialogTemplateAction extends AndroidUiTemplateAction {
         JPanel nameField = new JPanel();
         nameField.setLayout(new FlowLayout());
         nameField.setBorder(BorderFactory.createTitledBorder("Naming"));
-        JLabel nameLabel = new JLabel("Module Name Prefix：");
+        JLabel nameLabel = new JLabel("Dialog Name Prefix：");
         nameTextField = new JTextField(30);
         nameTextField.addKeyListener(keyListener);
         nameField.add(nameLabel);

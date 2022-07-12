@@ -84,6 +84,7 @@ public abstract class AndroidUiTemplateAction extends AnAction {
     private void dispose() {
         jFrame.dispose();
     }
+
     private void save() {
         if (nameTextField.getText() == null || "".equals(nameTextField.getText().trim())) {
             Messages.showInfoMessage(project, "Please enter the name", "Info");

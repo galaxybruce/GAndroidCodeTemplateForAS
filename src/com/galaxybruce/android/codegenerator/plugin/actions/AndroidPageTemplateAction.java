@@ -125,7 +125,7 @@ public class AndroidPageTemplateAction extends AndroidUiTemplateAction {
         JPanel nameField = new JPanel();
         nameField.setLayout(new FlowLayout());
         nameField.setBorder(BorderFactory.createTitledBorder("Naming"));
-        JLabel nameLabel = new JLabel("Module Name Prefix：");
+        JLabel nameLabel = new JLabel("Page Name Prefix：");
         nameTextField = new JTextField(30);
         nameTextField.addKeyListener(keyListener);
         nameField.add(nameLabel);

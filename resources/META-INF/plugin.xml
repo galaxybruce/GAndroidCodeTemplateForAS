@@ -49,6 +49,12 @@
         popup="true"
         class="com.galaxybruce.android.codegenerator.plugin.groups.GenerateAndroidCodeGroup" >
 
+        <action id="GAndroidCodePlugin.ModuleTemplate.ID"
+                class="com.galaxybruce.android.codegenerator.plugin.actions.AndroidModuleTemplateAction"
+                text="Module Template"
+                icon="/image/lk_icon.png" >
+        </action>
+
         <action id="GAndroidCodePlugin.PageFileTemplate.ID"
               class="com.galaxybruce.android.codegenerator.plugin.actions.AndroidPageTemplateAction"
               text="Page Template"
