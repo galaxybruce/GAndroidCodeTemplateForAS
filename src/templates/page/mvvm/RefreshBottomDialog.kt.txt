@@ -12,7 +12,6 @@ import com.galaxybruce.component.ui.jetpack.adapter.JPRecyclerViewLoadMoreAdapte
 import com.galaxybruce.component.ui.dialog.AppBottomDialog
 import com.galaxybruce.component.ui.dialog.AppDialogCallback
 import com.blankj.utilcode.util.AdaptScreenUtils
-import com.blankj.utilcode.util.AdaptScreenUtils
 import com.galaxybruce.component.util.ToastUtils
 
 import com.galaxybruce.component.ui.view.recyclerview.AbsAppRecyclerView.AppRequestListener
