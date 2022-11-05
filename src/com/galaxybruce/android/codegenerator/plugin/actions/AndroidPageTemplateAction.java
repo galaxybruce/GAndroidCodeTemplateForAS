@@ -44,9 +44,10 @@ public class AndroidPageTemplateAction extends AndroidUiTemplateAction {
             return;
         } else {
             javaParentPath = psiPath.substring(0, javaIndex);
+            LOG.info("javaParentPath is: " + javaParentPath);
         }
-
         modulePackage = FileUtils.readPackageName(javaParentPath);
+        LOG.info("modulePackage is: " + modulePackage);
 
         initView();
 

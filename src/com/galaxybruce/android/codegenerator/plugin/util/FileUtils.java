@@ -4,6 +4,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -106,8 +107,8 @@ public class FileUtils {
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         try {
             DocumentBuilder db = dbf.newDocumentBuilder();
-            Document doc = db.parse(javaParentPath + "AndroidManifest.xml");
-
+            byte[] bytes = org.apache.commons.io.FileUtils.readFileToByteArray(new File(javaParentPath + "AndroidManifest.xml"));
+            Document doc = db.parse(new InputSource(new ByteArrayInputStream(bytes)));
             NodeList dogList = doc.getElementsByTagName("manifest");
             for (int i = 0; i < dogList.getLength(); i++) {
                 Node dog = dogList.item(i);
