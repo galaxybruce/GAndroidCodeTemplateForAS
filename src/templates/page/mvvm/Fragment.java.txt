@@ -33,7 +33,6 @@ public class ${name}Fragment extends JPBaseFragment<${name}LayoutBinding> {
     @Override
     public JPBaseViewModel initViewModel() {
         mPageViewModel = getFragmentViewModel(${name}ViewModel.class);
-        // mAppViewModel = getAppViewModelProvider().get(AppViewModel.class);
         return mPageViewModel;
     }
 

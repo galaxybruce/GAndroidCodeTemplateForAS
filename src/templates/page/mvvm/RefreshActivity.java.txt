@@ -31,7 +31,6 @@ public class ${name}Activity extends JPBaseActivity<${name}LayoutBinding> {
     @Override
     public JPBaseViewModel initViewModel() {
         mPageViewModel = getActivityViewModel(${name}ViewModel.class);
-        // mAppViewModel = getAppViewModelProvider().get(AppViewModel.class);
         return mPageViewModel;
     }
 
