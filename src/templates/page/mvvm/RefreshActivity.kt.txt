@@ -6,8 +6,7 @@ import android.view.View
 import androidx.databinding.ViewDataBinding
 
 import com.alibaba.android.arouter.facade.annotation.Route
-import com.galaxybruce.component.ui.jetpack.JPBaseActivity
-import com.galaxybruce.component.ui.jetpack.JPBaseViewModel
+import com.galaxybruce.component.ui.jetpack.JPBaseActivityV2
 import com.galaxybruce.component.ui.jetpack.JPDataBindingConfig
 import com.galaxybruce.component.ui.jetpack.adapter.JPRecyclerViewLoadMoreAdapter
 import com.galaxybruce.component.util.ToastUtils
@@ -24,19 +23,15 @@ import ${modulePackage}.databinding.${name}LayoutBinding
 
 
 @Route(path = "xxx")
-class ${name}Activity : JPBaseActivity<${name}LayoutBinding>() {
-    
-    private lateinit var mPageViewModel: ${name}ViewModel
-    
-    override fun initViewModel(): JPBaseViewModel {
-        mPageViewModel = getActivityViewModel(${name}ViewModel::class.java)
-        // mAppViewModel = appViewModelProvider.get(AppViewModel::class.java)
-        return mPageViewModel
-    }
+class ${name}Activity : JPBaseActivityV2<${name}LayoutBinding, ${name}ViewModel>() {
 
     override fun initDataBindConfig(): JPDataBindingConfig {
         return JPDataBindingConfig(bindLayoutId())
             .addBindingParam(BR.vm, mPageViewModel)
+    }
+
+    override fun bindTitle(): String {
+        return "${name}Activity"
     }
 
     override fun bindLayoutId(): Int {
@@ -45,7 +40,6 @@ class ${name}Activity : JPBaseActivity<${name}LayoutBinding>() {
 
     override fun initData(bundle: Bundle?, savedInstanceState: Bundle?) {
         super.initData(bundle, savedInstanceState)
-//        var a = intent.getStringExtra("xxx")
     }
 
     override fun initView(view: View?) {
@@ -76,7 +70,6 @@ class ${name}Activity : JPBaseActivity<${name}LayoutBinding>() {
     override fun bindData(savedInstanceState: Bundle?) {
         super.bindData(savedInstanceState)
 
-        mPageViewModel.title.set("xxx")
         // 页面重建时，判断是否有数据，没有数据才发送请求
         if (mPageViewModel.listData.value?.list.isNullOrEmpty()) {
             binding.appRecyclerView.requestDataWithLoading()
@@ -84,7 +77,7 @@ class ${name}Activity : JPBaseActivity<${name}LayoutBinding>() {
     }
 
     private fun performRequest() {
-        mPageViewModel.request.performRequest("xxx")
+        mPageViewModel.request.performRequest()
     }
 
     private inner class InnerAdapter(context: Context?) : JPRecyclerViewLoadMoreAdapter<String>(context) {

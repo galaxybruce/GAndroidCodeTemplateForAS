@@ -158,7 +158,7 @@ public class ${name} extends AppBottomDialog<${name}Binding> {
     }
 
     private void performRequest(int pageIndex) {
-        mPageViewModel.request.performRequest("xxx");
+        mPageViewModel.request.performRequest();
     }
 
     /**

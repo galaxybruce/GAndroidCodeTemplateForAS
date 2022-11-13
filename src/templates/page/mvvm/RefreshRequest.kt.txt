@@ -17,7 +17,7 @@ class ${name}Request(private val viewModel: ${name}ViewModel) : JPBaseRequest() 
 //    private val mApi: LiveApi = KRetrofitFactory.createService(LiveApi::class.java)
 
     @SuppressLint("CheckResult")
-    fun performRequest(activityId: String?) {
+    fun performRequest() {
 //        val requestUrl: String = LiveServer.URL_CREATE_LIVE
 //        mApi.getInviteUserDetails(requestUrl, activityId)
 //            .compose(this.handleEverythingResult<AppBean4Invite<InviteUserDetailsModel>>(true))

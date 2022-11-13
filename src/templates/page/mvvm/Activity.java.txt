@@ -2,8 +2,7 @@
 import android.os.Bundle;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.galaxybruce.component.ui.jetpack.JPBaseActivity;
-import com.galaxybruce.component.ui.jetpack.JPBaseViewModel;
+import com.galaxybruce.component.ui.jetpack.JPBaseActivityV2;
 import com.galaxybruce.component.ui.jetpack.JPDataBindingConfig;
 
 import org.jetbrains.annotations.Nullable;
@@ -14,21 +13,18 @@ import ${package}.mvvm.viewmodel.${name}ViewModel;
 import ${modulePackage}.databinding.${name}LayoutBinding;
 
 @Route(path = "xxx")
-public class ${name}Activity extends JPBaseActivity<${name}LayoutBinding> {
-
-    private ${name}ViewModel mPageViewModel;
-
-    @Override
-    public JPBaseViewModel initViewModel() {
-        mPageViewModel = getActivityViewModel(${name}ViewModel.class);
-        return mPageViewModel;
-    }
+public class ${name}Activity extends JPBaseActivityV2<${name}LayoutBinding, ${name}ViewModel> {
 
     @Override
     public JPDataBindingConfig initDataBindConfig() {
         return new JPDataBindingConfig(bindLayoutId())
                 .addBindingParam(BR.vm, mPageViewModel)
                 .addBindingParam(BR.click, new ClickProxy());
+    }
+
+    @Override
+    protected String bindTitle() {
+        return "${name}Activity";
     }
 
     @Override
@@ -39,16 +35,12 @@ public class ${name}Activity extends JPBaseActivity<${name}LayoutBinding> {
     @Override
     public void initData(@Nullable Bundle bundle, @Nullable Bundle savedInstanceState) {
         super.initData(bundle, savedInstanceState);
-//        final Intent intent = getIntent();
-//        String a = intent.getStringExtra("xxx");
     }
 
     @Override
     public void bindData(@Nullable Bundle savedInstanceState) {
         super.bindData(savedInstanceState);
 
-        mPageViewModel.title.set("xxx");
-        // todo LiveData数据监听例子，实际代码请删除
         setLiveDataObserver(mPageViewModel.name, s -> {
             showToast("name has changed");
         });
@@ -57,7 +49,7 @@ public class ${name}Activity extends JPBaseActivity<${name}LayoutBinding> {
     }
 
     private void performRequest() {
-        mPageViewModel.request.performRequest("xxx");
+        mPageViewModel.request.performRequest();
     }
 
     /**
@@ -65,8 +57,8 @@ public class ${name}Activity extends JPBaseActivity<${name}LayoutBinding> {
      */
     public class ClickProxy {
 
-        public void handleName() {
-            showToast("handleName: " + mPageViewModel.name.getValue());
+        public void onTestClick() {
+            showToast("onTestClick: " + mPageViewModel.name.getValue());
         }
 
     }

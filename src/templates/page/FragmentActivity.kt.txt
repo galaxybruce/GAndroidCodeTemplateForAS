@@ -12,7 +12,6 @@ import com.galaxybruce.component.R
 class ${name}FragmentActivity : BaseActivity() {
 
     override fun bindLayoutId(): Int {
-        // 这里不用改，是通用的容器
         return R.layout.app_fragment_container
     }
 
@@ -26,7 +25,7 @@ class ${name}FragmentActivity : BaseActivity() {
         if (bundle == null) {
             bundle = Bundle()
         }
-        val fragment: Fragment = ${name}Fragment.Companion.newInstance(mActivity, bundle)
+        val fragment: Fragment = ${name}Fragment.newInstance(mActivity, bundle)
         supportFragmentManager.beginTransaction()
             .replace(R.id.fl_container, fragment)
             .commitAllowingStateLoss()

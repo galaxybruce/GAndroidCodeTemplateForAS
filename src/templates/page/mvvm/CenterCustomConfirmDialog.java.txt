@@ -121,7 +121,7 @@ public class ${name} extends AppCustomConfirmDialog<${name}Binding> {
     }
 
     private void performRequest() {
-        mPageViewModel.request.performRequest("xxx");
+        mPageViewModel.request.performRequest();
     }
 
     /**
@@ -129,8 +129,8 @@ public class ${name} extends AppCustomConfirmDialog<${name}Binding> {
      */
     public class ClickProxy {
 
-        public void handleName() {
-            ToastUtils.showToast(getContext(), "handleName: " + mPageViewModel.name.getValue());
+        public void onTestClick() {
+            ToastUtils.showToast(getContext(), "onTestClick: " + mPageViewModel.name.getValue());
         }
 
     }

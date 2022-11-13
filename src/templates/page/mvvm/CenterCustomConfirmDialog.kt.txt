@@ -104,15 +104,16 @@ class ${name} : AppCustomConfirmDialog<${name}Binding>() {
     }
 
     private fun performRequest() {
-        mPageViewModel.request.performRequest("xxx")
+        mPageViewModel.request.performRequest()
     }
 
     /**
      * 页面事件类，可以把所有事件都写在这里
      */
     inner class ClickProxy {
-        fun handleName() {
-            ToastUtils.showToast(context, "handleName: " + mPageViewModel.name.value)
+
+        fun onTestClick() {
+            ToastUtils.showToast(context, "onTestClick: " + mPageViewModel.name.value)
         }
     }
 }

@@ -6,8 +6,7 @@ import android.view.View;
 import androidx.databinding.ViewDataBinding;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.galaxybruce.component.ui.jetpack.JPBaseFragment;
-import com.galaxybruce.component.ui.jetpack.JPBaseViewModel;
+import com.galaxybruce.component.ui.jetpack.JPBaseFragmentV2;
 import com.galaxybruce.component.ui.jetpack.JPDataBindingConfig;
 import com.galaxybruce.component.ui.jetpack.JPListDataModel;
 import com.galaxybruce.component.ui.jetpack.adapter.JPRecyclerViewLoadMoreAdapter;
@@ -26,24 +25,16 @@ import ${modulePackage}.databinding.${name}ItemLayoutBinding;
 import ${modulePackage}.databinding.${name}LayoutBinding;
 
 @Route(path = "xxx")
-public class ${name}Fragment extends JPBaseFragment<${name}LayoutBinding> {
+public class ${name}Fragment extends JPBaseFragmentV2<${name}LayoutBinding, ${name}ViewModel> {
 
     public static ${name}Fragment newInstance(Context context, Bundle args) {
         if(args == null) {
             args = new Bundle();
         }
         ${name}Fragment fragment = (${name}Fragment)(ARouter.getInstance().build("xxx")
-                    .skip().navigation());
+                    .navigation());
         fragment.setArguments(args);
         return fragment;
-    }
-
-    private ${name}ViewModel mPageViewModel;
-
-    @Override
-    public JPBaseViewModel initViewModel() {
-        mPageViewModel = getFragmentViewModel(${name}ViewModel.class);
-        return mPageViewModel;
     }
 
     @Override
@@ -53,15 +44,18 @@ public class ${name}Fragment extends JPBaseFragment<${name}LayoutBinding> {
     }
 
     @Override
-    public int getLayoutId() {
+    protected String bindTitle() {
+        return "${name}Fragment";
+    }
+
+    @Override
+    public int bindLayoutId() {
         return R.layout.${layoutName};
     }
 
     @Override
     public void initData(@Nullable Bundle bundle, @Nullable Bundle savedInstanceState) {
         super.initData(bundle, savedInstanceState);
-//        final Intent intent = getIntent();
-//        String a = intent.getStringExtra("xxx");
     }
 
     @Override
@@ -97,18 +91,16 @@ public class ${name}Fragment extends JPBaseFragment<${name}LayoutBinding> {
     public void bindData(@Nullable Bundle savedInstanceState) {
         super.bindData(savedInstanceState);
 
-        mPageViewModel.title.set("xxx");
-
         // 页面重建时，判断是否有数据，没有数据才发送请求
         final JPListDataModel<String> listDataModel = mPageViewModel.listData.getValue();
         if(listDataModel == null || listDataModel.getList() == null
                 || listDataModel.getList().isEmpty()) {
-            binding.appRecyclerView.requestDataWithLoading();
+            getBinding().appRecyclerView.requestDataWithLoading();
         }
     }
 
     private void performRequest() {
-        mPageViewModel.request.performRequest("xxx");
+        mPageViewModel.request.performRequest();
     }
 
 

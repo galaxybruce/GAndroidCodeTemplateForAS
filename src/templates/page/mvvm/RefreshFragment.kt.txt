@@ -4,8 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.databinding.ViewDataBinding
 
-import com.galaxybruce.component.ui.jetpack.JPBaseFragment
-import com.galaxybruce.component.ui.jetpack.JPBaseViewModel
+import com.galaxybruce.component.ui.jetpack.JPBaseFragmentV2
 import com.galaxybruce.component.ui.jetpack.JPDataBindingConfig
 import com.galaxybruce.component.ui.jetpack.adapter.JPRecyclerViewLoadMoreAdapter
 import com.galaxybruce.component.util.ToastUtils
@@ -23,7 +22,7 @@ import ${modulePackage}.databinding.${name}ItemLayoutBinding
 import ${modulePackage}.databinding.${name}LayoutBinding
 
 @Route(path = "xxx")
-class ${name}Fragment : JPBaseFragment<${name}LayoutBinding>() {
+class ${name}Fragment : JPBaseFragmentV2<${name}LayoutBinding, ${name}ViewModel>() {
 
     companion object {
         fun newInstance(context: Context, args: Bundle?): ${name}Fragment {
@@ -35,17 +34,13 @@ class ${name}Fragment : JPBaseFragment<${name}LayoutBinding>() {
         }
     }
 
-    private lateinit var mPageViewModel: ${name}ViewModel
-
-    override fun initViewModel(): JPBaseViewModel {
-        mPageViewModel = getFragmentViewModel(${name}ViewModel::class.java)
-        // mAppViewModel = appViewModelProvider.get(AppViewModel::class.java)
-        return mPageViewModel
-    }
-
     override fun initDataBindConfig(): JPDataBindingConfig {
         return JPDataBindingConfig(bindLayoutId())
             .addBindingParam(BR.vm, mPageViewModel)
+    }
+
+    override fun bindTitle(): String {
+        return "${name}Fragment"
     }
 
     override fun bindLayoutId(): Int {
@@ -54,7 +49,6 @@ class ${name}Fragment : JPBaseFragment<${name}LayoutBinding>() {
 
     override fun initData(bundle: Bundle?, savedInstanceState: Bundle?) {
         super.initData(bundle, savedInstanceState)
-//        var a = bundle?.getString("xxx")
     }
 
     override fun initView(view: View?) {
@@ -84,7 +78,6 @@ class ${name}Fragment : JPBaseFragment<${name}LayoutBinding>() {
 
     override fun bindData(savedInstanceState: Bundle?) {
         super.bindData(savedInstanceState)
-        mPageViewModel.title.set("xxx")
 
         // 页面重建时，判断是否有数据，没有数据才发送请求
         if (mPageViewModel.listData.value?.list.isNullOrEmpty()) {
@@ -93,7 +86,7 @@ class ${name}Fragment : JPBaseFragment<${name}LayoutBinding>() {
     }
 
     private fun performRequest() {
-        mPageViewModel.request.performRequest("xxx")
+        mPageViewModel.request.performRequest()
     }
 
     private inner class InnerAdapter(context: Context) : JPRecyclerViewLoadMoreAdapter<String>(context) {

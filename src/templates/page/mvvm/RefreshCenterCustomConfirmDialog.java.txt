@@ -165,7 +165,7 @@ public class ${name} extends AppCustomConfirmDialog<${name}Binding> {
     }
 
     private void performRequest(int pageIndex) {
-        mPageViewModel.request.performRequest("xxx");
+        mPageViewModel.request.performRequest();
     }
 
     /**

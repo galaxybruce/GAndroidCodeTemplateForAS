@@ -98,14 +98,15 @@ class ${name} : AppBottomDialog<${name}Binding>() {
     }
 
     private fun performRequest() {
-        mPageViewModel.request.performRequest("xxx")
+        mPageViewModel.request.performRequest()
     }
 
     /**
      * 页面事件类，可以把所有事件都写在这里
      */
     inner class ClickProxy {
-        fun handleName() {
+
+        fun onTestClick() {
             if (mCallback != null) {
                 mCallback!!.on${name}Callback()
             }

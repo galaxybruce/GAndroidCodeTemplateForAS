@@ -25,7 +25,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:onClick="@{()->click.handleName()}"
+            android:onClick="@{()->click.onTestClick()}"
             android:gravity="center"
             android:textSize="40pt"
             android:text="@{vm.title}"

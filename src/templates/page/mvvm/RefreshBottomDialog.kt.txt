@@ -135,7 +135,7 @@ class ${name} : AppBottomDialog<${name}Binding>() {
     }
 
     private fun performRequest(pageIndex: Int) {
-        mPageViewModel.request.performRequest("xxx")
+        mPageViewModel.request.performRequest()
     }
 
     /**
