@@ -22,13 +22,13 @@ public class ${name}Request extends JPBaseRequest {
         this.viewModel = viewModel;
     }
 
-//    private LiveApi mLiveApi = KRetrofitFactory.createService(LiveApi.class);
+//    private LiveApi mApi = KRetrofitFactory.createService(LiveApi.class);
 
     @SuppressLint("CheckResult")
     public void performRequest() {
 
 //        String requestUrl = LiveServerManager.getLiverServerUrl(scene).URL_BOOST_LIST_DETAILS;
-//        mLiveApi.getInviteUserDetails(requestUrl, activityId)
+//        mApi.getInviteUserDetails(requestUrl, activityId)
 //                .compose(this.<AppBean4Invite<InviteUserDetailsModel>>handleEverythingResult(true))
 //                .subscribeOn(Schedulers.io())
 //                .observeOn(AndroidSchedulers.mainThread())
