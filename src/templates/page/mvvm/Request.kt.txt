@@ -1,7 +1,7 @@
 
 import android.annotation.SuppressLint
 
-import com.galaxybruce.component.ui.jetpack.JPBaseRequest
+import com.galaxybruce.component.ui.jetpack.JPBaseRequestV2
 
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.functions.Consumer
@@ -9,7 +9,7 @@ import io.reactivex.schedulers.Schedulers
 
 import ${package}.mvvm.viewmodel.${name}ViewModel
 
-class ${name}Request(private val viewModel: ${name}ViewModel) : JPBaseRequest() {
+class ${name}Request(private val viewModel: ${name}ViewModel) : JPBaseRequestV2(viewModel) {
 
 //    private val mApi: LiveApi = KRetrofitFactory.createService(LiveApi::class.java)
 
