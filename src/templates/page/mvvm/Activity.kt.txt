@@ -12,7 +12,7 @@ import ${package}.mvvm.viewmodel.${name}ViewModel
 import ${modulePackage}.databinding.${name}LayoutBinding
 
 @Route(path = "xxx")
-class ${name}Activity : JPBaseActivityV2<${name}LayoutBinding, ${name}ViewModel>() {
+class ${name}Activity : JPBaseActivityV2<${name}ViewModel, ${name}LayoutBinding>() {
 
     override fun initDataBindConfig(): JPDataBindingConfig {
         return JPDataBindingConfig(bindLayoutId())

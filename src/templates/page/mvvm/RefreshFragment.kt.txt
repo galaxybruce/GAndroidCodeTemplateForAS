@@ -22,7 +22,7 @@ import ${modulePackage}.databinding.${name}ItemLayoutBinding
 import ${modulePackage}.databinding.${name}LayoutBinding
 
 @Route(path = "xxx")
-class ${name}Fragment : JPBaseFragmentV2<${name}LayoutBinding, ${name}ViewModel>() {
+class ${name}Fragment : JPBaseFragmentV2<${name}ViewModel, ${name}LayoutBinding>() {
 
     companion object {
         fun newInstance(context: Context, args: Bundle?): ${name}Fragment {

@@ -23,7 +23,7 @@ import ${modulePackage}.databinding.${name}ItemLayoutBinding;
 import ${modulePackage}.databinding.${name}LayoutBinding;
 
 @Route(path = "xxx")
-public class ${name}Activity extends JPBaseActivityV2<${name}LayoutBinding, ${name}ViewModel> {
+public class ${name}Activity extends JPBaseActivityV2<${name}ViewModel, ${name}LayoutBinding> {
 
     @Override
     public JPDataBindingConfig initDataBindConfig() {

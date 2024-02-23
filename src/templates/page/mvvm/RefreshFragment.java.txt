@@ -25,7 +25,7 @@ import ${modulePackage}.databinding.${name}ItemLayoutBinding;
 import ${modulePackage}.databinding.${name}LayoutBinding;
 
 @Route(path = "xxx")
-public class ${name}Fragment extends JPBaseFragmentV2<${name}LayoutBinding, ${name}ViewModel> {
+public class ${name}Fragment extends JPBaseFragmentV2<${name}ViewModel, ${name}LayoutBinding> {
 
     public static ${name}Fragment newInstance(Context context, Bundle args) {
         if(args == null) {
