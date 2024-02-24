@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 
 import androidx.databinding.ViewDataBinding;
 
-import com.galaxybruce.component.ui.jetpack.JPBaseViewModel;
 import com.galaxybruce.component.ui.jetpack.JPDataBindingConfig;
 import com.galaxybruce.component.ui.jetpack.adapter.JPRecyclerViewLoadMoreAdapter;
 import com.galaxybruce.component.ui.dialog.AppCustomConfirmDialog;
@@ -46,14 +45,13 @@ import org.jetbrains.annotations.Nullable;
  * <p>
  * modification history:
  */
-public class ${name} extends AppCustomConfirmDialog<${name}Binding> {
+public class ${name} extends AppCustomConfirmDialog<${name}ViewModel, ${name}Binding> {
 
     public interface I${name}Callback extends AppDialogCallback {
         void on${name}Callback();
     }
 
     I${name}Callback mCallback;
-    ${name}ViewModel mPageViewModel;
 
     public static final class Builder extends AppCustomConfirmDialog.Builder<Builder> {
 
@@ -81,13 +79,6 @@ public class ${name} extends AppCustomConfirmDialog<${name}Binding> {
     @Override
     protected boolean supportMVVM() {
         return true;
-    }
-
-    @Override
-    public JPBaseViewModel initViewModel() {
-        mPageViewModel = getFragmentViewModel(${name}ViewModel.class);
-//        mParentViewModel = getActivityViewModel(LiveCreateViewModel.class);
-        return mPageViewModel;
     }
 
     @Override

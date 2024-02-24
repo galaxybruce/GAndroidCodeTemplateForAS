@@ -1,7 +1,6 @@
 
 import android.os.Bundle
 import android.os.Parcelable
-import com.galaxybruce.component.ui.jetpack.JPBaseViewModel
 import com.galaxybruce.component.ui.jetpack.JPDataBindingConfig
 import com.galaxybruce.component.util.ToastUtils
 import com.galaxybruce.component.ui.dialog.AppCenterDialog
@@ -29,14 +28,13 @@ import ${modulePackage}.databinding.${name}Binding
  *
  * modification history:
  */
-class ${name} : AppCenterDialog<${name}Binding>() {
+class ${name} : AppCenterDialog<${name}ViewModel, ${name}Binding>() {
 
     interface I${name}Callback : AppDialogCallback {
         fun on${name}Callback()
     }
 
     var mCallback: I${name}Callback? = null
-    lateinit var mPageViewModel: ${name}ViewModel
 
     class Builder {
         var bundle: Bundle = Bundle()
@@ -60,12 +58,6 @@ class ${name} : AppCenterDialog<${name}Binding>() {
 
     override fun supportMVVM(): Boolean {
         return true
-    }
-
-    override fun initViewModel(): JPBaseViewModel {
-        mPageViewModel = getFragmentViewModel(${name}ViewModel::class.java)
-//        mParentViewModel = getActivityViewModel(LiveCreateViewModel.class);
-        return mPageViewModel
     }
 
     override fun initDataBindConfig(): JPDataBindingConfig {

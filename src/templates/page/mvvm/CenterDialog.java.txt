@@ -1,7 +1,6 @@
 
 import android.os.Bundle;
 import android.os.Parcelable;
-import com.galaxybruce.component.ui.jetpack.JPBaseViewModel;
 import com.galaxybruce.component.ui.jetpack.JPDataBindingConfig;
 import com.galaxybruce.component.ui.dialog.AppCenterDialog;
 import com.galaxybruce.component.ui.dialog.AppDialogCallback;
@@ -33,14 +32,13 @@ import org.jetbrains.annotations.Nullable;
  * <p>
  * modification history:
  */
-public class ${name} extends AppCenterDialog<${name}Binding> {
+public class ${name} extends AppCenterDialog<${name}ViewModel, ${name}Binding> {
 
     public interface I${name}Callback extends AppDialogCallback {
         void on${name}Callback();
     }
 
     I${name}Callback mCallback;
-    ${name}ViewModel mPageViewModel;
 
     public static final class Builder {
         Bundle bundle;
@@ -69,13 +67,6 @@ public class ${name} extends AppCenterDialog<${name}Binding> {
     @Override
     protected boolean supportMVVM() {
         return true;
-    }
-
-    @Override
-    public JPBaseViewModel initViewModel() {
-        mPageViewModel = getFragmentViewModel(${name}ViewModel.class);
-//        mParentViewModel = getActivityViewModel(LiveCreateViewModel.class);
-        return mPageViewModel;
     }
 
     @Override

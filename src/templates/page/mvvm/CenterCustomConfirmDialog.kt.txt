@@ -1,7 +1,6 @@
 
 import android.os.Bundle
 import android.os.Parcelable
-import com.galaxybruce.component.ui.jetpack.JPBaseViewModel
 import com.galaxybruce.component.ui.jetpack.JPDataBindingConfig
 import com.galaxybruce.component.util.ToastUtils
 import com.galaxybruce.component.ui.dialog.AppCustomConfirmDialog
@@ -29,14 +28,13 @@ import ${modulePackage}.databinding.${name}Binding
  *
  * modification history:
  */
-class ${name} : AppCustomConfirmDialog<${name}Binding>() {
+class ${name} : AppCustomConfirmDialog<${name}ViewModel, ${name}Binding>() {
 
     interface I${name}Callback : AppDialogCallback  {
         fun on${name}Callback()
     }
 
     var mCallback: I${name}Callback? = null
-    lateinit var mPageViewModel: ${name}ViewModel
 
     class Builder: AppCustomConfirmDialog.Builder<Builder>() {
 
@@ -59,12 +57,6 @@ class ${name} : AppCustomConfirmDialog<${name}Binding>() {
 
     override fun supportMVVM(): Boolean {
         return true
-    }
-
-    override fun initViewModel(): JPBaseViewModel {
-        mPageViewModel = getFragmentViewModel(${name}ViewModel::class.java)
-//        mParentViewModel = getActivityViewModel(LiveCreateViewModel.class);
-        return mPageViewModel
     }
 
     override fun initDataBindConfig(): JPDataBindingConfig {

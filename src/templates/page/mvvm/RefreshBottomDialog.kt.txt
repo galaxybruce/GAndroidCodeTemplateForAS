@@ -6,11 +6,11 @@ import android.view.View
 
 import androidx.databinding.ViewDataBinding
 
-import com.galaxybruce.component.ui.jetpack.JPBaseViewModel
 import com.galaxybruce.component.ui.jetpack.JPDataBindingConfig
 import com.galaxybruce.component.ui.jetpack.adapter.JPRecyclerViewLoadMoreAdapter
 import com.galaxybruce.component.ui.dialog.AppBottomDialog
 import com.galaxybruce.component.ui.dialog.AppDialogCallback
+import com.blankj.utilcode.util.ScreenUtils
 import com.blankj.utilcode.util.AdaptScreenUtils
 import com.galaxybruce.component.util.ToastUtils
 
@@ -41,14 +41,13 @@ import kotlin.math.max
  *
  * modification history:
  */
-class ${name} : AppBottomDialog<${name}Binding>() {
+class ${name} : AppBottomDialog<${name}ViewModel, ${name}Binding>() {
 
     interface I${name}Callback : AppDialogCallback {
         fun on${name}Callback()
     }
 
     var mCallback: I${name}Callback? = null
-    lateinit var mPageViewModel: ${name}ViewModel
 
     class Builder {
         var bundle: Bundle = Bundle()
@@ -72,12 +71,6 @@ class ${name} : AppBottomDialog<${name}Binding>() {
 
     override fun supportMVVM(): Boolean {
         return true
-    }
-
-    override fun initViewModel(): JPBaseViewModel {
-        mPageViewModel = getFragmentViewModel(${name}ViewModel::class.java)
-//        mParentViewModel = getActivityViewModel(LiveCreateViewModel.class);
-        return mPageViewModel
     }
 
     override fun initDataBindConfig(): JPDataBindingConfig {
